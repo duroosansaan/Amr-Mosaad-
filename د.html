@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عمرو مسعد ثابت - المحامي بالنقض</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* --- إعادة ضبط الأنماط الأساسية --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      line-height: 1.6;
+      padding-bottom: 60px;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    /* --- الهيدر والترويسة --- */
+    .header-section {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(180deg, rgba(31,31,31,0.95) 0%, rgba(18,18,18,0.95) 100%);
+      border-bottom: 3px solid #d4af37;
+    }
+
+    .logo-img {
+      max-width: 140px;
+      height: auto;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    .logo-img[src=""], .logo-img:not([src]) {
+      display: none; /* إخفاء أيقونة الصورة المكسورة في حال عدم وجود لوجو */
+    }
+
+    .header-section h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 5px;
+    }
+
+    .header-section h2 {
+      font-size: 1.3rem;
+      color: #d4af37;
+      font-weight: 600;
+    }
+
+    /* --- الحاوية الرئيسية --- */
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    .section-title {
+      text-align: center;
+      color: #d4af37;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background-color: #d4af37;
+      margin: 8px auto 0;
+      border-radius: 2px;
+    }
+
+    /* --- قسم معرض التصاميم (Gallery) --- */
+    .gallery-section {
+      margin-bottom: 50px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #333;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      border-color: #d4af37;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 250px;
+      display: block;
+      object-fit: cover;
+    }
+
+    .gallery-caption {
+      padding: 15px;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #e0e0e0;
+      background-color: #181818;
+    }
+
+    /* زر حذف صورة التصميم في المعرض */
+    .delete-item-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: rgba(220, 53, 69, 0.9);
+      color: white;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.85rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      z-index: 10;
+      display: none; /* يظهر فقط عند تفعيل وضع المصمم */
+    }
+
+    .delete-item-btn:hover {
+      background-color: #c82333;
+    }
+
+    /* --- كروت الخدمات النصية --- */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background-color: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: border-color 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: #d4af37;
+    }
+
+    .card h3 {
+      color: #d4af37;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #cccccc;
+      font-size: 0.95rem;
+    }
+
+    /* --- شريط التخصصات والقضايا --- */
+    .categories-bar {
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #ffffff;
+      border-right: 4px solid #d4af37;
+      margin-bottom: 40px;
+    }
+
+    /* --- قسم الاتصال والتواصل --- */
+    .contact-bar {
+      text-align: center;
+      background: #d4af37;
+      color: #000000;
+      padding: 25px 20px;
+      border-radius: 12px;
+    }
+
+    .contact-bar h3 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .phone-numbers {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+
+    .phone-numbers a {
+      color: #000000;
+      text-decoration: none;
+      direction: ltr;
+      background: rgba(255, 255, 255, 0.3);
+      padding: 5px 15px;
+      border-radius: 6px;
+      transition: background 0.2s ease;
+    }
+
+    .phone-numbers a:hover {
+      background: #ffffff;
+    }
+
+    /* --- أدوات المصمم --- */
+    .designer-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #d4af37;
+      color: black;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+
+    .designer-panel {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #222;
+      border: 2px solid #d4af37;
+      padding: 20px;
+      border-radius: 12px;
+      z-index: 1001;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .designer-panel h3 {
+      color: #d4af37;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .control-group {
+      margin-bottom: 15px;
+      text-align: right;
+      background: #181818;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #333;
+    }
+
+    .control-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .control-group input[type="file"] {
+      width: 100%;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .btn-action-sm {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    /* زر إضافة الصور المميز */
+    .add-image-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #1e1e1e;
+      border: 2px dashed #d4af37;
+      padding: 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .add-image-label:hover {
+      background-color: #2a2a2a;
+    }
+
+    .add-image-label .plus-sign {
+      font-size: 2.5rem;
+      color: #d4af37;
+      line-height: 1;
+    }
+
+    .add-image-label .pyi-text {
+      color: #fff;
+      font-size: 1rem;
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    .close-panel {
+      background: #444;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+      font-weight: bold;
+    }
+
+    .reset-btn {
+      background: transparent;
+      color: #dc3545;
+      border: 1px solid #dc3545;
+      padding: 8px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+      font-size: 0.85rem;
+    }
+
+    .no-images-msg {
+      text-align: center;
+      color: #777;
+      padding: 30px 10px;
+      grid-column: 1 / -1;
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 600px) {
+      .header-section h1 { font-size: 1.8rem; }
+      .header-section h2 { font-size: 1.1rem; }
+      .phone-numbers { flex-direction: column; gap: 10px; }
+      .phone-numbers a { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- زر تفعيل وضع المصمم -->
+  <button class="designer-btn" onclick="openDesignerMode()">⚙️</button>
+
+  <!-- لوحة تحكم المصمم -->
+  <div id="designer-panel" class="designer-panel">
+    <h3>لوحة تحكم المصمم</h3>
+    
+    <!-- تحديد وتعديل اللوجو -->
+    <div class="control-group">
+      <label>1. موضع اللوجو (الشعار):</label>
+      <input type="file" accept="image/*" onchange="changeLogo(this)">
+      <button class="btn-action-sm" onclick="removeLogo()">حذف اللوجو الحالي</button>
+    </div>
+
+    <!-- تحديد وتعديل الخلفية -->
+    <div class="control-group">
+      <label>2. موضع خلفية الموقع:</label>
+      <input type="file" accept="image/*" onchange="changeBackground(this)">
+      <button class="btn-action-sm" onclick="removeBackground()">حذف الخلفية الحالية</button>
+    </div>
+
+    <!-- إضافة تصاميم للمعرض -->
+    <div class="control-group">
+      <label>3. إضافة تصاميم للمعرض:</label>
+      <label for="gallery-upload" class="add-image-label">
+        <span class="plus-sign">+</span>
+        <span class="pyi-text">put your image pyi</span>
+      </label>
+      <input type="file" id="gallery-upload" accept="image/*" multiple style="display: none;" onchange="addGalleryImages(this)">
+    </div>
+
+    <button class="close-panel" onclick="closeDesignerMode()">إغلاق اللوحة</button>
+    <button class="reset-btn" onclick="resetAll()">مسح كافة التعديلات والتصاميم</button>
+  </div>
+
+  <!-- الترويسة الشعار والاسم -->
+  <header class="header-section">
+    <img src="" alt="شعار المحامي عمرو مسعد ثابت" class="logo-img" id="main-logo">
+    <h1>عمرو مسعد ثابت</h1>
+    <h2>المحامي بالنقض</h2>
+  </header>
+
+  <div class="container">
+
+    <!-- قسم معرض التصاميم والصور -->
+    <section class="gallery-section">
+      <h2 class="section-title">معرض الخدمات والتصاميم</h2>
+      
+      <div class="gallery-grid" id="gallery-grid">
+        <!-- يتم عرض التصاميم هنا ديناميكياً بدون صور مكسورة -->
+      </div>
+    </section>
+
+    <!-- قسم تفاصيل الخدمات -->
+    <section class="services-section">
+      <h2 class="section-title">أهم الخدمات القانونية</h2>
+      <div class="services-grid">
+        <div class="card">
+          <h3>تأسيس الشركات</h3>
+          <p>متخصص في صياغة عقود تأسيس الشركات والإقامات الاستثمارية.</p>
+        </div>
+        <div class="card">
+          <h3>الشهر العقاري</h3>
+          <p>تسجيل العقارات، المحلات التجارية، وتسهيل إجراءات تسجيل السيارات.</p>
+        </div>
+        <div class="card">
+          <h3>زواج الأجانب</h3>
+          <p>إنهاء كافة الإجراءات القانونية لزواج الأجانب وقضايا الأسرة.</p>
+        </div>
+        <div class="card">
+          <h3>الاستشارات القانونية</h3>
+          <p>تقديم الدعم والاستشارات المباشرة في مختلف القضايا.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- شريط أنواع القضايا -->
+    <div class="categories-bar">
+      تخصصات القضايا: مدني — جنائي — أسرة
+    </div>
+
+    <!-- قسم التواصل والأرقام -->
+    <div class="contact-bar">
+      <h3>للتواصل والاستفسار المباشر</h3>
+      <div class="phone-numbers">
+        <a href="tel:01033553055">01033553055</a>
+        <a href="tel:01220878701">01220878701</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let customImages = [];
+    let isDesignerMode = false;
+
+    // دالة فتح وضع المصمم بكلمة السر
+    function openDesignerMode() {
+      if (!isDesignerMode) {
+        let password = prompt("برجاء إدخال كلمة السر لوضع المصمم:");
+        if (password === "12345") {
+          isDesignerMode = true;
+          document.getElementById("designer-panel").style.display = "block";
+          renderGallery(); // إعادة رسم المعرض لإظهار أزرار الحذف على الصور
+        } else if (password !== null) {
+          alert("كلمة السر خاطئة!");
+        }
+      } else {
+        document.getElementById("designer-panel").style.display = "block";
+      }
+    }
+
+    function closeDesignerMode() {
+      document.getElementById("designer-panel").style.display = "none";
+    }
+
+    // دالة ضغط الصور تلقائياً لعدم امتلاء الذاكرة
+    function compressImage(file, callback) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function (event) {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = function () {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+          const maxDim = 1000;
+
+          if (width > height) {
+            if (width > maxDim) {
+              height *= maxDim / width;
+              width = maxDim;
+            }
+          } else {
+            if (height > maxDim) {
+              width *= maxDim / height;
+              height = maxDim;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          const compressedData = canvas.toDataURL('image/jpeg', 0.65);
+          callback(compressedData);
+        };
+      };
+    }
+
+    // 1. إدارة اللوجو
+    function changeLogo(input) {
+      if (input.files && input.files[0]) {
+        compressImage(input.files[0], function(compressedUrl) {
+          let logoImg = document.getElementById('main-logo');
+          logoImg.src = compressedUrl;
+          logoImg.style.display = 'inline-block';
+          localStorage.setItem('lawyer_logo', compressedUrl);
+        });
+      }
+    }
+
+    function removeLogo() {
+      let logoImg = document.getElementById('main-logo');
+      logoImg.src = "";
+      logoImg.style.display = 'none';
+      localStorage.removeItem('lawyer_logo');
+    }
+
+    // 2. إدارة الخلفية
+    function changeBackground(input) {
+      if (input.files && input.files[0]) {
+        compressImage(input.files[0], function(compressedUrl) {
+          document.body.style.backgroundImage = `url(${compressedUrl})`;
+          localStorage.setItem('lawyer_bg', compressedUrl);
+        });
+      }
+    }
+
+    function removeBackground() {
+      document.body.style.backgroundImage = 'none';
+      localStorage.removeItem('lawyer_bg');
+    }
+
+    // 3. إدارة معرض الصور والتصاميم
+    function addGalleryImages(input) {
+      if (input.files) {
+        Array.from(input.files).forEach(file => {
+          compressImage(file, function(compressedUrl) {
+            customImages.push(compressedUrl);
+            saveGalleryToLocal();
+            renderGallery();
+          });
+        });
+      }
+    }
+
+    function deleteGalleryImage(index) {
+      if (confirm("هل تريد حذف هذا التصميم؟")) {
+        customImages.splice(index, 1);
+        saveGalleryToLocal();
+        renderGallery();
+      }
+    }
+
+    function renderGallery() {
+      let grid = document.getElementById("gallery-grid");
+      grid.innerHTML = "";
+
+      if (customImages.length === 0) {
+        grid.innerHTML = `<div class="no-images-msg">لا توجد تصاميم معروضة حالياً. اضغط على زر الإعدادات بالأسفل للبدء في إضافة التصاميم.</div>`;
+        return;
+      }
+
+      customImages.forEach((imgSrc, index) => {
+        let item = document.createElement("div");
+        item.className = "gallery-item";
+        
+        let deleteBtnHtml = isDesignerMode 
+          ? `<button class="delete-item-btn" style="display:block;" onclick="deleteGalleryImage(${index})">حذف 🗑️</button>` 
+          : '';
+
+        item.innerHTML = `
+          ${deleteBtnHtml}
+          <img src="${imgSrc}" alt="تصميم ${index + 1}">
+          <div class="gallery-caption">تصميم رقم ${index + 1}</div>
+        `;
+        grid.appendChild(item);
+      });
+    }
+
+    function saveGalleryToLocal() {
+      try {
+        localStorage.setItem('lawyer_gallery', JSON.stringify(customImages));
+      } catch(err) {
+        alert("المساحة امتلأت! يرجى حذف بعض الصور القديمة أولاً.");
+      }
+    }
+
+    // تحميل البيانات المحفوظة عند فتح الموقع
+    window.onload = function() {
+      let savedLogo = localStorage.getItem('lawyer_logo');
+      if (savedLogo) {
+        let logoImg = document.getElementById('main-logo');
+        logoImg.src = savedLogo;
+        logoImg.style.display = 'inline-block';
+      }
+
+      let savedBg = localStorage.getItem('lawyer_bg');
+      if (savedBg) {
+        document.body.style.backgroundImage = `url(${savedBg})`;
+      }
+
+      let savedGallery = localStorage.getItem('lawyer_gallery');
+      if (savedGallery) {
+        customImages = JSON.parse(savedGallery);
+      }
+      renderGallery();
+    }
+
+    function resetAll() {
+      if(confirm("هل أنت متأكد من مسح جميع الصور، اللوجو، والخلفية والتصاميم المضافة؟")) {
+        localStorage.removeItem('lawyer_logo');
+        localStorage.removeItem('lawyer_bg');
+        localStorage.removeItem('lawyer_gallery');
+        location.reload();
+      }
+    }
+  </script>
+</body>
+</html>
