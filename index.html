@@ -648,3 +648,137 @@
   </script>
 </body>
 </html>
+
+<script>
+  let customImages = [];
+
+  function openDesignerMode() {
+    let password = prompt("برجاء إدخال كلمة السر لوضع المصمم:");
+    if (password === "12345") {
+      document.getElementById("designer-panel").style.display = "block";
+    } else if (password !== null) {
+      alert("كلمة السر خاطئة!");
+    }
+  }
+
+  function closeDesignerMode() {
+    document.getElementById("designer-panel").style.display = "none";
+  }
+
+  // دالة لضغط الصور وتقليل حجمها قبل الحفظ
+  function compressImage(file, callback) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function (event) {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = function () {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+        const maxDim = 1000; // أقصى عرض أو طول للصورة بالبيكسل
+
+        if (width > height) {
+          if (width > maxDim) {
+            height *= maxDim / width;
+            width = maxDim;
+          }
+        } else {
+          if (height > maxDim) {
+            width *= maxDim / height;
+            height = maxDim;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // ضغط الصورة إلى صيغة JPEG بجودة 60%
+        const compressedData = canvas.toDataURL('image/jpeg', 0.6);
+        callback(compressedData);
+      };
+    };
+  }
+
+  function changeLogo(input) {
+    if (input.files && input.files[0]) {
+      compressImage(input.files[0], function(compressedUrl) {
+        document.getElementById('main-logo').src = compressedUrl;
+        try {
+          localStorage.setItem('lawyer_logo', compressedUrl);
+        } catch(err) {
+          alert("المساحة امتلأت! اضغط على زر مسح التعديلات أولاً.");
+        }
+      });
+    }
+  }
+
+  function changeBackground(input) {
+    if (input.files && input.files[0]) {
+      compressImage(input.files[0], function(compressedUrl) {
+        document.body.style.backgroundImage = `url(${compressedUrl})`;
+        try {
+          localStorage.setItem('lawyer_bg', compressedUrl);
+        } catch(err) {
+          alert("المساحة امتلأت! اضغط على زر مسح التعديلات أولاً.");
+        }
+      });
+    }
+  }
+
+  function addGalleryImages(input) {
+    if (input.files) {
+      Array.from(input.files).forEach(file => {
+        compressImage(file, function(compressedUrl) {
+          customImages.push(compressedUrl);
+          saveGalleryToLocal();
+          renderNewGalleryItem(compressedUrl);
+        });
+      });
+    }
+  }
+
+  function renderNewGalleryItem(imgSrc) {
+    let grid = document.getElementById("gallery-grid");
+    let newItem = document.createElement("div");
+    newItem.className = "gallery-item custom-item";
+    newItem.innerHTML = `
+      <img src="${imgSrc}" alt="تصميم جديد">
+      <div class="gallery-caption">تصميم مضاف حديثاً</div>
+    `;
+    grid.appendChild(newItem);
+  }
+
+  function saveGalleryToLocal() {
+    try {
+      localStorage.setItem('lawyer_gallery', JSON.stringify(customImages));
+    } catch(err) {
+      alert("امتلأت مساحة الذاكرة المحلية! يرجى مسح التعديلات القديمة.");
+    }
+  }
+
+  window.onload = function() {
+    let savedLogo = localStorage.getItem('lawyer_logo');
+    if (savedLogo) document.getElementById('main-logo').src = savedLogo;
+
+    let savedBg = localStorage.getItem('lawyer_bg');
+    if (savedBg) document.body.style.backgroundImage = `url(${savedBg})`;
+
+    let savedGallery = localStorage.getItem('lawyer_gallery');
+    if (savedGallery) {
+      customImages = JSON.parse(savedGallery);
+      customImages.forEach(imgData => renderNewGalleryItem(imgData));
+    }
+  }
+
+  function resetAll() {
+    if(confirm("هل أنت متأكد من مسح كافة الصور والتعديلات؟")) {
+      localStorage.removeItem('lawyer_logo');
+      localStorage.removeItem('lawyer_bg');
+      localStorage.removeItem('lawyer_gallery');
+      location.reload();
+    }
+  }
+</script>
