@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES Marketing Agency | Elite Creative Showcase</title>
+    <!-- Google Fonts - Cairo & Manrope -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ================================================= */
+        /* ES Marketing Agency - Elite Dark Theme & 3D CSS   */
+        /* ================================================= */
+        :root {
+            --bg-dark: #070910;
+            --card-bg: #0f1626;
+            --card-hover: #16223b;
+            --primary-red: #d92525;
+            --primary-gold: #f39c12;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', 'Manrope', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(7, 9, 16, 0.85);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 85px;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 900;
+            font-size: 24px;
+        }
+
+        .logo-e { color: var(--primary-red); }
+        .logo-s { color: var(--primary-gold); }
+        .logo-text { font-size: 13px; color: var(--text-muted); letter-spacing: 2px; margin-right: 12px; font-weight: 600; }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            color: var(--text-main);
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-gold));
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(217, 37, 37, 0.4);
+        }
+
+        .menu-toggle { display: none; font-size: 24px; cursor: pointer; color: white; }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 180px 0 120px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--primary-gold);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border: 1px solid rgba(243, 156, 18, 0.2);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary-gold);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 15px var(--primary-gold); }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .hero-text h1 {
+            font-size: 52px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 18px;
+            margin-bottom: 35px;
+        }
+
+        .hero-actions { display: flex; gap: 15px; }
+
+        .btn {
+            padding: 14px 30px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            font-size: 15px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-red), #b51a1a);
+            color: white;
+            box-shadow: 0 6px 25px rgba(217, 37, 37, 0.4);
+        }
+
+        .btn-primary:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(217, 37, 37, 0.6); }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover { border-color: var(--primary-gold); color: var(--primary-gold); transform: translateY(-4px); }
+
+        /* Floating Glass Stack Visuals */
+        .hero-visual { display: flex; justify-content: center; align-items: center; }
+
+        .floating-glass-stack {
+            position: relative;
+            width: 320px;
+            height: 380px;
+        }
+
+        .glass-card {
+            position: absolute;
+            background: rgba(19, 27, 46, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            transition: var(--transition);
+        }
+
+        .glass-card.card-1 {
+            top: 0; right: 0; width: 220px; transform: rotate(8deg);
+            animation: float1 4s ease-in-out infinite alternate;
+        }
+
+        .glass-card.card-2 {
+            bottom: 20px; left: 0; width: 220px; transform: rotate(-8deg);
+            animation: float2 5s ease-in-out infinite alternate;
+        }
+
+        .glass-card.main-brand-card {
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 260px; text-align: center; z-index: 3;
+            border-color: rgba(243, 156, 18, 0.3);
+        }
+
+        .main-brand-card span { font-size: 45px; font-weight: 900; }
+        .main-brand-card p { font-size: 13px; color: var(--text-muted); margin-top: 5px; }
+
+        @keyframes float1 {
+            0% { transform: translateY(0) rotate(8deg); }
+            100% { transform: translateY(-12px) rotate(10deg); }
+        }
+
+        @keyframes float2 {
+            0% { transform: translateY(0) rotate(-8deg); }
+            100% { transform: translateY(12px) rotate(-10deg); }
+        }
+
+        /* Showcase Section */
+        .showcase-section {
+            padding: 120px 0;
+            background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(15, 22, 38, 0.5) 100%);
+        }
+
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 38px; font-weight: 900; margin-bottom: 12px; }
+        .section-header p { color: var(--text-muted); font-size: 16px; }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 12px 22px;
+            border-radius: 35px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-gold));
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(217, 37, 37, 0.3);
+        }
+
+        .bundle-display-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bundle-pane {
+            display: none;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            align-items: center;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .bundle-pane.active { display: grid; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bundle-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .bundle-info h3 { font-size: 28px; font-weight: 900; margin-bottom: 15px; }
+        .bundle-info p { color: var(--text-muted); font-size: 15px; margin-bottom: 25px; }
+
+        .bundle-specs { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .bundle-specs li { font-size: 14px; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        .bundle-specs li i { color: #2ecc71; }
+
+        .bundle-visuals-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .square-preview-card {
+            aspect-ratio: 1 / 1;
+            background: var(--bg-dark);
+            border: 2px dashed var(--border-color);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 15px;
+            transition: var(--transition);
+        }
+
+        .square-preview-card:hover {
+            transform: scale(1.05) rotate(2deg);
+            background: var(--card-hover);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+
+        .card-inner-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            font-size: 38px;
+        }
+
+        .card-inner-content span {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Pricing Section */
+        .pricing-section { padding: 120px 0; }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary-red);
+            background: linear-gradient(180deg, rgba(217,37,37,0.06) 0%, var(--card-bg) 100%);
+            transform: scale(1.03);
+        }
+
+        .pricing-card:hover { transform: translateY(-8px); border-color: var(--primary-gold); }
+
+        .popular-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-red);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 18px;
+            border-radius: 20px;
+        }
+
+        .pricing-card h3 { font-size: 22px; margin-bottom: 15px; }
+
+        .price-val {
+            font-size: 38px;
+            font-weight: 900;
+            color: var(--primary-gold);
+            margin-bottom: 25px;
+        }
+
+        .price-val span { font-size: 14px; color: var(--text-muted); font-weight: 600; }
+
+        .pricing-card ul { list-style: none; margin-bottom: 30px; text-align: right; display: flex; flex-direction: column; gap: 12px; }
+        .pricing-card ul li { font-size: 14px; color: var(--text-muted); display: flex; align-items: center; gap: 10px; }
+        .pricing-card ul li i { color: #2ecc71; }
+
+        .full-btn { width: 100%; }
+
+        /* Contact Section */
+        .contact-section { padding: 100px 0; background: rgba(15, 22, 38, 0.4); }
+
+        .contact-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 60px;
+            border-radius: 24px;
+            align-items: center;
+        }
+
+        .contact-text-side h2 { font-size: 36px; font-weight: 900; margin-bottom: 15px; }
+        .contact-text-side p { color: var(--text-muted); margin-bottom: 25px; }
+        .loc-info { display: flex; align-items: center; gap: 12px; color: var(--primary-gold); font-weight: 700; font-size: 16px; }
+
+        .input-group { margin-bottom: 20px; }
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: white;
+            font-size: 15px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .input-group input:focus, .input-group select:focus { border-color: var(--primary-gold); }
+
+        /* Footer */
+        .site-footer { border-top: 1px solid var(--border-color); padding: 35px 0; background: #04060a; }
+        .footer-flex { display: flex; justify-content: space-between; align-items: center; }
+        .footer-flex p { color: var(--text-muted); font-size: 14px; }
+        .social-icons { display: flex; gap: 15px; }
+        .social-icons a {
+            width: 38px; height: 38px; background: var(--card-bg); border: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--text-muted);
+            text-decoration: none; transition: var(--transition);
+        }
+        .social-icons a:hover { background: var(--primary-red); color: white; border-color: transparent; }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content, .bundle-pane, .contact-box { grid-template-columns: 1fr; text-align: center; }
+            .hero-actions { justify-content: center; }
+            .bundle-specs li { justify-content: center; }
+            .loc-info { justify-content: center; }
+            .main-nav { display: none; }
+            .menu-toggle { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="site-header">
+        <div class="container nav-container">
+            <div class="logo-box">
+                <span class="logo-e">E</span><span class="logo-s">S</span>
+                <span class="logo-text">MARKETING AGENCY</span>
+            </div>
+            <nav class="main-nav">
+                <a href="#hero" class="active">الرئيسية</a>
+                <a href="#packages-showcase">حزم التخصصات</a>
+                <a href="#pricing">الباقات والأسعار</a>
+                <a href="#contact" class="nav-btn">ابدأ مشروعك</a>
+            </nav>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <div class="badge-pill">
+                    <span class="pulse-dot"></span> Next-Gen Creative Agency
+                </div>
+                <h1>اصنع نجاحك الرقمي مع <span>ES Agency</span></h1>
+                <p>منصة تفاعلية متكاملة تعرض إبداعاتنا البصرية لكل قطاع. تصاميم مربعة، هويات بصرية مخصصة، وموشن جرافيك يخطف الأنظار.</p>
+                <div class="hero-actions">
+                    <a href="#packages-showcase" class="btn btn-primary">استعرض الحزم التفاعلية</a>
+                    <a href="#pricing" class="btn btn-outline">شاهد الأسعار والباقات</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-glass-stack">
+                    <div class="glass-card card-1">
+                        <i class="fa-solid fa-utensils"></i>
+                        <span>مطاعم وكافيهات</span>
+                    </div>
+                    <div class="glass-card card-2">
+                        <i class="fa-solid fa-car-side"></i>
+                        <span>استوديوهات السيارات</span>
+                    </div>
+                    <div class="glass-card card-3 main-brand-card">
+                        <span class="e-red">E</span><span class="s-gold">S</span>
+                        <p>ES Agency Experience</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Packages Showcase Section -->
+    <section id="packages-showcase" class="showcase-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>حزم التخصصات الاحترافية</h2>
+                <p>كل قطاع له هويته البصرية، ألوانه، وتأثيراته الصوتية والحركية الخاصة به</p>
+            </div>
+
+            <!-- Category Switcher Tabs -->
+            <div class="category-tabs" id="categoryTabs">
+                <button class="tab-btn active" data-target="restaurants">
+                    <i class="fa-solid fa-utensils"></i> المطاعم
+                </button>
+                <button class="tab-btn" data-target="cars">
+                    <i class="fa-solid fa-car"></i> السيارات
+                </button>
+                <button class="tab-btn" data-target="hotels">
+                    <i class="fa-solid fa-hotel"></i> الفنادق
+                </button>
+                <button class="tab-btn" data-target="lawyers">
+                    <i class="fa-solid fa-scale-balanced"></i> المحامين
+                </button>
+                <button class="tab-btn" data-target="teachers">
+                    <i class="fa-solid fa-graduation-cap"></i> المعلمين
+                </button>
+                <button class="tab-btn" data-target="doctors">
+                    <i class="fa-solid fa-user-doctor"></i> الأطباء
+                </button>
+                <button class="tab-btn" data-target="brands">
+                    <i class="fa-solid fa-shirt"></i> براندات الملابس
+                </button>
+            </div>
+
+            <!-- Dynamic Bundle Display Area -->
+            <div class="bundle-display-container">
+                
+                <!-- 1. Restaurants Bundle -->
+                <div class="bundle-pane active" id="restaurants">
+                    <div class="bundle-info">
+                        <span class="bundle-tag" style="background: rgba(231, 76, 60, 0.15); color: #e74c3c;">حزمة الأغذية والمطاعم</span>
+                        <h3>اللاذع وبروست زون - طعم الإبداع</h3>
+                        <p>تصاميم مربعة حيوية تثير الشهية، مصحوبة بمؤثرات صوتية سريعة وحماسية تناسب قطاع الأغذية.</p>
+                        <ul class="bundle-specs">
+                            <li><i class="fa-solid fa-check"></i> 3 تصاميم مربعة بارزة (Square Flyered)</li>
+                            <li><i class="fa-solid fa-check"></i> ألوان دافئة وحماسية (أحمر وبرتقالي)</li>
+                        </ul>
+                    </div>
+                    <div class="bundle-visuals-grid">
+                        <div class="square-preview-card" style="border-color: rgba(231, 76, 60, 0.4);">
+                            <div class="card-inner-content">
+                                <i class="fa-solid fa-burger" style="color: #e74c3c;"><span>اللاذع - وجبات سريعة</span></i>
+                            </div>
+                        </div>
+                        <div class="square-preview-card" style="border-color: rgba(231, 76, 60, 0.4);">
+                            <div class="card-inner-content">
+                                <i class="fa-solid fa-drumstick-bite" style="color: #e74c3c;"><span>بروست زون - عروض خاصة</span></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Cars Bundle -->
+                <div class="bundle-pane" id="cars">
+                    <div class="bundle-info">
+                        <span class="bundle-tag" style="background: rgba(189, 195, 199, 0.15); color: #bdc3c7;">حزمة استوديوهات السيارات</span>
+                        <h3>عروض أودي وبي إم دبليو - فخامة الحركة</h3>
+                        <p>تصاميم معدنية فخمة تعكس قوة الأداء، مع مؤثرات صوتية لمحركات قوية.</p>
+                        <ul class="bundle-specs">
+                            <li><i class="fa-solid fa-check"></i> عروض التقسيط ومقدمات تنافسية</li>
+                            <li><i class="fa-solid fa-check"></i> ألوان معدنية وفضية داكنة</li>
+                        </ul>
+                    </div>
+                    <div class="bundle-visuals-grid">
+                        <div class="square-preview-card" style="border-color: rgba(189, 195, 199, 0.4);">
+                            <div class="card-inner-content">
+                                <i class="fa-solid fa-car-rear" style="color: #bdc3c7;"><span>أودي - إصدار خاص</span></i>
+                            </div>
+                        </div>
+                        <div class="square-preview-card" style="border-color: rgba(189, 195, 199, 0.4);">
+                            <div class="card-inner-content">
+                                <i class="fa-solid fa-gauge-high" style="color: #bdc3c7;"><span>بي إم دبليو - سرعة وأداء</span></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Hotels Bundle -->
+                <div class="bundle-pane" id="hotels">
+                    <div class="bundle-info">
+                        <span class="bundle-tag" style="background: rgba(52, 152, 219, 0.15); color: #3498db;">حزمة الفنادق والرحلات</span>
+                        <h3>إسكندرية والعين السخنة - راحة واستجمام</h3>
+                        <p>ألوان سماوية هادئة تمنح شعوراً بالاسترخاء والجاذبية السياحية.</p>
+                        <ul class="bundle-specs">
+                            <li><i class="fa-solid fa-check"></i> حملات ترويجية لموسم المصايف</li>
+                            <li><i class="fa-solid fa-check"></i> تصميمات مربعة واضحة وجذابة</li>
+                        </ul>
+                    </div>
+                    <div class="bundle-visuals-grid">
+                        <div class="square-preview-card" style="border-color: rgba(52, 152, 219, 0.4);">
+                            <div class="card-inner-content">
+                                <i class="fa-solid fa-umbrella-beach" style="color: #3498db;"><span>فنادق الإسكندرية</span></i>
+                            </div>
+                        </div>
+                        <div class="square-preview-card" style="border-color: rgba(52, 152, 219, 0.4);">
+                            <div class="card-inner-content">
+                                <i class="fa-solid fa-water" style="color: #3498db;"><span>العين السخنة الفاخرة</span></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Lawyers Bundle -->
+                <div class="bundle-pane" id="lawyers">
+                    <div class="bundle-info">
+                        <span class="bundle-tag" style="background: rgba(241, 196, 15, 0.15); color: #f1c40f;">حزمة المحامين والخدمات القانونية</span>
+                        <h3>تأسيس الشركات والشهر العقاري - ثقة واحترافية</h3>
+                        <p>ألوان كلاسيكية تميل للذهبي والكحلي لتعكس الهيبة والمصداقية القانونية.</p>
+                        <ul class="bundle-specs">
+                            <li><i class="fa-solid fa-check"></i> تصميم رسمي عالي الثقة</li>
+                            <li><i class="fa-solid fa-check"></i> إبراز الخدمات الاستشارية بدقة</li>
+                        </ul>
+                    </div>
+                    <div class="bundle-visuals-grid">
+                        <div class="square-preview-card" style="border-color: rgba(241, 196, 15, 0.4);">
+                            <div class="card-inner-content">
+                                <i class="fa-solid fa-gavel" style="color: #f1c40f;"><span>تأسيس الشركات</span></i>
+                            </div>
+                        </div>
+                        <div class="square-preview-card" style="border-color: rgba(241, 196, 15, 0.4);">
+                            <div class="card-inner-content">
+                                <i class="fa-solid fa-file-contract" style="color: #f1c40f;"><span>عقود الشهر العقاري</span></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Teachers Bundle -->
+                <div class="bundle-pane" id="teachers">
+                    <div class="bundle-info">
+                        <span class="bundle-tag" style="background: rgba(46, 204, 113, 0.15); color: #2ecc71;">حزمة المعلمين والمنصات التعليمية</span>
+                        <h3>إعداد المحتوى المبسط - تفوق أكاديمي</h3>
+                        <p>ألوان خضراء وزهري تحفيزي لتبسيط المعلومات وجذب انتباه الطلاب.</p>
+                        <ul class="bundle-specs">
+                            <li><i class="fa-solid fa-check"></i> تصميمات مراجعات وشرح تفاعلي</li>
+                            <li><i class="fa-solid fa-check"></i> تنظيم المحتوى بشكل سلس ومريح</li>
+                        </ul>
+                    </div>
+                    <div class="bundle-visuals-grid">
+                        <div class="square-preview-card" style="border-color: rgba(46, 204, 113, 0.4);">
+                            <div class="card-inner-content">
+                                <i class="fa-solid fa-book-open-reader" style="color: #2ecc71;"><span>شرح المناهج الدراسية</span></i>
+                            </div>
+                        </div>
+                        <div class="square-preview-card" style="border-color: rgba(46, 204, 113, 0.4);">
+                            <div class="card-inner-content">
+                                <i class="fa-solid fa-award" style="color: #2ecc71;"><span>مراجعات نهائية للطلاب</span></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Doctors Bundle -->
+                <div class="bundle-pane" id="doctors">
+                    <div class="bundle-info">
+                        <span class="bundle-tag" style="background: rgba(26, 188, 156, 0.15); color: #1abc9c;">حزمة عيادات الأطباء والرعاية</span>
+                        <h3>الرعاية الطبية وأمان العيادة - صحتك أولوية</h3>
+                        <p>ألوان تركوازية ونظيفة تعكس الأمان الطبي والنظافة والاحترافية.</p>
+                        <ul class="bundle-specs">
+                            <li><i class="fa-solid fa-check"></i> تصميمات توعوية وعلاجية راقية</li>
+                            <li><i class="fa-solid fa-check"></i> إبراز مواعيد الحجز والخدمات</li>
+                        </ul>
+                    </div>
+                    <div class="bundle-visuals-grid">
+                        <div class="square-preview-card" style="border-color: rgba(26, 188, 156, 0.4);">
+                            <div class="card-inner-content">
+                                <i class="fa-solid fa-stethoscope" style="color: #1abc9c;"><span>الرعاية الصحية الشاملة</span></i>
+                            </div>
+                        </div>
+                        <div class="square-preview-card" style="border-color: rgba(26, 188, 156, 0.4);">
+                            <div class="card-inner-content">
+                                <i class="fa-solid fa-hospital-user" style="color: #1abc9c;"><span>حجوزات عيادات الأطباء</span></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Brands Bundle -->
+                <div class="bundle-pane" id="brands">
+                    <div class="bundle-info">
+                        <span class="bundle-tag" style="background: rgba(155, 89, 182, 0.15); color: #9b59b6;">حزمة براندات الملابس (Panda)</span>
+                        <h3>موضة العصر وعروض الخصومات - براند باندا</h3>
+                        <p>ألوان جريئة وعصرية تليق بصيحات الموضة الحديثة وتيشرتات باندا.</p>
+                        <ul class="bundle-specs">
+                            <li><i class="fa-solid fa-check"></i> تصميمات ترويجية لخصومات الموسم</li>
+                            <li><i class="fa-solid fa-check"></i> مظهر عصري يخطف الأنفاس</li>
+                        </ul>
+                    </div>
+                    <div class="bundle-visuals-grid">
+                        <div class="square-preview-card" style="border-color: rgba(155, 89, 182, 0.4);">
+                            <div class="card-inner-content">
+                                <i class="fa-solid fa-shirt" style="color: #9b59b6;"><span>تيشرتات باندا - موضة 2026</span></i>
+                            </div>
+                        </div>
+                        <div class="square-preview-card" style="border-color: rgba(155, 89, 182, 0.4);">
+                            <div class="card-inner-content">
+                                <i class="fa-solid fa-tags" style="color: #9b59b6;"><span>عروض وخصومات كبرى</span></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>الباقات والأسعار الرسمية</h2>
+                <p>استثمر في نمو أعمالك مع باقات مصممة خصيصاً لتحقيق أعلى العوائد</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card featured">
+                    <div class="popular-badge">الأكثر طلباً</div>
+                    <h3>الباقة الكبرى (Enterprise)</h3>
+                    <div class="price-val">9,000 <span>جنيه</span></div>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i> 12 فيديو ريلز احترافي</li>
+                        <li><i class="fa-solid fa-check"></i> 60 تصميم مربع (60 Design)</li>
+                        <li><i class="fa-solid fa-check"></i> إدارة كاملة للحملات الإعلانية</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary full-btn">اختيار الباقة</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>باقة الاحتراف (Pro)</h3>
+                    <div class="price-val">5,000 <span>جنيه</span></div>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i> 8 فيديوهات ريلز</li>
+                        <li><i class="fa-solid fa-check"></i> 30 تصميم بوست مربع</li>
+                        <li><i class="fa-solid fa-check"></i> استراتيجية محتوى متكاملة</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline full-btn">اختيار الباقة</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>الباقة المتوسطة (Standard)</h3>
+                    <div class="price-val">2,500 <span>جنيه</span></div>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i> 4 فيديوهات ريلز</li>
+                        <li><i class="fa-solid fa-check"></i> 16 تصميم بوست مربع</li>
+                        <li><i class="fa-solid fa-check"></i> تقارير أداء شهرية</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline full-btn">اختيار الباقة</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container contact-box">
+            <div class="contact-text-side">
+                <h2>ابدأ مشروعك الآن مع ES Agency</h2>
+                <p>جاهز لنقل علامتك التجارية لمستوى تاني خالص؟ راسلنا وسيب الباقي علينا.</p>
+                <div class="loc-info"><i class="fa-solid fa-location-dot"></i> مصر - El Obour City</div>
+            </div>
+            <div class="contact-form-side">
+                <form id="agencyForm">
+                    <div class="input-group">
+                        <input type="text" placeholder="اسمك الكريم" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" placeholder="رقم الهاتف أو البريد" required>
+                    </div>
+                    <div class="input-group">
+                        <select>
+                            <option>الباقة الكبرى (9,000 ج)</option>
+                            <option>باقة الاحتراف (5,000 ج)</option>
+                            <option>الباقة المتوسطة (2,500 ج)</option>
+                            <option>باقة التصاميم فقط (1,000 ج)</option>
+                            <option>باقة الفيديوهات فقط (3,000 ج)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary full-btn">إرسال الطلب فوراً</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-flex">
+            <p>جميع الحقوق محفوظة &copy; 2026 <strong>ES Marketing Agency</strong></p>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-behance"></i></a>
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Category Tabs Switching Logic
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const bundlePanes = document.querySelectorAll('.bundle-pane');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    bundlePanes.forEach(pane => pane.classList.remove('active'));
+
+                    button.classList.add('active');
+
+                    const targetId = button.getAttribute('data-target');
+                    const targetPane = document.getElementById(targetId);
+
+                    if (targetPane) {
+                        targetPane.classList.add('active');
+                    }
+
+                    playTargetSound(targetId);
+                });
+            });
+
+            // 2. Web Audio API SFX Generator for Each Target
+            function playTargetSound(targetType) {
+                try {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    if (!AudioContext) return;
+                    
+                    const ctx = new AudioContext();
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+
+                    let freq = 440;
+                    let type = 'sine';
+
+                    switch(targetType) {
+                        case 'restaurants':
+                            freq = 587.33; 
+                            type = 'triangle';
+                            break;
+                        case 'cars':
+                            freq = 146.83; 
+                            type = 'sawtooth';
+                            break;
+                        case 'hotels':
+                            freq = 659.25; 
+                            type = 'sine';
+                            break;
+                        case 'lawyers':
+                            freq = 220; 
+                            type.square;
+                            break;
+                        case 'teachers':
+                            freq = 523.25; 
+                            type = 'sine';
+                            break;
+                        case 'doctors':
+                            freq = 783.99; 
+                            type = 'sine';
+                            break;
+                        case 'brands':
+                            freq = 698.46; 
+                            type = 'triangle';
+                            break;
+                    }
+
+                    osc.type = type;
+                    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+
+                    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
+
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.3);
+                } catch (e) {
+                    console.log("Audio context blocked or not supported", e);
+                }
+            }
+
+            // 3. Mobile Menu Toggle
+            const menuToggle = document.getElementById('menuToggle');
+            const mainNav = document.querySelector('.main-nav');
+
+            if (menuToggle && mainNav) {
+                menuToggle.addEventListener('click', () => {
+                    mainNav.style.display = mainNav.style.display === 'flex' ? 'none' : 'flex';
+                    if (mainNav.style.display === 'flex') {
+                        mainNav.style.position = 'absolute';
+                        mainNav.style.top = '85px';
+                        mainNav.style.right = '0';
+                        mainNav.style.background = '#070910';
+                        mainNav.style.width = '100%';
+                        mainNav.style.flexDirection = 'column';
+                        mainNav.style.padding = '20px';
+                        mainNav.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
+                    }
+                });
+            }
+
+            // 4. Form Submission Handler
+            const agencyForm = document.getElementById('agencyForm');
+            if (agencyForm) {
+                agencyForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    alert('تم إرسال طلبك بنجاح يا إسلام! فريق ES Agency هيتواصل معك في أسرع وقت لتنفيذ التحفة الفنية القادمة.');
+                    agencyForm.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
