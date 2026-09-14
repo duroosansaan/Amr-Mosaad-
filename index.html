@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES Marketing Agency | معرض الأعمال الإبداعية</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --card-bg: #111111;
+            --border-color: #333333;
+            --accent-yellow: #f1c40f;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: 50px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .logo-container {
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .logo-container img, .logo-text {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+        
+        .logo-text span {
+            color: var(--accent-yellow);
+        }
+
+        header p {
+            color: #aaaaaa;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .category-section {
+            margin-top: 50px;
+            border-top: 3px solid var(--accent-yellow);
+            padding-top: 25px;
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-title::before {
+            content: "";
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent-yellow);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent-yellow);
+            box-shadow: 0 10px 30px rgba(241, 196, 15, 0.15);
+        }
+
+        .card-img-wrapper {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            background-color: #1a1a1a;
+            position: relative;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .card:hover .card-img-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: #888888;
+            margin-bottom: 15px;
+        }
+
+        .action-btn {
+            background-color: transparent;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            text-align: center;
+            width: 100%;
+        }
+
+        .card:hover .action-btn {
+            background-color: var(--accent-yellow);
+            color: #000000;
+            border-color: var(--accent-yellow);
+        }
+
+        /* Modal Overlay for WhatsApp Form */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-smooth);
+            padding: 15px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background-color: #111111;
+            border: 2px solid var(--accent-yellow);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            position: relative;
+            transform: translateY(20px);
+            transition: var(--transition-smooth);
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal h3 {
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            color: var(--accent-yellow);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #cccccc;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: #000000;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-yellow);
+        }
+
+        .submit-whatsapp {
+            background-color: var(--accent-yellow);
+            color: #000000;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            width: 100%;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .submit-whatsapp:hover {
+            opacity: 0.9;
+        }
+
+        /* Responsive Design Adjustments */
+        @media (max-width: 768px) {
+            header {
+                padding: 25px 15px;
+            }
+            .logo-text {
+                font-size: 2rem;
+            }
+            .category-title {
+                font-size: 1.4rem;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <div class="logo-text">ES <span>Marketing</span></div>
+        </div>
+        <p>معرض الأعمال الاحترافي - إسلام عمرو</p>
+    </header>
+
+    <div class="container">
+
+        <!-- الفئة الأولى: العيادات الطبية -->
+        <section class="category-section">
+            <h2 class="category-title">العيادات الطبية والرعاية الصحية</h2>
+            <div class="grid">
+                <div class="card" onclick="openModal('عيادة الأسنان - دكتور إسلام')">
+                    <div class="card-img-wrapper">
+                        <img src="Modify_character_and_design_details_20260914130910.jpeg" alt="عيادة الأسنان">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <h3 class="card-title">عيادة الأسنان والوقاية</h3>
+                            <p class="card-desc">تصميم إعلاني تفاعلي يبرز الأمان والرعاية الطبية المتخصصة.</p>
+                        </div>
+                        <button class="action-btn">اطلب تصميماً مشابهاً</button>
+                    </div>
+                </div>
+
+                <div class="card" onclick="openModal('عيادة التجميل والعناية بالبشرة')">
+                    <div class="card-img-wrapper">
+                        <img src="Redesigning_character_and_text_i…_20260914130652.jpeg" alt="عيادة التجميل">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <h3 class="card-title">عروض العناية بالبشرة</h3>
+                            <p class="card-desc">تصميم ترويجي لخدمات الجلدية والتجميل بأسلوب عصري جذاب.</p>
+                        </div>
+                        <button class="action-btn">اطلب تصميماً مشابهاً</button>
+                    </div>
+                </div>
+
+                <div class="card" onclick="openModal('العيادة المتخصصة والعيون')">
+                    <div class="card-img-wrapper">
+                        <img src="Redesigning_social_media_marketi…_20260914125914.jpeg" alt="العيادة المتخصصة">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <h3 class="card-title">عيادة الفحص والتشخيص</h3>
+                            <p class="card-desc">إبراز هوية الطبيب والخدمات العلاجية بدقة واحترافية.</p>
+                        </div>
+                        <button class="action-btn">اطلب تصميماً مشابهاً</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- الفئة الثانية: قطاع التعليم -->
+        <section class="category-section">
+            <h2 class="category-title">التعليم والمحتوى الدراسي</h2>
+            <div class="grid">
+                <div class="card" onclick="openModal('محتوى المعلمين والمنصات التعليمية')">
+                    <div class="card-img-wrapper">
+                        <img src="WA_1788556948377.jpg" alt="وكالة التسويق للمعلمين">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <h3 class="card-title">شريك المعلم نحو النجاح</h3>
+                            <p class="card-desc">تصميم مخصص للمدرسين لإعداد وتصميم المحتوى التعليمي الرقمي.</p>
+                        </div>
+                        <button class="action-btn">اطلب تصميماً مشابهاً</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- الفئة الثالثة: الفنادق والسياحة -->
+        <section class="category-section">
+            <h2 class="category-title">الفنادق والسياحة السفر</h2>
+            <div class="grid">
+                <div class="card" onclick="openModal('حجوزات الفنادق - إسكندرية ومصر')">
+                    <div class="card-img-wrapper">
+                        <img src="Character_holding_Arabic_banner_20260914141101.jpeg" alt="فنادق مصر والإسكندرية">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <h3 class="card-title">حجوزات الفنادق الساحلية</h3>
+                            <p class="card-desc">إعلان ترويجي لحجز الغرف والفنادق في مختلف أنحاء مصر والإسكندرية.</p>
+                        </div>
+                        <button class="action-btn">اطلب تصميماً مشابهاً</button>
+                    </div>
+                </div>
+
+                <div class="card" onclick="openModal('حجوزات الفنادق التراثية والتاريخية')">
+                    <div class="card-img-wrapper">
+                        <img src="Character_holding_banner_for_hotels_20260914134703.jpeg" alt="فنادق تاريخية">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <h3 class="card-title">الفنادق التراثية الفاخرة</h3>
+                            <p class="card-desc">حملة تسويقية ترويجية لإبراز عراقة وفخامة الفنادق المصرية.</p>
+                        </div>
+                        <button class="action-btn">اطلب تصميماً مشابهاً</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- الفئة الرابعة: الأزياء والملابس (XXLP Panda) -->
+        <section class="category-section">
+            <h2 class="category-title">الأزياء والملابس (XXLP Panda)</h2>
+            <div class="grid">
+                <div class="card" onclick="openModal('تيشيرتات أفرسايز - باندا')">
+                    <div class="card-img-wrapper">
+                        <img src="Screenshot_20250615_121559_com.gspace.android_edit_1391268195661249.jpg" alt="Oversize T-Shirts">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <h3 class="card-title">Oversize T-Shirts Collection</h3>
+                            <p class="card-desc">تصاميم عصري للملابس المريحة مع عروض تخفيضات مميزة.</p>
+                        </div>
+                        <button class="action-btn">اطلب تصميماً مشابهاً</button>
+                    </div>
+                </div>
+
+                <div class="card" onclick="openModal('عروض التيشيرتات الموسمية')">
+                    <div class="card-img-wrapper">
+                        <img src="Screenshot_20250615_121553_com.gspace.android_edit_1391337695818150.jpg" alt="عرض التيشيرتات">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <h3 class="card-title">تخفيضات الملابس الشتوية والصيفية</h3>
+                            <p class="card-desc">تصاميم تسويقية لعروض الأسعار المباشرة وخفض الأسعار.</p>
+                        </div>
+                        <button class="action-btn">اطلب تصميماً مشابهاً</button>
+                    </div>
+                </div>
+
+                <div class="card" onclick="openModal('هوية براند XXLP Panda')">
+                    <div class="card-img-wrapper">
+                        <img src="Screenshot_20250614_142319_com.gspace.android_edit_1341527245705276.jpg" alt="هوية البراند">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <h3 class="card-title">Brand Identity - XXLP Panda</h3>
+                            <p class="card-desc">تصميم الشعار والهوية البصرية الخاصة بمنتجات التريكو والملابس.</p>
+                        </div>
+                        <button class="action-btn">اطلب تصميماً مشابهاً</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- الفئة الخامسة: السيارات والخدمات الفاخرة -->
+        <section class="category-section">
+            <h2 class="category-title">السيارات والخدمات الفاخرة</h2>
+            <div class="grid">
+                <div class="card" onclick="openModal('إعلان تأجير سيارات Land Rover')">
+                    <div class="card-img-wrapper">
+                        <img src="منشور انستجرام صورة كاملة عن التسويق (8).jpg" alt="تأجير سيارات">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <h3 class="card-title">Rent Your Car Today</h3>
+                            <p class="card-desc">إعلان تسويقي احترافي لسيارات رينج روفر ومواصفاتها الفنية.</p>
+                        </div>
+                        <button class="action-btn">اطلب تصميماً مشابهاً</button>
+                    </div>
+                </div>
+
+                <div class="card" onclick="openModal('إطلاق سيارة Range Rover الجديدة')">
+                    <div class="card-img-wrapper">
+                        <img src="IMG_٢٠٢٤٠٦٢٠_٢٠١٢٤٥.jpg" alt="السيارة الرياضية الجديدة">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <h3 class="card-title">The New Sport Car</h3>
+                            <p class="card-desc">تصميم إعلاني فخم لإطلاق سيارات السباق والسيارات الرياضية الفاخرة.</p>
+                        </div>
+                        <button class="action-btn">اطلب تصميماً مشابهاً</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Modal Form for WhatsApp Order -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <h3>طلب تصميم عبر الواتساب</h3>
+            <form id="whatsappForm" onsubmit="sendToWhatsApp(event)">
+                <div class="form-group">
+                    <label for="clientName">الاسم:</label>
+                    <input type="text" id="clientName" required placeholder="أدخل اسمك الكريم">
+                </div>
+                <div class="form-group">
+                    <label for="clientPhone">رقم الهواتف:</label>
+                    <input type="tel" id="clientPhone" required placeholder="أدخل رقم هاتفك">
+                </div>
+                <div class="form-group">
+                    <label for="clientRequest">ماذا تريد بالتفصيل؟</label>
+                    <textarea id="clientRequest" rows="4" required placeholder="اكتب تفاصيل طلبك أو التعديلات المطلوبة..."></textarea>
+                </div>
+                <input type="hidden" id="selectedService">
+                <button type="submit" class="submit-whatsapp">إرسال الطلب عبر واتساب</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentService = "";
+
+        function openModal(serviceName) {
+            currentService = serviceName;
+            document.getElementById('selectedService').value = serviceName;
+            document.getElementById('orderModal').classList.add('active');
+            playClickSound();
+        }
+
+        function closeModal() {
+            document.getElementById('orderModal').classList.remove('active');
+        }
+
+        function sendToWhatsApp(event) {
+            event.preventDefault();
+            const name = document.getElementById('clientName').value;
+            const phone = document.getElementById('clientPhone').value;
+            const request = document.getElementById('clientRequest').value;
+            
+            const message = `مرحباً، أريد طلب تصميم أو خدمة:%0A*الخدمة:* ${currentService}%0A*الاسم:* ${name}%0A*الرقم:* ${phone}%0A*التفاصيل:* ${request}`;
+            
+            // رقم الواتساب الافتراضي للتواصل
+            const whatsappUrl = `https://wa.me/201000000000?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+            closeModal();
+        }
+
+        // تأثير صوتي خفيف عند الضغط أو التنقل (مؤثرات تفاعلية)
+        function playClickSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5 note
+                gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.1);
+            } catch(e) {
+                // تجاهل في حال عدم دعم المتصفح للصوت التلقائي
+            }
+        }
+    </script>
+</body>
+</html>
