@@ -308,7 +308,7 @@
                     setIsAuthenticated(true);
                     setPasscode("");
                 } else {
-                    alert("رمز المرور غير صحيح! الرمز الصحيح هو 12345");
+                    alert("رمز المرور غير صحيح");
                 }
             };
 
@@ -821,13 +821,13 @@
                                             <i data-lucide="lock" className="w-5 h-5"></i>
                                         </div>
                                         <h3 className="text-sm font-bold text-black">ادخل رمز المرور لتفعيل الخانات</h3>
-                                        <p className="text-[10px] text-zinc-500">الرمز السري المعتمد هو: <strong>12345</strong></p>
+                                        
 
                                         <input 
                                             type="password"
                                             value={passcode}
                                             onChange={(e) => setPasscode(e.target.value)}
-                                            placeholder="ادخل الرقم 12345"
+                                            placeholder="ادخل  الرمز المطلوب ، للمطورين فقط ليس للعملاء"
                                             className="w-full px-3 py-2 rounded-xl bg-zinc-50 border border-zinc-300 text-black text-center text-xs focus:outline-none focus:border-black font-bold"
                                         />
 
