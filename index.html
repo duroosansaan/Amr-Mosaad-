@@ -1,384 +1,1044 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ES Agency | المعرض الرقمي</title>
+    <title>ES Agency | وكالة صناعة المحتوى البصري والأنيميشن</title>
     
-    <!-- Tailwind CSS -->
+    <meta name="description" content="وكالة ES Agency متخصصة في تصميم الفيديوهات الإعلانية، الأنيميشن، الموشن جرافيك، الهويات البصرية، والتصاميم التسويقية.">
+
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            dark: '#141414',
+                            card: '#1e1e20',
+                            accent: '#f59e0b',
+                            muted: '#71717a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- React & ReactDOM CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel Standalone -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- React & ReactDOM -->
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
-</head>
-<body class="bg-gray-50 text-gray-900 font-sans antialiased">
 
+    <!-- Firebase SDK (Compat Version for Standalone Scripts) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <!-- Google Fonts: Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #ffffff;
+            color: #09090b;
+            overflow-x: hidden;
+        }
+
+        .bw-glass {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .bw-card {
+            background: #ffffff;
+            border: 1px solid #e4e4e7;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .bw-card:hover {
+            border-color: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.08);
+        }
+
+        .bw-btn-primary {
+            background-color: #000000;
+            color: #ffffff;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .bw-btn-primary:hover {
+            background-color: #27272a;
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .bw-btn-primary:active, .bw-btn-outline:active {
+            transform: scale(0.97);
+        }
+
+        .bw-btn-outline {
+            background: #ffffff;
+            color: #000000;
+            border: 1px solid #d4d4d8;
+            transition: all 0.2s ease;
+        }
+
+        .bw-btn-outline:hover {
+            border-color: #000000;
+            background: #f4f4f5;
+        }
+
+        /* Chair Showcase Style */
+        .chair-style-container {
+            background: linear-gradient(145deg, #1c1a19 0%, #111010 100%);
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .chair-card-active {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #ffffff; }
+        ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
+    </style>
+</head>
+<body class="selection:bg-black selection:text-white">
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState, useEffect, useMemo, useRef } = React;
 
-        // تهيئة مشروع Firebase الخاص بـ ES Agency
+        // ⚡ FIREBASE CONFIGURATION (استبدل البيانات أدناه ببيانات مشروعك من Firebase Console)
         const firebaseConfig = {
-            apiKey: "AIzaSyBtb1AWsU_tkIHmNXpNM4fn3GuA8sFL3Hc",
-            authDomain: "es-agency.firebaseapp.com",
-            projectId: "es-agency",
-            storageBucket: "es-agency.firebasestorage.app",
-            messagingSenderId: "959579365438",
-            appId: "1:959579365438:web:6c2eb7079ef6fdb168316f",
-            measurementId: "G-YBR2NFC78F"
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
         };
 
+        // Initialize Firebase safely
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
         const db = firebase.firestore();
-        const storage = firebase.storage();
+
+        // UI Click Sound Effect via Web Audio API
+        const playClickSound = () => {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.04);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.04);
+            } catch (e) {}
+        };
+
+        const AGENCY_CONFIG = {
+            name: "ES Agency",
+            headline: "نحوّل فكرتك إلى تصميم يلفت الانتباه ويبيع.",
+            subheadline: "متخصصون في صناعة الفيديوهات الإعلانية، أنيميشن كامل، دمج الصور والتحريك، المونتاج الاحترافي، والتصاميم الموجهة لرفع المبيعات.",
+            ownerWhatsApp: "201020185275",
+            social: {
+                facebook: "https://www.facebook.com/share/1BbzgSxQYE/",
+                messenger: "https://www.facebook.com/share/1BbzgSxQYE/",
+                instagram: "https://www.instagram.com/eslam_amr_almasry?igsh=MTVia3Y5NmY3d2h0Mw==",
+                tiktok: "https://www.tiktok.com/@eslam.amr_almasry"
+            }
+        };
+
+        // Individual Services List
+        const INITIAL_SERVICES = [
+            { id: "srv-1", title: "Pure Animation (أنيميشن كامل)", category: "Motion Graphics", price: 650, unit: "للدقيقة", delivery: "3 أيام عمل / للدقيقة", badge: "الأعلى طلباً", description: "إنتاج فيديو أنيميشن وموشن جرافيك مخصص بالكامل من الفكرة والسكريبت ورسم الشخصيات حتى التحريك النهائي." },
+            { id: "srv-2", title: "Mixed with Pic (دمج صور وأنيميشن)", category: "Video", price: 580, unit: "للدقيقة", delivery: "3 أيام عمل / للدقيقة", badge: "متميز للمتاجر", description: "دمج متناسق واحترافي بين صور المنتجات أو العناصر الحقيقية مع لمسات أنيميشن ومؤثرات كرتونية حركية." },
+            { id: "srv-3", title: "Pictures + Words (تحريك صور ونصوص)", category: "Video", price: 480, unit: "للدقيقة", delivery: "3 أيام عمل / للدقيقة", badge: "اقتصادي وسريع", description: "عرض حركي سريع مخصص للإعلانات التي تهدف لإيصال الرسالة فوراً عبر تحريك النصوص والمنتجات." },
+            { id: "srv-4", title: "Design / Static Post (تصميم إعلاني ثابت)", category: "Social Media", price: 180, unit: "للتصميم الواحد", delivery: "يومان عمل", badge: "تصميم ثابت", description: "تصميم إعلاني ثابت للسوشيال ميديا متناسق الهوية، مصممخصيصاً لجذب العين وزيادة المبيعات." },
+            { id: "srv-5", title: "مونتاج Reels & Shorts احترافي", category: "Video", price: 350, unit: "للفيديو", delivery: "يومان عمل", badge: "تريند", description: "قص ومونتاج وإضافة نصوص حركية (Subtitles) ومؤثرات صوتية للفيديوهات الطولية لزيادة الانتشار." },
+            { id: "srv-7", title: "تصميم هوية بصرية متكاملة (Branding)", category: "Branding", price: 2500, unit: "للمشروع", delivery: "7 أيام عمل", badge: "شامل", description: "بناء الهوية البصرية للشركات والمشروعات: الشعار، لوحة الألوان، الخطوط، ونماذج المطبوعات." }
+        ];
+
+        // OFFERS PACKAGES
+        const INITIAL_PACKS = [
+            {
+                id: "offer-1",
+                name: "العرض الأول (Super Offer)",
+                price: 9000,
+                unit: "جنيه مصري",
+                recommended: true,
+                badge: "عرض 1",
+                features: ["12 فيديو Reels احترافي", "60 تصميم منشور (Posts)", "إدارة محتوى شاملة واستراتيجية متكاملة", "أولوية قصوى في التنفيذ وتسليم المخرجات"]
+            },
+            {
+                id: "offer-2",
+                name: "العرض الثاني (Growth Offer)",
+                price: 5000,
+                unit: "جنيه مصري",
+                recommended: false,
+                badge: "عرض 2",
+                features: ["8 فيديوهات Reels احترافية", "30 تصميم منشور (Posts)", "تغطية تسويقية متكاملة لمشروعك", "توفير ممتاز للنمو السريع"]
+            },
+            {
+                id: "offer-3",
+                name: "العرض الثالث (Starter Offer)",
+                price: 2500,
+                unit: "جنيه مصري",
+                recommended: false,
+                badge: "عرض 3",
+                features: ["4 فيديوهات Reels احترافية", "16 تصميم منشور (Posts)", "حزمة اقتصادية لبداية الحملات الإعلانية", "تسليم سريع ومجرب"]
+            },
+            {
+                id: "offer-4",
+                name: "عرض البوستات (Posts Only)",
+                price: 1000,
+                unit: "جنيه مصري",
+                recommended: false,
+                badge: "عرض 4",
+                features: ["30 تصميم منشور (30 Posts)", "تغطية شهرية متناسقة للحساب", "هوية بصرية مميزة وجاذبة", "توزيع وإخراج إعلاني احترافي"]
+            },
+            {
+                id: "offer-5",
+                name: "عرض الريلز (Reels Only)",
+                price: 3000,
+                unit: "جنيه مصري",
+                recommended: false,
+                badge: "عرض 5",
+                features: ["8 فيديوهات Reels قصيرة حركية", "مونتاج ديناميكي ومؤثرات صوتية", "موجة انتشار للمنتجات والخدمات", "جاهزة فوراً للنشر على المنصات"]
+            }
+        ];
+
+        const INITIAL_POLICIES = [
+            { title: "مواعيد التسليم القياسية", desc: "تسليم الفيديو خلال 3 أيام عمل لكل دقيقة | تسليم التصميم الثابت خلال يومين عمل." },
+            { title: "نظام الدفع والتعاقد", desc: "دفع 50% مبلغ عربون مقدم قبل البدء في العمل، والـ 50% المتبقية تسدد بعد استلام المعاينة النهائية." },
+            { title: "سياسة التعديلات المعتمدة", desc: "التعديل مجاني مرة واحدة لكل تصميم ومرة واحدة لكل فيديو. التعديلات الإضافية برسوم 80 ج.م." },
+            { title: "الملفات المفتوحة والصيغ", desc: "تسليم الفيديوهات بصيغة MP4 والتصاميم بصيغ PNG/JPG. طلب التسليم بصيغة PSD برسوم 50 ج.م." }
+        ];
+
+        const INITIAL_PORTFOLIO = [
+            { id: "p1", title: "تصميم نمط الكرسي الأنيق", category: "Ads", image: "https://picsum.photos/600/600?random=21", desc: "تصميم إعلاني مربع عالي الجودة بهوية بصرية داكنة وفخمة." },
+            { id: "p2", title: "إعلان أنيميشن لمتجر إلكتروني", category: "Motion Graphics", image: "https://picsum.photos/600/600?random=22", desc: "فيديو أنيميشن كامل يعرض مزايا التطبيق بطريقة كرتونية شيقة." },
+            { id: "p3", title: "ريلز حركي لسلسلة مطاعم", category: "Video", image: "https://picsum.photos/600/600?random=23", desc: "دمج بين تصوير الوجبات الحقيقي والمؤثرات النصية الحركية." },
+            { id: "p4", title: "تصميم هوية بصرية متميزة", category: "Branding", image: "https://picsum.photos/600/600?random=24", desc: "بناء الشعار ودليل الألوان والمطبوعات الرسمية بالكامل." }
+        ];
 
         function MainApp() {
-            const [portfolio, setPortfolio] = useState([]);
-            const [loading, setLoading] = useState(true);
-            const [uploading, setUploading] = useState(false);
-            const [filter, setFilter] = useState('all');
+            const [services, setServices] = useState(INITIAL_SERVICES);
+            const [packs, setPacks] = useState(INITIAL_PACKS);
+            const [portfolio, setPortfolio] = useState(INITIAL_PORTFOLIO);
 
-            // حالة المشرف والرمز السري
+            const [portfolioFilter, setPortfolioFilter] = useState("All");
+            const [selectedService, setSelectedService] = useState(null);
+            const [selectedPortfolio, setSelectedPortfolio] = useState(null);
+            const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+            // Passcode & Admin Lock State (رمز المرور: 12345)
             const [isAdminOpen, setIsAdminOpen] = useState(false);
+            const [passcode, setPasscode] = useState("");
             const [isAuthenticated, setIsAuthenticated] = useState(false);
-            const [passcode, setPasscode] = useState('');
 
-            // حالة إضافة تصميم جديد
-            const [newItemTitle, setNewItemTitle] = useState('');
-            const [newItemCategory, setNewItemCategory] = useState('تصميم');
-            const [newItemDesc, setNewItemDesc] = useState('');
-            const [selectedFile, setSelectedFile] = useState(null);
+            // New Image Form Details
+            const [newItemTitle, setNewItemTitle] = useState("");
+            const [newItemDesc, setNewItemDesc] = useState("");
+            const [newItemCategory, setNewItemCategory] = useState("Social Media");
+            const [newItemImg, setNewItemImg] = useState("");
 
-            // جلب البيانات لحظياً من Firebase Firestore
+            const [contactForm, setContactForm] = useState({ name: "", phone: "", service: "العرض الأول 9000 ج.م", budget: "5000 - 9000 ج.م", details: "" });
+            const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+            // Chair Showcase Index
+            const [activeChairIndex, setActiveChairIndex] = useState(0);
+
+            // ⚡ FIREBASE REAL-TIME SYNC
             useEffect(() => {
-                const unsubscribe = db.collection("portfolio")
-                    .orderBy("createdAt", "desc")
-                    .onSnapshot((snapshot) => {
-                        const docs = snapshot.docs.map(doc => ({
-                            id: doc.id,
-                            ...doc.data()
-                        }));
-                        setPortfolio(docs);
-                        setLoading(false);
-                    }, (error) => {
-                        console.error("خطأ جلب البيانات:", error);
-                        setLoading(false);
-                    });
+                const unsubscribe = db.collection("portfolio").onSnapshot((snapshot) => {
+                    if (!snapshot.empty) {
+                        const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                        setPortfolio(items);
+                    }
+                }, (err) => console.log("Firebase sync warning (using fallback data):", err));
 
                 return () => unsubscribe();
             }, []);
 
-            // إعادة رسم أيقونات Lucide
             useEffect(() => {
                 if (window.lucide) {
                     window.lucide.createIcons();
                 }
-            }, [portfolio, isAdminOpen, isAuthenticated, filter, loading]);
+            }, [selectedService, selectedPortfolio, isAdminOpen, isAuthenticated, mobileMenuOpen, portfolioFilter, activeChairIndex, portfolio]);
 
-            // التحقق من الرمز السري
-            const handleAdminLogin = (e) => {
-                e.preventDefault();
-                // يمكن تغيير كلمة المرور هنا
-                if (passcode === "12345" || passcode === "ES2026") {
-                    setIsAuthenticated(true);
-                    setPasscode('');
-                } else {
-                    alert("رمز المرور غير صحيح!");
-                }
+            // Auto Carousel movement: 2000ms
+            useEffect(() => {
+                if (portfolio.length <= 1) return;
+                const timer = setInterval(() => {
+                    setActiveChairIndex((prev) => (prev + 1) % portfolio.length);
+                }, 2000);
+                return () => clearInterval(timer);
+            }, [portfolio.length]);
+
+            const filteredPortfolio = useMemo(() => {
+                if (portfolioFilter === "All") return portfolio;
+                return portfolio.filter(item => item.category.toLowerCase() === portfolioFilter.toLowerCase());
+            }, [portfolio, portfolioFilter]);
+
+            const triggerAction = (actionFn) => {
+                playClickSound();
+                if (actionFn) actionFn();
             };
 
-            const handleImageFileChange = (e) => {
-                if (e.target.files[0]) {
-                    setSelectedFile(e.target.files[0]);
-                }
+            const openMessenger = () => {
+                window.open(AGENCY_CONFIG.social.messenger, '_blank');
             };
 
-            // رفع الصورة للسحابة وحفظ التغيرات
-            const handleAddPortfolio = async (e) => {
+            // ⚡ SAVE CONTACT TO FIREBASE & WHATSAPP
+            const handleContactSubmit = async (e) => {
                 e.preventDefault();
-                if (!newItemTitle || !selectedFile) {
-                    return alert("يرجى اختيار صورة واختيار عنوان للتصميم!");
-                }
-
-                setUploading(true);
+                playClickSound();
+                if (!contactForm.name || !contactForm.phone) return;
+                
                 try {
-                    // 1. رفع الصورة لـ Storage
-                    const fileRef = storage.ref(`portfolio/${Date.now()}_${selectedFile.name}`);
-                    await fileRef.put(selectedFile);
-                    const imageUrl = await fileRef.getDownloadURL();
-
-                    // 2. تسجيل البيانات في Firestore
-                    await db.collection("portfolio").add({
-                        title: newItemTitle,
-                        category: newItemCategory,
-                        desc: newItemDesc || "",
-                        image: imageUrl,
+                    await db.collection("contacts").add({
+                        name: contactForm.name,
+                        phone: contactForm.phone,
+                        service: contactForm.service,
+                        budget: contactForm.budget,
+                        details: contactForm.details || 'لا يوجد تفاصيل إضافية',
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
-
-                    alert("تم رفع التصميم وحفظه بنجاح في السحابة!");
-                    setNewItemTitle('');
-                    setNewItemDesc('');
-                    setSelectedFile(null);
-                    setIsAdminOpen(false);
                 } catch (err) {
-                    console.error("خطأ أثناء الرفع:", err);
-                    alert("حدث خطأ أثناء رفع التصميم!");
-                } finally {
-                    setUploading(false);
+                    console.error("Firebase Contact Save Error:", err);
+                }
+
+                const message = `📥 *طلب جديد من موقع ES Agency*\n\n👤 *الاسم:* ${contactForm.name}\n📞 *رقم الهاتف:* ${contactForm.phone}\n🛠 *الخدمة/العرض:* ${contactForm.service}\n💰 *الميزانية:* ${contactForm.budget}\n📝 *التفاصيل:* ${contactForm.details || 'لا يوجد تفاصيل إضافية'}`;
+                
+                const whatsappUrl = `https://wa.me/${AGENCY_CONFIG.ownerWhatsApp}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+                setShowSuccessModal(true);
+            };
+
+            // Passcode Authentication Function (الرمز: 12345)
+            const handleAdminLogin = (e) => {
+                e.preventDefault();
+                playClickSound();
+                if (passcode === "12345") {
+                    setIsAuthenticated(true);
+                    setPasscode("");
+                } else {
+                    alert("رمز المرور غير صحيح! الرمز الصحيح هو 12345");
                 }
             };
 
-            // حذف تصميم
-            const handleDeleteItem = async (id) => {
-                if (!confirm("هل أنت تأكد من رغبتك في حذف هذا التصميم؟")) return;
+            // Handling Image Upload File
+            const handleImageFileChange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        setNewItemImg(reader.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+
+            // ⚡ ADD ITEM TO FIREBASE
+            const handleAddPortfolio = async (e) => {
+                e.preventDefault();
+                playClickSound();
+                if (!newItemTitle || !newItemImg) {
+                    alert("يرجى كتابة عنوان التصميم واختيار الصورة!");
+                    return;
+                }
+
+                const newPort = {
+                    title: newItemTitle,
+                    category: newItemCategory,
+                    image: newItemImg,
+                    desc: newItemDesc || "تصميم مربع جديد",
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
                 try {
-                    await db.collection("portfolio").doc(id).delete();
+                    await db.collection("portfolio").add(newPort);
+                    setNewItemTitle("");
+                    setNewItemDesc("");
+                    setNewItemImg("");
+                    setIsAdminOpen(false);
+                    alert("تمت إضافة التصميم وحفظه في Firebase بنجاح!");
                 } catch (err) {
-                    alert("حدث خطأ أثناء الحذف!");
+                    console.error("Firebase Add Error:", err);
+                    setPortfolio([ { id: `port-${Date.now()}`, ...newPort }, ...portfolio ]);
+                    setIsAdminOpen(false);
                 }
             };
 
-            const filteredPortfolio = filter === 'all' 
-                ? portfolio 
-                : portfolio.filter(item => item.category === filter);
+            // ⚡ DELETE ITEM FROM FIREBASE
+            const handleDeletePortfolio = async (id) => {
+                playClickSound();
+                if (confirm("هل تريد حذف هذا التصميم؟")) {
+                    try {
+                        await db.collection("portfolio").doc(id).delete();
+                    } catch (err) {
+                        setPortfolio(portfolio.filter(p => p.id !== id));
+                    }
+                }
+            };
 
             return (
-                <div className="min-h-screen flex flex-col justify-between">
-                    {/* Header */}
-                    <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
-                        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                                <div className="w-9 h-9 bg-black text-white font-bold flex items-center justify-center rounded-lg text-lg">
+                <div className="min-h-screen bg-white text-zinc-900 selection:bg-black selection:text-white relative">
+                    
+                    {/* Header Nav */}
+                    <nav className="sticky top-0 z-40 bw-glass px-4 md:px-6 py-2.5">
+                        <div className="max-w-6xl mx-auto flex items-center justify-between">
+                            <a href="#" onClick={()=>playClickSound()} className="flex items-center gap-2">
+                                <div className="w-8 h-8 rounded-lg bg-black text-white font-black text-base flex items-center justify-center">
                                     ES
                                 </div>
-                                <span className="font-bold text-xl tracking-tight">ES Agency</span>
+                                <div className="flex flex-col">
+                                    <span className="font-extrabold text-sm leading-none text-black">AGENCY</span>
+                                    <span className="text-[8px] text-zinc-500 uppercase tracking-widest">Creative Studio</span>
+                                </div>
+                            </a>
+
+                            <div className="hidden md:flex items-center gap-5 text-xs font-bold text-zinc-700">
+                                <a href="#chair-showcase" onClick={()=>playClickSound()} className="hover:text-black transition">المعرض التفاعلي</a>
+                                <a href="#services" onClick={()=>playClickSound()} className="hover:text-black transition">الخدمات</a>
+                                <a href="#packs" onClick={()=>playClickSound()} className="hover:text-black transition">العروض المعتمدة</a>
+                                <a href="#portfolio" onClick={()=>playClickSound()} className="hover:text-black transition">معرض الأعمال</a>
+                                <a href="#policies" onClick={()=>playClickSound()} className="hover:text-black transition">السياسات</a>
                             </div>
 
-                            <button 
-                                onClick={() => setIsAdminOpen(true)}
-                                className="flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-lg text-xs transition-all font-medium"
+                            <div className="hidden md:flex items-center gap-2">
+                                <button 
+                                    onClick={() => triggerAction(openMessenger)}
+                                    className="bw-btn-primary px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5"
+                                >
+                                    <i data-lucide="message-square" className="w-3.5 h-3.5"></i>
+                                    تواصل ماسنجر
+                                </button>
+                                <button 
+                                    onClick={() => triggerAction(() => setIsAdminOpen(true))}
+                                    className={`p-1.5 rounded-lg border text-xs flex items-center gap-1 ${isAuthenticated ? 'bg-amber-500 text-white border-amber-600' : 'bg-zinc-100 text-zinc-600 border-zinc-200'}`}
+                                    title="رمز الإدارة"
+                                >
+                                    <i data-lucide={isAuthenticated ? "unlock" : "lock"} className="w-3.5 h-3.5"></i>
+                                </button>
+                            </div>
+
+                            <div className="flex md:hidden items-center gap-2">
+                                <button 
+                                    onClick={() => triggerAction(() => setIsAdminOpen(true))}
+                                    className="p-1.5 rounded-lg text-zinc-700 border border-zinc-200"
+                                >
+                                    <i data-lucide={isAuthenticated ? "unlock" : "lock"} className="w-4 h-4"></i>
+                                </button>
+                                <button 
+                                    onClick={() => triggerAction(() => setMobileMenuOpen(!mobileMenuOpen))}
+                                    className="p-1.5 rounded-lg text-black border border-zinc-200"
+                                >
+                                    <i data-lucide={mobileMenuOpen ? "x" : "menu"} className="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        {mobileMenuOpen && (
+                            <div className="md:hidden pt-3 pb-2 border-t border-zinc-200 mt-2 space-y-2 px-1">
+                                <a href="#chair-showcase" onClick={()=>triggerAction(()=>setMobileMenuOpen(false))} className="block text-xs font-bold text-zinc-700">المعرض التفاعلي</a>
+                                <a href="#services" onClick={()=>triggerAction(()=>setMobileMenuOpen(false))} className="block text-xs font-bold text-zinc-700">الخدمات</a>
+                                <a href="#packs" onClick={()=>triggerAction(()=>setMobileMenuOpen(false))} className="block text-xs font-bold text-zinc-700">العروض المعتمدة</a>
+                                <a href="#portfolio" onClick={()=>triggerAction(()=>setMobileMenuOpen(false))} className="block text-xs font-bold text-zinc-700">معرض الأعمال</a>
+                                <button 
+                                    onClick={() => triggerAction(() => { setMobileMenuOpen(false); openMessenger(); })}
+                                    className="w-full bw-btn-primary py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-2 mt-2"
+                                >
+                                    <i data-lucide="message-square" className="w-3.5 h-3.5"></i>
+                                    تواصل عبر ماسنجر
+                                </button>
+                            </div>
+                        )}
+                    </nav>
+
+                    {/* Hero Header */}
+                    <header className="pt-8 pb-10 px-4 max-w-4xl mx-auto text-center">
+                        <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full border border-zinc-200 bg-zinc-50 text-zinc-700 text-[10px] font-bold mb-4">
+                            <span className="w-2 h-2 rounded-full bg-black animate-pulse"></span>
+                            صناعة وتطوير المحتوى البصري الإعلاني
+                        </div>
+
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-black leading-tight mb-3">
+                            {AGENCY_CONFIG.headline}
+                        </h1>
+
+                        <p className="text-zinc-600 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed mb-5">
+                            {AGENCY_CONFIG.subheadline}
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5">
+                            <a 
+                                href="#contact"
+                                onClick={()=>playClickSound()}
+                                className="w-full sm:w-auto bw-btn-primary px-5 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2"
                             >
-                                <i data-lucide={isAuthenticated ? "unlock" : "lock"} className="w-3.5 h-3.5"></i>
-                                <span>{isAuthenticated ? "لوحة التحكم" : "رمز المرور"}</span>
+                                <i data-lucide="phone-call" className="w-3.5 h-3.5"></i>
+                                احجز عرضك الآن
+                            </a>
+                            <button 
+                                onClick={() => triggerAction(openMessenger)}
+                                className="w-full sm:w-auto bw-btn-outline px-5 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2"
+                            >
+                                <i data-lucide="message-square" className="w-3.5 h-3.5"></i>
+                                مراسلة مباشرة عبر ماسنجر
                             </button>
                         </div>
                     </header>
 
-                    {/* Main Content */}
-                    <main className="max-w-6xl mx-auto px-4 py-8 flex-grow w-full">
-                        <div className="text-center my-8">
-                            <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-3">معرض الأعمال والتصاميم</h1>
-                            <p className="text-gray-500 max-w-xl mx-auto text-sm md:text-base">نبتكر الهويات البصرية والحلول البرمجية بأعلى معايير الإبداع.</p>
+                    {/* Chair Showcase Display */}
+                    <section id="chair-showcase" className="py-6 px-4 max-w-5xl mx-auto">
+                        <div className="chair-style-container p-5 md:p-8 text-white relative">
+                            
+                            <div className="flex items-center justify-between mb-4 px-2">
+                                <span className="text-[10px] uppercase font-bold text-amber-400 tracking-wider">CHAIR STYLE SHOWCASE</span>
+                                <span className="text-[10px] text-zinc-400">ينتقل تلقائياً كل ثانيتين ⏱️</span>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center max-w-4xl mx-auto min-h-[280px]">
+                                {portfolio.length > 0 && (
+                                    [
+                                        portfolio[(activeChairIndex) % portfolio.length],
+                                        portfolio[(activeChairIndex + 1) % portfolio.length],
+                                        portfolio[(activeChairIndex + 2) % portfolio.length]
+                                    ].map((item, idx) => {
+                                        if (!item) return null;
+                                        const isMain = idx === 1;
+                                        return (
+                                            <div 
+                                                key={`${item.id}-${idx}`}
+                                                onClick={() => triggerAction(() => setSelectedPortfolio(item))}
+                                                className={`chair-card-active rounded-2xl p-3.5 transition-all duration-500 cursor-pointer ${
+                                                    isMain 
+                                                        ? 'scale-105 border-amber-400/40 shadow-2xl bg-white/10 z-10' 
+                                                        : 'scale-95 opacity-60 hidden md:block'
+                                                }`}
+                                            >
+                                                <div className="text-center mb-2">
+                                                    <h4 className="text-xs font-extrabold text-white truncate">{item.title}</h4>
+                                                    <span className="text-[9px] text-zinc-300">{item.category}</span>
+                                                </div>
+
+                                                <div className="w-full aspect-square rounded-xl overflow-hidden bg-black/50 border border-white/10">
+                                                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                                                </div>
+                                            </div>
+                                        );
+                                    })
+                                )}
+                            </div>
+
+                            {isAuthenticated ? (
+                                <div className="mt-6 pt-5 border-t border-white/10">
+                                    <div className="text-center mb-3">
+                                        <span className="text-xs font-bold text-amber-300 bg-amber-500/20 px-3 py-1 rounded-full border border-amber-500/30 inline-flex items-center gap-1.5">
+                                            <i data-lucide="unlock" className="w-3.5 h-3.5"></i> تم فتح الخانات الفارغة للإضافة
+                                        </span>
+                                    </div>
+
+                                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto">
+                                        <div 
+                                            onClick={() => triggerAction(() => setIsAdminOpen(true))}
+                                            className="aspect-square rounded-2xl border-2 border-dashed border-white/40 hover:border-amber-400 bg-white/5 flex flex-col items-center justify-center cursor-pointer transition p-3 group"
+                                        >
+                                            <div className="w-8 h-8 rounded-full bg-white/10 group-hover:bg-amber-400 group-hover:text-black flex items-center justify-center mb-1 transition">
+                                                <i data-lucide="plus" className="w-4 h-4 text-white group-hover:text-black"></i>
+                                            </div>
+                                            <span className="text-[11px] font-bold text-white">إضافة تصميم (+)</span>
+                                            <span className="text-[8px] text-zinc-400 mt-0.5">رفع صورة ببياناتها</span>
+                                        </div>
+
+                                        <div 
+                                            onClick={() => triggerAction(() => setIsAdminOpen(true))}
+                                            className="aspect-square rounded-2xl border-2 border-dashed border-white/20 hover:border-amber-400 bg-white/5 flex flex-col items-center justify-center cursor-pointer transition p-3 group"
+                                        >
+                                            <div className="w-8 h-8 rounded-full bg-white/10 group-hover:bg-amber-400 group-hover:text-black flex items-center justify-center mb-1 transition">
+                                                <i data-lucide="plus" className="w-4 h-4 text-white group-hover:text-black"></i>
+                                            </div>
+                                            <span className="text-[11px] font-bold text-white">خانة جديدة (+)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="mt-4 text-center">
+                                    <button 
+                                        onClick={() => triggerAction(() => setIsAdminOpen(true))}
+                                        className="text-[10px] text-zinc-400 hover:text-white underline flex items-center gap-1 mx-auto"
+                                    >
+                                        <i data-lucide="lock" className="w-3 h-3"></i> ادخل الرمز السري (12345) لإظهار الخانات الفارغة وتزويد التصاميم
+                                    </button>
+                                </div>
+                            )}
+
+                        </div>
+                    </section>
+
+                    {/* Services Section */}
+                    <section id="services" className="py-10 border-t border-zinc-200 px-4 max-w-6xl mx-auto">
+                        <div className="text-center max-w-lg mx-auto mb-8">
+                            <h2 className="text-xl sm:text-2xl font-black text-black mb-1">الخدمات الإعلانية الفردية</h2>
+                            <p className="text-zinc-600 text-xs">أسعار الخدمات الفردية المعتمدة.</p>
                         </div>
 
-                        {/* Filter Buttons */}
-                        <div className="flex items-center justify-center gap-2 mb-8 flex-wrap">
-                            {['all', 'تصميم', 'برمجة', 'فيديو'].map((cat) => (
-                                <button
-                                    key={cat}
-                                    onClick={() => setFilter(cat)}
-                                    className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                                        filter === cat 
-                                        ? 'bg-black text-white shadow-md' 
-                                        : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-                                    }`}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {services.map((srv) => (
+                                <div 
+                                    key={srv.id}
+                                    onClick={() => triggerAction(() => setSelectedService(srv))}
+                                    className="bw-card rounded-2xl p-4 cursor-pointer flex flex-col justify-between"
                                 >
-                                    {cat === 'all' ? 'الكل' : cat}
-                                </button>
+                                    <div>
+                                        <div className="flex justify-between items-center mb-2">
+                                            <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-zinc-100 text-zinc-800 border border-zinc-200">{srv.badge}</span>
+                                            <i data-lucide="arrow-up-left" className="w-3.5 h-3.5 text-zinc-400"></i>
+                                        </div>
+                                        <h3 className="text-sm font-bold text-black mb-1">{srv.title}</h3>
+                                        <p className="text-zinc-600 text-[11px] line-clamp-2 leading-relaxed mb-3">{srv.description}</p>
+                                    </div>
+
+                                    <div className="pt-2 border-t border-zinc-100 flex items-end justify-between">
+                                        <div>
+                                            <span className="text-[9px] text-zinc-400 block">السعر:</span>
+                                            <span className="text-base font-black text-black">{srv.price} <span className="text-[10px] font-normal text-zinc-500">ج.م</span></span>
+                                        </div>
+                                        <span className="text-[9px] text-zinc-500 font-medium">{srv.unit}</span>
+                                    </div>
+                                </div>
                             ))}
                         </div>
+                    </section>
 
-                        {/* Portfolio Cards */}
-                        {loading ? (
-                            <div className="text-center py-20">
-                                <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-black border-t-transparent"></div>
-                                <p className="text-xs text-gray-400 mt-2">جاري الاتصال بالسحابة وتحميل المعرض...</p>
-                            </div>
-                        ) : filteredPortfolio.length === 0 ? (
-                            <div className="text-center py-16 bg-white rounded-2xl border border-dashed border-gray-300">
-                                <i data-lucide="image" className="w-10 h-10 mx-auto text-gray-300 mb-2"></i>
-                                <p className="text-gray-500 text-sm">لا توجد تصاميم مضافة حالياً.</p>
-                            </div>
-                        ) : (
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {filteredPortfolio.map((item) => (
-                                    <div key={item.id} className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-all group relative">
-                                        <div className="h-56 bg-gray-100 overflow-hidden relative">
-                                            <img 
-                                                src={item.image} 
-                                                alt={item.title} 
-                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                                loading="lazy"
-                                            />
-                                            <span className="absolute top-3 right-3 bg-black/60 backdrop-blur-md text-white text-[10px] px-2.5 py-1 rounded-full">
-                                                {item.category}
-                                            </span>
-                                            {isAuthenticated && (
-                                                <button 
-                                                    onClick={() => handleDeleteItem(item.id)}
-                                                    className="absolute top-3 left-3 bg-red-600 hover:bg-red-700 text-white p-1.5 rounded-full transition-colors"
-                                                    title="حذف التصميم"
-                                                >
-                                                    <i data-lucide="trash-2" className="w-3.5 h-3.5"></i>
-                                                </button>
-                                            )}
+                    {/* OFFERS PACKAGES */}
+                    <section id="packs" className="py-10 border-t border-zinc-200 px-4 max-w-6xl mx-auto bg-zinc-50/60 rounded-3xl my-6">
+                        <div className="text-center max-w-lg mx-auto mb-8">
+                            <span className="text-[9px] font-bold text-amber-600 uppercase tracking-widest block mb-1">جدول العروض والأسعار</span>
+                            <h2 className="text-xl sm:text-2xl font-black text-black mb-1">العروض الرسمية المعتمدة</h2>
+                            <p className="text-zinc-600 text-xs">عروض حصرية توفر لك أعلى قيمة ومبيعات لمشروعك.</p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {packs.map((pack) => (
+                                <div 
+                                    key={pack.id}
+                                    className={`bw-card rounded-2xl p-4 flex flex-col justify-between relative ${
+                                        pack.recommended ? 'border-black bg-white shadow-md ring-2 ring-black' : ''
+                                    }`}
+                                >
+                                    {pack.badge && (
+                                        <span className="absolute -top-2.5 right-4 bg-black text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase">
+                                            {pack.badge}
+                                        </span>
+                                    )}
+
+                                    <div>
+                                        <h3 className="text-sm font-black text-black mb-1">{pack.name}</h3>
+                                        <div className="mb-3 pb-2 border-b border-zinc-100 flex items-baseline gap-1">
+                                            <span className="text-2xl font-black text-black">{pack.price}</span>
+                                            <span className="text-[10px] text-zinc-500 font-bold">{pack.unit}</span>
                                         </div>
-                                        <div className="p-4">
-                                            <h3 className="font-bold text-gray-800 text-base mb-1">{item.title}</h3>
-                                            {item.desc && <p className="text-xs text-gray-500 line-clamp-2">{item.desc}</p>}
-                                        </div>
+
+                                        <ul className="space-y-1.5 mb-5">
+                                            {pack.features.map((feat, idx) => (
+                                                <li key={idx} className="text-[11px] text-zinc-700 flex items-start gap-1.5 leading-snug">
+                                                    <i data-lucide="check-circle2" className="w-3.5 h-3.5 text-black flex-shrink-0 mt-0.5"></i>
+                                                    <span>{feat}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+
+                                    <button 
+                                        onClick={() => triggerAction(openMessenger)}
+                                        className={`w-full py-2 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 ${
+                                            pack.recommended ? 'bw-btn-primary' : 'bw-btn-outline'
+                                        }`}
+                                    >
+                                        <i data-lucide="message-square" className="w-3.5 h-3.5"></i>
+                                        طلب العرض عبر ماسنجر
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Portfolio Section */}
+                    <section id="portfolio" className="py-10 border-t border-zinc-200 px-4 max-w-6xl mx-auto">
+                        <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-3">
+                            <div>
+                                <h2 className="text-xl sm:text-2xl font-black text-black mb-1">معرض الأعمال والمشاريع</h2>
+                                <p className="text-zinc-600 text-xs">نماذج من تصاميم السوشيال ميديا والفيديوهات الإعلانية.</p>
+                            </div>
+
+                            <div className="flex flex-wrap gap-1">
+                                {["All", "Video", "Ads", "Social Media", "Motion Graphics", "Branding"].map((cat) => (
+                                    <button 
+                                        key={cat}
+                                        onClick={() => triggerAction(() => setPortfolioFilter(cat))}
+                                        className={`px-2.5 py-1 rounded-md text-[11px] font-bold ${
+                                            portfolioFilter === cat ? 'bg-black text-white' : 'bg-zinc-100 text-zinc-600 border border-zinc-200'
+                                        }`}
+                                    >
+                                        {cat}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                            {filteredPortfolio.map((item) => (
+                                <div 
+                                    key={item.id}
+                                    onClick={() => triggerAction(() => setSelectedPortfolio(item))}
+                                    className="bw-card rounded-xl p-2 cursor-pointer group"
+                                >
+                                    <div className="w-full aspect-square rounded-lg overflow-hidden bg-zinc-100 relative">
+                                        <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+                                    </div>
+                                    <div className="mt-2 flex items-center justify-between px-1">
+                                        <h3 className="text-[11px] font-bold text-black truncate">{item.title}</h3>
+                                        <span className="text-[8px] text-zinc-500 bg-zinc-100 px-1 rounded">{item.category}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Policies Section */}
+                    <section id="policies" className="py-10 border-t border-zinc-200 px-4 max-w-5xl mx-auto">
+                        <div className="bg-zinc-50 rounded-2xl p-5 border border-zinc-200">
+                            <h2 className="text-base font-black text-black mb-4 flex items-center gap-2">
+                                <i data-lucide="shield" className="w-4 h-4"></i> سياسات الضوابط والتعاقد المعتمدة
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                {INITIAL_POLICIES.map((pol, idx) => (
+                                    <div key={idx} className="p-3 rounded-xl bg-white border border-zinc-200">
+                                        <h3 className="font-bold text-black text-xs mb-1">{pol.title}</h3>
+                                        <p className="text-zinc-600 text-[10px] leading-relaxed">{pol.desc}</p>
                                     </div>
                                 ))}
                             </div>
-                        )}
-                    </main>
+                        </div>
+                    </section>
+
+                    {/* Contact Form Section */}
+                    <section id="contact" className="py-10 border-t border-zinc-200 px-4 max-w-2xl mx-auto">
+                        <div className="text-center mb-6">
+                            <h2 className="text-xl sm:text-2xl font-black text-black mb-1">ارسل بياناتك لتواصل الوكالة</h2>
+                            <p className="text-zinc-600 text-xs">ادخل بياناتك وسيقوم فريق الوكالة بالمتابعة معك فوراً.</p>
+                        </div>
+
+                        <form onSubmit={handleContactSubmit} className="bw-card rounded-2xl p-5 space-y-3.5 border border-zinc-200">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label className="block text-[10px] font-bold text-zinc-700 mb-1">الاسم الكامل *</label>
+                                    <input 
+                                        type="text" 
+                                        required
+                                        value={contactForm.name}
+                                        onChange={(e)=>setContactForm({...contactForm, name: e.target.value})}
+                                        placeholder="اسمك الكامل"
+                                        className="w-full px-3 py-2 rounded-lg bg-zinc-50 border border-zinc-200 text-xs text-black focus:outline-none focus:border-black"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-[10px] font-bold text-zinc-700 mb-1">رقم الهاتف *</label>
+                                    <input 
+                                        type="tel" 
+                                        required
+                                        value={contactForm.phone}
+                                        onChange={(e)=>setContactForm({...contactForm, phone: e.target.value})}
+                                        placeholder="010XXXXXXXX"
+                                        className="w-full px-3 py-2 rounded-lg bg-zinc-50 border border-zinc-200 text-xs text-black focus:outline-none focus:border-black text-right"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label className="block text-[10px] font-bold text-zinc-700 mb-1">العرض أو الخدمة</label>
+                                    <select 
+                                        value={contactForm.service}
+                                        onChange={(e)=>setContactForm({...contactForm, service: e.target.value})}
+                                        className="w-full px-3 py-2 rounded-lg bg-zinc-50 border border-zinc-200 text-xs text-black focus:outline-none"
+                                    >
+                                        <option value="العرض الأول 9000 ج.م">العرض الأول (9000 ج.م)</option>
+                                        <option value="العرض الثاني 5000 ج.م">العرض الثاني (5000 ج.م)</option>
+                                        <option value="العرض الثالث 2500 ج.م">العرض الثالث (2500 ج.م)</option>
+                                        <option value="عرض البوستات 1000 ج.م">عرض البوستات (1000 ج.م)</option>
+                                        <option value="عرض الريلز 3000 ج.م">عرض الريلز (3000 ج.م)</option>
+                                        <option value="خدمة فردية">خدمة فردية مخصصة</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-[10px] font-bold text-zinc-700 mb-1">الميزانية</label>
+                                    <select 
+                                        value={contactForm.budget}
+                                        onChange={(e)=>setContactForm({...contactForm, budget: e.target.value})}
+                                        className="w-full px-3 py-2 rounded-lg bg-zinc-50 border border-zinc-200 text-xs text-black focus:outline-none"
+                                    >
+                                        <option value="1000 - 2500 ج.م">1000 - 2500 ج.م</option>
+                                        <option value="2500 - 5000 ج.م">2500 - 5000 ج.م</option>
+                                        <option value="5000 - 9000 ج.م">5000 - 9000 ج.م</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-[10px] font-bold text-zinc-700 mb-1">تفاصيل الفكرة أو مشروعك</label>
+                                <textarea 
+                                    rows="2"
+                                    value={contactForm.details}
+                                    onChange={(e)=>setContactForm({...contactForm, details: e.target.value})}
+                                    placeholder="وصف مختصر لمشروعك..."
+                                    className="w-full px-3 py-2 rounded-lg bg-zinc-50 border border-zinc-200 text-xs text-black focus:outline-none resize-none"
+                                ></textarea>
+                            </div>
+
+                            <button type="submit" className="w-full py-2.5 rounded-xl bw-btn-primary font-bold text-xs flex items-center justify-center gap-2">
+                                <i data-lucide="send" className="w-3.5 h-3.5"></i> إرسال الطلب فوراً
+                            </button>
+                        </form>
+                    </section>
 
                     {/* Footer */}
-                    <footer className="bg-white border-t border-gray-200 py-6 mt-12">
-                        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500 gap-4">
-                            <p>© 2026 ES Agency. جميع الحقوق محفوظة.</p>
-                            <button 
-                                onClick={() => setIsAdminOpen(true)}
-                                className="flex items-center gap-1 text-gray-400 hover:text-black transition-colors"
-                            >
-                                <i data-lucide={isAuthenticated ? "unlock" : "lock"} className="w-3 h-3"></i>
-                                <span>{isAuthenticated ? "الوضع مفتوح" : "دخول المشرف"}</span>
-                            </button>
+                    <footer className="border-t border-zinc-200 bg-zinc-50 py-8 px-4">
+                        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between text-[11px] text-zinc-500 gap-4">
+                            <div className="flex items-center gap-2">
+                                <div className="w-6 h-6 rounded bg-black text-white font-bold flex items-center justify-center text-xs">ES</div>
+                                <span className="font-bold text-black text-xs">ES AGENCY</span>
+                                <span>© {new Date().getFullYear()} جميع الحقوق محفوظة.</span>
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                                <a href={AGENCY_CONFIG.social.facebook} target="_blank" className="hover:text-black">فيس بوك</a>
+                                <a href={AGENCY_CONFIG.social.instagram} target="_blank" className="hover:text-black">إنستغرام</a>
+                                <button 
+                                    onClick={() => triggerAction(() => setIsAdminOpen(true))}
+                                    className="p-1.5 rounded-md bg-zinc-200 hover:bg-black hover:text-white transition flex items-center gap-1 text-[10px] font-bold"
+                                    title="رمز إضافة الصور"
+                                >
+                                    <i data-lucide={isAuthenticated ? "unlock" : "lock"} className="w-3.5 h-3.5"></i>
+                                    {isAuthenticated ? "الوضع مفتوح" : "رمز المرور (12345)"}
+                                </button>
+                            </div>
                         </div>
                     </footer>
 
-                    {/* Admin Modal */}
+                    {/* Passcode Modal & Admin Form */}
                     {isAdminOpen && (
-                        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                            <div className="bg-white rounded-2xl max-w-md w-full p-6 relative shadow-2xl">
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+                            <div className="bw-card rounded-2xl p-5 max-w-md w-full relative border border-zinc-200 max-h-[85vh] overflow-y-auto">
                                 <button 
-                                    onClick={() => setIsAdminOpen(false)}
-                                    className="absolute top-4 left-4 text-gray-400 hover:text-black"
+                                    onClick={() => triggerAction(() => setIsAdminOpen(false))}
+                                    className="absolute top-4 left-4 text-zinc-400 hover:text-black p-1"
                                 >
                                     <i data-lucide="x" className="w-4 h-4"></i>
                                 </button>
 
                                 {!isAuthenticated ? (
-                                    /* نموذج الدخول السري */
-                                    <form onSubmit={handleAdminLogin} className="text-center py-2">
-                                        <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center mx-auto mb-3">
-                                            <i data-lucide="lock" className="w-3.5 h-3.5"></i>
+                                    <form onSubmit={handleAdminLogin} className="space-y-3 pt-2 text-center max-w-xs mx-auto">
+                                        <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center mx-auto mb-1">
+                                            <i data-lucide="lock" className="w-5 h-5"></i>
                                         </div>
-                                        <h3 className="font-bold text-gray-900 text-lg mb-1">دخول المشرف</h3>
-                                        <p className="text-xs text-gray-400 mb-4">ادخل الرمز السري لإظهار خيارات التزويد والحذف</p>
-                                        
+                                        <h3 className="text-sm font-bold text-black">ادخل رمز المرور لتفعيل الخانات</h3>
+                                        <p className="text-[10px] text-zinc-500">الرمز السري المعتمد هو: <strong>12345</strong></p>
+
                                         <input 
-                                            type="password" 
+                                            type="password"
                                             value={passcode}
                                             onChange={(e) => setPasscode(e.target.value)}
-                                            placeholder="ادخل رمز المرور"
-                                            className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-center text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-black"
-                                            autoFocus
+                                            placeholder="ادخل الرقم 12345"
+                                            className="w-full px-3 py-2 rounded-xl bg-zinc-50 border border-zinc-300 text-black text-center text-xs focus:outline-none focus:border-black font-bold"
                                         />
-                                        <button type="submit" className="w-full bg-black text-white font-medium py-2.5 rounded-xl text-xs hover:bg-gray-800 transition-colors">
-                                            تأكيد الدخول
+
+                                        <button type="submit" className="w-full py-2.5 rounded-xl bw-btn-primary font-bold text-xs">
+                                            تأكيد الرمز
                                         </button>
                                     </form>
                                 ) : (
-                                    /* نموذج إضافة تصميم جديد */
                                     <div>
-                                        <div className="flex items-center justify-between mb-4 border-b border-gray-100 pb-3">
-                                            <h3 className="font-bold text-gray-900 text-base">إضافة تصميم جديد</h3>
-                                            <button 
-                                                onClick={() => setIsAuthenticated(false)}
-                                                className="text-[11px] text-red-500 hover:underline"
-                                            >
-                                                تسجيل خروج
-                                            </button>
-                                        </div>
+                                        <h3 className="text-sm font-black text-black mb-1 flex items-center gap-1.5">
+                                            <i data-lucide="plus-circle" className="w-4 h-4"></i> إضافة تصميم جديد (حفظ في Firebase)
+                                        </h3>
+                                        <p className="text-[10px] text-zinc-500 mb-4">ادخل بيانات الصورة وسيتم حفظها مباشرة في قاعدة البيانات.</p>
 
                                         <form onSubmit={handleAddPortfolio} className="space-y-3">
                                             <div>
-                                                <label className="block text-xs font-semibold text-gray-700 mb-1">عنوان التصميم</label>
+                                                <label className="block text-[10px] font-bold text-zinc-700 mb-1">عنوان التصميم *</label>
                                                 <input 
                                                     type="text" 
+                                                    placeholder="مثال: تصميم مودرن إعلاني"
                                                     value={newItemTitle}
-                                                    onChange={(e) => setNewItemTitle(e.target.value)}
-                                                    placeholder="مثال: تصميم شعار شركة..."
-                                                    className="w-full border border-gray-300 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-black"
-                                                    required
+                                                    onChange={(e)=>setNewItemTitle(e.target.value)}
+                                                    className="w-full p-2 rounded-lg bg-zinc-50 border border-zinc-300 text-xs text-black focus:outline-none"
                                                 />
                                             </div>
 
                                             <div>
-                                                <label className="block text-xs font-semibold text-gray-700 mb-1">القسم</label>
-                                                <select 
-                                                    value={newItemCategory}
-                                                    onChange={(e) => setNewItemCategory(e.target.value)}
-                                                    className="w-full border border-gray-300 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-black"
-                                                >
-                                                    <option value="تصميم">تصميم</option>
-                                                    <option value="برمجة">برمجة</option>
-                                                    <option value="فيديو">فيديو</option>
-                                                </select>
-                                            </div>
-
-                                            <div>
-                                                <label className="block text-xs font-semibold text-gray-700 mb-1">الوصف (اختياري)</label>
-                                                <textarea 
-                                                    value={newItemDesc}
-                                                    onChange={(e) => setNewItemDesc(e.target.value)}
-                                                    placeholder="اكتب وصفاً قصيراً..."
-                                                    className="w-full border border-gray-300 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-black h-16 resize-none"
-                                                />
-                                            </div>
-
-                                            <div>
-                                                <label className="block text-xs font-semibold text-gray-700 mb-1">صورة التصميم</label>
+                                                <label className="block text-[10px] font-bold text-zinc-700 mb-1">اختيار صورة التصميم من الجهاز *</label>
                                                 <input 
                                                     type="file" 
                                                     accept="image/*"
                                                     onChange={handleImageFileChange}
-                                                    className="w-full text-xs text-gray-500 border border-gray-300 rounded-xl p-2 cursor-pointer"
-                                                    required
+                                                    className="w-full p-1.5 rounded-lg bg-zinc-50 border border-zinc-300 text-xs text-zinc-700 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[10px] file:bg-black file:text-white"
                                                 />
+                                                {newItemImg && (
+                                                    <div className="mt-2 flex items-center gap-2">
+                                                        <img src={newItemImg} alt="Preview" className="w-10 h-10 rounded object-cover border" />
+                                                        <span className="text-[10px] text-green-600 font-bold">تم اختيار الصورة</span>
+                                                    </div>
+                                                )}
                                             </div>
 
-                                            <button 
-                                                type="submit" 
-                                                disabled={uploading}
-                                                className="w-full bg-black text-white font-medium py-2.5 rounded-xl text-xs hover:bg-gray-800 transition-colors mt-2 flex items-center justify-center gap-2"
-                                            >
-                                                {uploading ? (
-                                                    <>
-                                                        <div className="animate-spin rounded-full h-3.5 w-3.5 border-2 border-white border-t-transparent"></div>
-                                                        <span>جاري الرفع إلى Firebase...</span>
-                                                    </>
-                                                ) : (
-                                                    <span>رفع التصميم للموقع</span>
-                                                )}
+                                            <div>
+                                                <label className="block text-[10px] font-bold text-zinc-700 mb-1">قسم التصميم</label>
+                                                <select 
+                                                    value={newItemCategory}
+                                                    onChange={(e)=>setNewItemCategory(e.target.value)}
+                                                    className="w-full p-2 rounded-lg bg-zinc-50 border border-zinc-300 text-xs text-black"
+                                                >
+                                                    <option value="Social Media">Social Media</option>
+                                                    <option value="Video">Video</option>
+                                                    <option value="Ads">Ads</option>
+                                                    <option value="Motion Graphics">Motion Graphics</option>
+                                                    <option value="Branding">Branding</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label className="block text-[10px] font-bold text-zinc-700 mb-1">وصف مقتضب عن التصميم</label>
+                                                <textarea 
+                                                    rows="2"
+                                                    value={newItemDesc}
+                                                    onChange={(e)=>setNewItemDesc(e.target.value)}
+                                                    placeholder="وصف تفصيلي للتصميم..."
+                                                    className="w-full p-2 rounded-lg bg-zinc-50 border border-zinc-300 text-xs text-black resize-none"
+                                                ></textarea>
+                                            </div>
+
+                                            <button type="submit" className="w-full py-2.5 rounded-xl bw-btn-primary font-bold text-xs mt-2">
+                                                حفظ ونشر التصميم في المعرض
                                             </button>
                                         </form>
+
+                                        {/* Current Portfolio Management */}
+                                        <div className="mt-5 pt-4 border-t border-zinc-200">
+                                            <h4 className="text-xs font-bold text-black mb-2">التصاميم الحالية ({portfolio.length})</h4>
+                                            <div className="space-y-2 max-h-40 overflow-y-auto">
+                                                {portfolio.map((item) => (
+                                                    <div key={item.id} className="flex items-center justify-between p-2 rounded-lg bg-zinc-50 border border-zinc-200">
+                                                        <div className="flex items-center gap-2">
+                                                            <img src={item.image} alt={item.title} className="w-7 h-7 rounded object-cover" />
+                                                            <span className="text-[11px] font-bold text-black truncate max-w-[150px]">{item.title}</span>
+                                                        </div>
+                                                        <button 
+                                                            onClick={() => handleDeletePortfolio(item.id)}
+                                                            className="text-red-600 text-[10px] font-bold hover:underline"
+                                                        >
+                                                            حذف
+                                                        </button>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
                                     </div>
                                 )}
                             </div>
                         </div>
                     )}
+
+                    {/* Modals */}
+                    {selectedService && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                            <div className="bw-card rounded-2xl p-5 max-w-sm w-full relative">
+                                <button onClick={() => triggerAction(() => setSelectedService(null))} className="absolute top-4 left-4 text-zinc-400 hover:text-black">
+                                    <i data-lucide="x" className="w-4 h-4"></i>
+                                </button>
+                                <h3 className="text-sm font-bold text-black mb-1">{selectedService.title}</h3>
+                                <p className="text-zinc-600 text-xs mb-3">{selectedService.description}</p>
+                                <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-200 flex justify-between items-center mb-3">
+                                    <span className="text-sm font-black text-black">{selectedService.price} ج.م</span>
+                                    <span className="text-[10px] text-zinc-500 font-medium">{selectedService.delivery}</span>
+                                </div>
+                                <button onClick={() => triggerAction(() => { setSelectedService(null); openMessenger(); })} className="w-full py-2 rounded-xl bw-btn-primary font-bold text-xs flex items-center justify-center gap-1.5">
+                                    <i data-lucide="message-square" className="w-3.5 h-3.5"></i> طلب عبر ماسنجر
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    {selectedPortfolio && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                            <div className="bw-card rounded-2xl p-4 max-w-sm w-full relative">
+                                <button onClick={() => triggerAction(() => setSelectedPortfolio(null))} className="absolute top-3 left-3 text-zinc-400 hover:text-black z-10">
+                                    <i data-lucide="x" className="w-4 h-4"></i>
+                                </button>
+                                <div className="w-full aspect-square rounded-lg overflow-hidden bg-zinc-100 mb-2">
+                                    <img src={selectedPortfolio.image} alt={selectedPortfolio.title} className="w-full h-full object-cover" />
+                                </div>
+                                <h3 className="text-xs font-bold text-black mb-1">{selectedPortfolio.title}</h3>
+                                <p className="text-zinc-600 text-[11px] mb-3">{selectedPortfolio.desc}</p>
+                                <button onClick={() => triggerAction(() => { setSelectedPortfolio(null); openMessenger(); })} className="w-full py-2 rounded-xl bw-btn-primary font-bold text-xs flex items-center justify-center gap-1.5">
+                                    <i data-lucide="message-square" className="w-3.5 h-3.5"></i> طلب تصميم مماثل
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    {showSuccessModal && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                            <div className="bw-card rounded-2xl p-5 max-w-xs w-full text-center">
+                                <div className="w-9 h-9 bg-black text-white rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i data-lucide="check" className="w-4 h-4"></i>
+                                </div>
+                                <h3 className="text-sm font-bold text-black mb-1">تم تجهيز طلبك!</h3>
+                                <p className="text-zinc-600 text-xs mb-4">شكراً لك، تم حفظ بياناتك ومتابعتك عبر واتساب.</p>
+                                <button onClick={() => triggerAction(() => setShowSuccessModal(false))} className="w-full py-2 rounded-xl bw-btn-primary font-bold text-xs">
+                                    حسناً
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
                 </div>
             );
         }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<MainApp />);
+        ReactDOM.createRoot(document.getElementById('root')).render(<MainApp />);
     </script>
 </body>
-</html>
+    </html>
+
+    
+     
