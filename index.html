@@ -123,7 +123,22 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useMemo, useRef } = React;
+        
+        const {// بيانات الربط الخاصة بمشروعك
+const firebaseConfig = {
+  apiKey: "AIzaSyBtb1AWsU_tkIHmNXpNM4fn3GuA8sFL3Hc",
+  authDomain: "es-agency.firebaseapp.com",
+  projectId: "es-agency",
+  storageBucket: "es-agency.firebasestorage.app",
+  messagingSenderId: "959579365438",
+  appId: "1:959579365438:web:6c2eb7079ef6fdb168316f",
+  measurementId: "G-YBR2NFC78F"
+};
+
+// تشغيل خدمات الفايربيس
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const storage = firebase.storage();} = React;
 
         // UI Click Sound Effect via Web Audio API
         const playClickSound = () => {
@@ -165,6 +180,20 @@
             { id: "srv-5", title: "مونتاج Reels & Shorts احترافي", category: "Video", price: 350, unit: "للفيديو", delivery: "يومان عمل", badge: "تريند", description: "قص ومونتاج وإضافة نصوص حركية (Subtitles) ومؤثرات صوتية للفيديوهات الطولية لزيادة الانتشار." },
             { id: "srv-7", title: "تصميم هوية بصرية متكاملة (Branding)", category: "Branding", price: 2500, unit: "للمشروع", delivery: "7 أيام عمل", badge: "شامل", description: "بناء الهوية البصرية للشركات والمشروعات: الشعار، لوحة الألوان، الخطوط، ونماذج المطبوعات." }
         ];
+useEffect(() => {
+    const unsubscribe = db.collection("portfolio")
+        .orderBy("createdAt", "desc")
+        .onSnapshot((snapshot) => {
+            const docs = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            setPortfolio(docs);
+        });
+
+    return () => unsubscribe();
+}, []);
+
 
         // OFFERS PACKAGES - STRICTLY UPDATED FROM HANDWRITTEN PHOTO
         const INITIAL_PACKS = [
@@ -316,39 +345,43 @@
             };
 
             // Handling Image Upload File
-            const handleImageFileChange = (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                        setNewItemImg(reader.result);
-                    };
+            
+           
+
+const handleImageFileChange = (e) => {
+    if (e.target.files[0]) setSelectedFile(e.target.files[0]);
+};
                     reader.readAsDataURL(file);
                 }
             };
 
             // Adding New Image with Info
-            const handleAddPortfolio = (e) => {
-                e.preventDefault();
-                playClickSound();
-                if (!newItemTitle || !newItemImg) {
-                    alert("يرجى كتابة عنوان التصميم واختيار الصورة!");
-                    return;
-                }
-                const newPort = {
-                    id: `port-${Date.now()}`,
-                    title: newItemTitle,
-                    category: newItemCategory,
-                    image: newItemImg,
-                    desc: newItemDesc || "تصميم مربع جديد"
-                };
-                setPortfolio([newPort, ...portfolio]);
-                setNewItemTitle("");
-                setNewItemDesc("");
-                setNewItemImg("");
-                setIsAdminOpen(false);
-                alert("تمت إضافة التصميم المربع بنجاح إلي المعرض!");
-            };
+            const handleAddPortfolio = async (e) => {
+    e.preventDefault();
+    if (!newItemTitle || !selectedFile) return alert("يرجى اختيار صورة واكتب العنوان!");
+
+    try {
+        const fileRef = storage.ref(`portfolio/${Date.now()}_${selectedFile.name}`);
+        await fileRef.put(selectedFile);
+        const imageUrl = await fileRef.getDownloadURL();
+
+        await db.collection("portfolio").add({
+            title: newItemTitle,
+            category: newItemCategory,
+            desc: newItemDesc || "",
+            image: imageUrl,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        alert("تم رفع التصميم بنجاح!");
+        setNewItemTitle("");
+        setSelectedFile(null);
+        setIsAdminOpen(false);
+    } catch (err) {
+        console.error(err);
+        alert("حدث خطأ أثناء الرفع!");
+    }
+};
 
             const handleDeletePortfolio = (id) => {
                 playClickSound();
