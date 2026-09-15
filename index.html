@@ -401,7 +401,7 @@
                                     onClick={() => triggerAction(() => setIsAdminOpen(true))}
                                     className="p-1.5 rounded-lg text-zinc-700 border border-zinc-200"
                                 >
-                                    <i data-lucide={isAuthenticated ? "unlock" : "lock"} className="w-4 h-4"></i>
+                                    <i data-lucide={isAuthenticated ? "unlock" : "lock"} className="w-1 h-1"></i>
                                 </button>
                                 <button 
                                     onClick={() => triggerAction(() => setMobileMenuOpen(!mobileMenuOpen))}
@@ -511,7 +511,7 @@
                                 <div className="mt-6 pt-5 border-t border-white/10">
                                     <div className="text-center mb-3">
                                         <span className="text-xs font-bold text-amber-300 bg-amber-500/20 px-3 py-1 rounded-full border border-amber-500/30 inline-flex items-center gap-1.5">
-                                            <i data-lucide="unlock" className="w-3.5 h-3.5"></i> تم فتح الخانات الفارغة للإضافة
+                                            <i data-lucide="unlock" className="w-1 h-1"></i> تم فتح الخانات الفارغة للإضافة
                                         </span>
                                     </div>
 
@@ -544,7 +544,7 @@
                                         onClick={() => triggerAction(() => setIsAdminOpen(true))}
                                         className="text-[10px] text-zinc-400 hover:text-white underline flex items-center gap-1 mx-auto"
                                     >
-                                        <i data-lucide="lock" className="w-8 h-8"></i> ادخل الرمز لإظهار الخانات الفارغة وتزويد التصاميم
+                                        <i data-lucide="lock" className="w-1 h-1"></i> ادخل الرمز لإظهار الخانات الفارغة وتزويد التصاميم
                                     </button>
                                 </div>
                             )}
@@ -755,7 +755,7 @@
                                         onChange={(e)=>setContactForm({...contactForm, budget: e.target.value})}
                                         className="w-full px-3 py-2 rounded-lg bg-zinc-50 border border-zinc-200 text-xs text-black focus:outline-none"
                                     >
-                                        <option value="1000 - 2500 ج.م">1000 - 2500 ج.م</option>
+                                        <option value="180 - 2500 ج.م">180 - 2500 ج.م</option>
                                         <option value="2500 - 5000 ج.م">2500 - 5000 ج.م</option>
                                         <option value="5000 - 9000 ج.م">5000 - 9000 ج.م</option>
                                     </select>
@@ -797,7 +797,7 @@
                                     className="p-1.5 rounded-md bg-zinc-200 hover:bg-black hover:text-white transition flex items-center gap-1 text-[10px] font-bold"
                                     title="رمز إضافة الصور"
                                 >
-                                    <i data-lucide={isAuthenticated ? "unlock" : "lock"} className="w-3.5 h-3.5"></i>
+                                    <i data-lucide={isAuthenticated ? "unlock" : "lock"} className="w-1 h-1"></i>
                                     {isAuthenticated ? "الوضع مفتوح" : "رمز المرور)"}
                                 </button>
                             </div>
@@ -812,7 +812,7 @@
                                     onClick={() => triggerAction(() => setIsAdminOpen(false))}
                                     className="absolute top-4 left-4 text-zinc-400 hover:text-black p-1"
                                 >
-                                    <i data-lucide="x" className="w-4 h-4"></i>
+                                    <i data-lucide="x" className="w-1 h-1"></i>
                                 </button>
 
                                 {!isAuthenticated ? (
@@ -820,7 +820,7 @@
                                         <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center mx-auto mb-1">
                                             <i data-lucide="lock" className="w-5 h-5"></i>
                                         </div>
-                                        <h3 className="text-sm font-bold text-black">ادخل رمز المرور لتفعيل الخانات</h3>
+                                        <h8 className="text-sm font-bold text-black">ادخل رمز المرور لتفعيل الخانات</h8>
                                         
 
                                         <input 
