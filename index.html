@@ -1,255 +1,1008 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ES Design Agency | Follow The Future Changes</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
 
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts (Cairo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind Config Customization -->
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        esRed: '#E50914',
-                        esYellow: '#FFC700',
-                        darkBg: '#051C14',
-                        cardBg: '#0F0F15',
+                        brandDarkBg: '#051C14',
+                        brandLightBg: '#F8FAFC',
+                        brandRed: '#E50914',
+                        brandYellow: '#D4A000',
+                        brandGreenGlow: '#10B981'
                     },
                     fontFamily: {
-                        cairo: ['Cairo', 'sans-serif'],
-                        jakarta: ['Plus Jakarta Sans', 'sans-serif']
+                        cairo: ['Cairo', 'sans-serif']
                     }
                 }
             }
-          
-        <style>
-    <body {
-        font-family: 'Cairo', sans-serif;
-        background-color: #FAFAFC; /* خلفية أوف وايت ناعمة ومريحة للعين */
-        color: #0F172A; /* لون نصوص داكن */
-        overflow-x: hidden;
-    }
-    /* كروت Bento Grid بيضاء بظلال خفيفة */
-    .bento-card {
-        background: #FFFFFF;
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        border-radius: 24px;
-        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
-        transition: all 0.35s ease;
-    }
-    .bento-card:hover {
-        border-color: rgba(229, 9, 20, 0.3);
-        transform: translateY(-5px);
-        box-shadow: 0 15px 35px -10px rgba(229, 9, 20, 0.15);
-    }
-    .gradient-text {
-        background: linear-gradient(90deg, #E50914, #D4A000);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    .glow-button {
-        box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
-        transition: all 0.3s ease;
-    }
-    .glow-button:hover {
-        box-shadow: 0 6px 20px rgba(229, 9, 20, 0.4);
-    }
-</style>
-    </body>       
-</head>
-<body class="bg-darkBg text-white min-h-screen">
+        }
+    </script>
 
-    <header class="fixed top-0 right-0 left-0 z-50 bg-opacity-80 backdrop-blur-md bg-[#070709] border-b border-white/5 py-4 px-6 md:px-12">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="logo.jpg" alt="ES Design Agency Logo" class="w-10 h-10 rounded-lg border border-esYellow/30 object-cover">
-                <div>
-                    <h1 class="font-bold text-lg leading-none tracking-wider font-jakarta">ES DESIGN <span class="text-esYellow">AGENCY</span></h1>
-                    <span class="text-[10px] text-gray-400 font-sans tracking-widest">FOLLOW THE FUTURE CHANGES</span>
+    <!-- Custom CSS Variables & Glassmorphism Styling -->
+    <style>
+        :root {
+            --bg-primary: #051C14;
+            --text-primary: #FFFFFF;
+            --text-secondary: #94A3B8;
+            --card-bg: rgba(8, 28, 21, 0.75);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --header-bg: rgba(5, 28, 20, 0.85);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+        }
+
+        html.light {
+            --bg-primary: #F8FAFC;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --card-bg: rgba(255, 255, 255, 0.90);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --header-bg: rgba(255, 255, 255, 0.90);
+            --shadow-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+        }
+
+        /* Video Background Styling */
+        #bg-video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        #bg-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4) opacity(0.85);
+            transition: filter 0.4s ease;
+        }
+
+        html.light #bg-video {
+            filter: brightness(0.95) opacity(0.25) contrast(1.1);
+        }
+
+        /* Ambient Video Overlay Grid */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: radial-gradient(circle at center, transparent 20%, var(--bg-primary) 90%);
+            pointer-events: none;
+        }
+
+        /* Glassmorphism Cards */
+        .bento-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px -15px var(--shadow-color);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .bento-card:hover {
+            border-color: rgba(229, 9, 20, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -12px rgba(229, 9, 20, 0.2);
+        }
+
+        /* Brand Red-Yellow Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #E50914 0%, #FFCC00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glowing Button Effects */
+        .glow-btn {
+            background: linear-gradient(135deg, #E50914 0%, #D4A000 100%);
+            box-shadow: 0 4px 20px rgba(229, 9, 20, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        .glow-btn:hover {
+            box-shadow: 0 6px 28px rgba(229, 9, 20, 0.6);
+            transform: scale(1.02);
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E50914;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen relative antialiased selection:bg-brandRed selection:text-white">
+
+    <!-- BACKGROUND VIDEO LOOP -->
+    <div id="bg-video-container">
+        <video id="bg-video" autoplay loop muted playsinline poster="3_20260820_150735_٠٠٠١.jpg">
+            <source src="202587-918431513.mp4" type="video/mp4">
+            متصفحك لا يدعم تشغيل فيديو الخلفية.
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+
+    <!-- STAGE 1: NAVIGATION BAR (FUTURISTIC HEADER) -->
+    <header class="fixed top-0 right-0 left-0 z-50 transition-all duration-300" id="main-navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="bento-card px-4 py-2.5 flex items-center justify-between border border-white/10 shadow-2xl">
+                
+                <!-- BRAND LOGO & TITLE -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="relative w-11 h-11 rounded-xl overflow-hidden border border-white/20 p-0.5 bg-black/40 group-hover:scale-105 transition-transform duration-300">
+                        <img src="Black White Minimalist Professional Initial Logo_20260820_151118_٠٠٠٠.jpg" alt="ES Design Agency Logo" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-lg font-black tracking-wider text-white dark:text-white dark:group-hover:text-brandRed transition-colors">
+                            ES <span class="gradient-text">DESIGN</span> AGENCY
+                        </span>
+                        <span class="text-[10px] font-semibold text-brandYellow tracking-widest -mt-1 opacity-90">
+                            FOLLOW THE FUTURE CHANGES
+                        </span>
+                    </div>
+                </a>
+
+                <!-- DESKTOP NAVIGATION LINKS -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300 dark:text-slate-200">
+                    <a href="#hero" class="hover:text-brandRed transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-house text-xs opacity-70"></i> الرئيسية
+                    </a>
+                    <a href="#services" class="hover:text-brandRed transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-cubes text-xs opacity-70"></i> الخدمات والأسعار
+                    </a>
+                    <a href="#offers" class="hover:text-brandRed transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-tags text-xs opacity-70"></i> العروض الحصرية
+                    </a>
+                    <a href="#portfolio" class="hover:text-brandRed transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-photo-film text-xs opacity-70"></i> معرض الأعمال
+                    </a>
+                    <a href="#about" class="hover:text-brandRed transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-info text-xs opacity-70"></i> عن الوكالة
+                    </a>
+                </nav>
+
+                <!-- HEADER CONTROLS (LIGHT/DARK MODE + WHATSAPP CTA) -->
+                <div class="flex items-center gap-3">
+                    
+                    <!-- Dark / Light Mode Switcher Button -->
+                    <button id="theme-toggle" type="button" aria-label="Toggle Theme" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 flex items-center justify-center text-amber-400 dark:text-yellow-300 transition-all duration-300 active:scale-95">
+                        <i id="theme-toggle-dark-icon" class="fa-solid fa-moon text-base hidden"></i>
+                        <i id="theme-toggle-light-icon" class="fa-solid fa-sun text-base"></i>
+                    </button>
+
+                    <!-- Direct WhatsApp CTA Button -->
+                    <a href="https://wa.me/201020185275?text=مرحباً%20ES%20Design%20Agency،%20أرغب%20في%20الاستفسار%20عن%20الخدمات" target="_blank" class="glow-btn px-4 py-2 rounded-xl text-white font-bold text-xs sm:text-sm flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span class="hidden sm:inline">تواصل معنا</span>
+                    </a>
+
+                    <!-- Mobile Menu Toggle Button -->
+                    <button id="mobile-menu-btn" type="button" class="md:hidden w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
                 </div>
+
             </div>
 
-            <nav class="hidden md:flex items-center gap-8 text-sm text-gray-300">
-                <a href="#services" class="hover:text-esYellow transition-colors">الخدمات</a>
-                <a href="#about" class="hover:text-esYellow transition-colors">عن الوكالة</a>
-                <a href="#showcase" class="hover:text-esYellow transition-colors">عرض الأعمال</a>
-            </nav>
-
-            <a href="https://wa.me/201020185275" target="_blank" class="glow-button bg-gradient-to-r from-esRed to-esYellow text-black font-bold px-5 py-2.5 rounded-full text-sm flex items-center gap-2">
-                <i class="fa-brands font-bold fa-whatsapp text-lg"></i>
-                تواصل الآن
-            </a>
+            <!-- MOBILE NAVIGATION DROPDOWN MENU -->
+            <div id="mobile-menu" class="hidden md:hidden mt-2 bento-card p-5 border border-white/10 space-y-4">
+                <a href="#hero" class="block text-sm font-semibold text-white hover:text-brandRed transition-colors">
+                    <i class="fa-solid fa-house ml-2"></i> الرئيسية
+                </a>
+                <a href="#services" class="block text-sm font-semibold text-white hover:text-brandRed transition-colors">
+                    <i class="fa-solid fa-cubes ml-2"></i> الخدمات والأسعار
+                </a>
+                <a href="#offers" class="block text-sm font-semibold text-white hover:text-brandRed transition-colors">
+                    <i class="fa-solid fa-tags ml-2"></i> العروض الحصرية
+                </a>
+                <a href="#portfolio" class="block text-sm font-semibold text-white hover:text-brandRed transition-colors">
+                    <i class="fa-solid fa-photo-film ml-2"></i> معرض الأعمال
+                </a>
+                <a href="#about" class="block text-sm font-semibold text-white hover:text-brandRed transition-colors">
+                    <i class="fa-solid fa-circle-info ml-2"></i> عن الوكالة
+                </a>
+            </div>
         </div>
     </header>
 
-    <section class="pt-32 pb-16 px-6 md:px-12 max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            
-            <div class="lg:col-span-7 bento-card p-8 md:p-12 relative overflow-hidden flex flex-col justify-between min-h-[420px]">
-                <div class="absolute -top-20 -right-20 w-64 h-64 bg-esRed/20 rounded-full blur-3xl"></div>
+    <!-- MAIN CONTAINER FOR ALL SECTIONS -->
+    <main id="app-content" class="pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-16">
+
+        <!-- STAGE 2: HERO SECTION & BRAND CHARACTER SHOWCASE -->
+        <section id="hero" class="relative pt-4 pb-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 
-                <div>
-                    <span class="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-esYellow/30 text-esYellow text-xs font-semibold mb-6">
-                        🔥 شريكك الإبداعي للمستقبل
-                    </span>
-                    <h2 class="text-4xl md:text-6xl font-black leading-tight mb-4">
-                        نصنع هويتك البصرية <br>
-                        <span class="gradient-text">لتقود تغيير المستقبل</span>
-                    </h2>
-                    <p class="text-gray-400 text-base md:text-lg max-w-xl leading-relaxed">
-                        موقع متخصص في تصميم محتواك البصري وهويتك المتميزة أمام الجمهور في أي موقع وأي مكان. نحول أفكارك إلى واقع بصري جذاب.
+                <!-- RIGHT SIDE: TEXT CONTENT & CTAS -->
+                <div class="lg:col-span-7 space-y-6 text-right">
+                    
+                    <!-- BADGE -->
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bento-card border border-brandRed/30 text-xs sm:text-sm font-semibold text-brandYellow">
+                        <span class="w-2.5 h-2.5 rounded-full bg-brandRed animate-ping"></span>
+                        <i class="fa-solid fa-wand-magic-sparkles text-brandRed"></i>
+                        وكالة ES Design الرقمية • نبتكر المستقبلي دائماً
+                    </div>
+
+                    <!-- MAIN HEADLINE -->
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight text-white">
+                        نصنع <span class="gradient-text">الهويات البرمجية</span> والتصاميم الرقمية للمستقبل
+                    </h1>
+
+                    <!-- DESCRIPTION -->
+                    <p class="text-slate-300 dark:text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl font-normal">
+                        في <span class="font-bold text-white">ES Design Agency</span>، نحول رؤيتك إلى واقع رقمي مبهر. من تصميم المواقع والتطبيقات إلى تطوير الشات بوتس، الهويات البصرية، وإدارة المحتوى.
                     </p>
+
+                    <!-- ACTION BUTTONS -->
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a href="#services" class="glow-btn px-7 py-3.5 rounded-2xl text-white font-bold text-sm sm:text-base flex items-center gap-3">
+                            <span>استكشف خدماتنا وأسعارنا</span>
+                            <i class="fa-solid fa-arrow-left text-sm"></i>
+                        </a>
+                        <a href="https://wa.me/201020185275?text=مرحباً%20ES%20Design%20Agency،%20أرغب%20في%20بدء%20مشروع%20جديد" target="_blank" class="px-7 py-3.5 rounded-2xl bento-card border border-white/20 text-white hover:bg-white/10 font-bold text-sm sm:text-base flex items-center gap-2 transition-all">
+                            <i class="fa-brands fa-whatsapp text-green-400 text-lg"></i>
+                            <span>ابدأ مشروعك الآن</span>
+                        </a>
+                    </div>
+
+                    <!-- METRICS / STATS -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-white/10 max-w-lg">
+                        <div class="text-right">
+                            <span class="block text-2xl sm:text-3xl font-black gradient-text">+100</span>
+                            <span class="text-xs text-slate-400 font-semibold">مشروع وتصميم</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-2xl sm:text-3xl font-black text-brandYellow">100%</span>
+                            <span class="text-xs text-slate-400 font-semibold">جودة ودقة تنفيذ</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-2xl sm:text-3xl font-black text-brandGreenGlow">24/7</span>
+                            <span class="text-xs text-slate-400 font-semibold">دعم وتواصل متواصل</span>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="flex flex-wrap items-center gap-4 mt-8">
-                    <a href="https://wa.me/201020185275" target="_blank" class="bg-esRed hover:bg-red-700 text-white font-bold px-7 py-3 rounded-xl transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-paper-plane"></i>
-                        ابدأ مشروعك معنا
-                    </a>
-                    <a href="https://www.facebook.com/share/1DesKPK6a6/" target="_blank" class="bg-white/5 hover:bg-white/10 text-gray-300 font-semibold px-6 py-3 rounded-xl border border-white/10 transition-all flex items-center gap-2">
-                        <i class="fa-brands fa-facebook text-blue-500"></i>
-                        فيسبوك
-                    </a>
-                    <a href="https://www.instagram.com/eslam_amr_almasry" target="_blank" class="bg-white/5 hover:bg-white/10 text-gray-300 font-semibold px-6 py-3 rounded-xl border border-white/10 transition-all flex items-center gap-2">
-                        <i class="fa-brands fa-instagram text-pink-500"></i>
-                        انستغرام
-                    </a>
+                <!-- LEFT SIDE: MEDIA & BRAND CHARACTER SHOWCASE -->
+                <div class="lg:col-span-5 relative">
+                    
+                    <!-- MAIN CONTAINER FOR CHARACTER & ANIMATION -->
+                    <div class="bento-card p-4 relative overflow-hidden group">
+                        
+                        <!-- TYPOGRAPHY VIDEO / LOGO ANIMATION PREVIEW -->
+                        <div class="relative w-full aspect-video rounded-2xl overflow-hidden mb-4 border border-white/10 bg-black/60">
+                            <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                                <source src="Make_typography_logo_moves_202609022207.mp4" type="video/mp4">
+                            </video>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
+                                <span class="text-xs font-bold text-brandYellow flex items-center gap-1.5">
+                                    <i class="fa-solid fa-play text-brandRed"></i> ES Brand Motion Typography
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- BRAND CHARACTER IMAGE -->
+                        <div class="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                            <img src="Man_wearing_black_t-shirt_202608211307.jpeg" alt="ES Design Agency Character" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#051C14] via-transparent to-transparent opacity-80"></div>
+                            
+                            <!-- OVERLAY TEXT ON CHARACTER -->
+                            <div class="absolute bottom-4 right-4 left-4 p-3 rounded-xl backdrop-blur-md bg-black/40 border border-white/10 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-sm font-bold text-white">ES Official Character</h4>
+                                    <p class="text-[11px] text-slate-300">Follow The Future Changes</p>
+                                </div>
+                                <span class="px-2.5 py-1 rounded-lg bg-brandRed/80 text-white text-[10px] font-bold">
+                                    Brand Leader
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- FLOATING BADGE 1 -->
+                        <div class="absolute -top-2 -right-2 bento-card px-3.5 py-2 border border-brandYellow/40 shadow-xl flex items-center gap-2">
+                            <i class="fa-solid fa-crown text-brandYellow text-sm"></i>
+                            <span class="text-xs font-bold text-white">إبداع بلا حدود</span>
+                        </div>
+
+                        <!-- FLOATING BADGE 2 -->
+                        <div class="absolute -bottom-2 -left-2 bento-card px-3.5 py-2 border border-brandGreenGlow/40 shadow-xl flex items-center gap-2">
+                            <i class="fa-solid fa-bolt text-brandGreenGlow text-sm"></i>
+                            <span class="text-xs font-bold text-white">سرعة ودقة تنفيذ</span>
+                        </div>
+
+                    </div>
+
                 </div>
+
+            </div>
+        </section>
+
+        <!-- STAGE 3: SERVICES & INTERACTIVE PRICE CALCULATOR -->
+        <section id="services" class="space-y-12 pt-8">
+            
+            <!-- SECTION HEADER -->
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bento-card border border-brandRed/30 text-xs font-semibold text-brandYellow">
+                    <i class="fa-solid fa-calculator text-brandRed"></i>
+                    أسعار شفافة وخيارات مرنة
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-white">
+                    خدماتنا وحاسبة <span class="gradient-text">الأسعار التفاعلية</span>
+                </h2>
+                <p class="text-slate-300 text-sm sm:text-base">
+                    اختر الخدمات التي تحتاجها لحساب التكلفة التقديرية لمشروعك فوراً وبكل شفافية.
+                </p>
             </div>
 
-            <div class="lg:col-span-5 grid grid-cols-1 gap-6">
-                <div class="bento-card p-4 relative overflow-hidden group">
-                    <div class="aspect-video w-full rounded-xl overflow-hidden bg-black/60 relative">
-                        <video class="w-full h-full object-cover" autoplay loop muted playsinline>
-                            <source src="logo-animated.mp4" type="video/mp4">
-                            متصفحك لا يدعم تشغيل الفيديو.
-                        </video>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
-                            <span class="text-xs text-esYellow font-bold flex items-center gap-2">
-                                <span class="w-2 h-2 rounded-full bg-esRed animate-ping"></span>
-                                ES Brand Identity Motion
+            <!-- SERVICES BENTO GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- SERVICE CARD 1: WEBSITE DEVELOPMENT -->
+                <div class="bento-card p-6 flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute -top-10 -left-10 w-32 h-32 bg-brandRed/10 rounded-full blur-2xl group-hover:bg-brandRed/20 transition-all"></div>
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-brandRed/20 border border-brandRed/40 flex items-center justify-center text-brandRed text-xl">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">تصميم وتطوير المواقع</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            مواقع إلكترونية سريعة، متجاوبة، ومتوافقة مع محركات البحث (SEO) بأحدث التقنيات.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
+                        <span class="text-xs text-slate-400">يبدأ من</span>
+                        <span class="text-lg font-black text-brandYellow">1,650 - 10,000 ج.م</span>
+                    </div>
+                </div>
+
+                <!-- SERVICE CARD 2: SMART CHATBOT -->
+                <div class="bento-card p-6 flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute -top-10 -left-10 w-32 h-32 bg-brandYellow/10 rounded-full blur-2xl group-hover:bg-brandYellow/20 transition-all"></div>
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-brandYellow/20 border border-brandYellow/40 flex items-center justify-center text-brandYellow text-xl">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">تطوير شات بوت ذكي</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            نظام رد آلي ذكي يربط عملاءك بـ WhatsApp أو المنصات للرد على الاستفسارات وإتمام الطلبات.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
+                        <span class="text-xs text-slate-400">سعر ثابت</span>
+                        <span class="text-lg font-black text-brandYellow">2,000 ج.م</span>
+                    </div>
+                </div>
+
+                <!-- SERVICE CARD 3: SOCIAL MEDIA MANAGEMENT -->
+                <div class="bento-card p-6 flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute -top-10 -left-10 w-32 h-32 bg-brandGreenGlow/10 rounded-full blur-2xl group-hover:bg-brandGreenGlow/20 transition-all"></div>
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-brandGreenGlow/20 border border-brandGreenGlow/40 flex items-center justify-center text-brandGreenGlow text-xl">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">إدارة وجدولة المحتوى</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            تنظيم وتنفيذ خطة نشر احترافية وجدولة المنشورات لتفاعل دائم مع جمهورك.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
+                        <span class="text-xs text-slate-400">شهرياً</span>
+                        <span class="text-lg font-black text-brandYellow">800 ج.م</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- INTERACTIVE PRICE CALCULATOR BOX -->
+            <div class="bento-card p-6 sm:p-8 border border-brandRed/30 relative">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-brandRed/20 flex items-center justify-center text-brandRed">
+                        <i class="fa-solid fa-sliders text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg sm:text-xl font-bold text-white">حاسبة تقدير تكلفة المشروع</h3>
+                        <p class="text-xs text-slate-400">حدّد خياراتك وتعرف على التكلفة التقريبية فوراً</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <!-- OPTIONS FORM -->
+                    <div class="lg:col-span-7 space-y-4">
+                        
+                        <!-- Option 1: Website Range -->
+                        <div class="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <label for="website-calc" class="text-xs sm:text-sm font-semibold text-white flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" id="website-calc" class="accent-brandRed w-4 h-4 rounded" onchange="updateCalculatorTotal()">
+                                    تصميم موقع إلكتروني
+                                </label>
+                                <span class="text-xs font-bold text-brandYellow" id="website-price-display">0 ج.م</span>
+                            </div>
+                            <select id="website-tier" class="w-full bg-slate-900/90 text-white text-xs rounded-lg p-2.5 border border-white/10 focus:outline-none focus:border-brandRed hidden" onchange="updateCalculatorTotal()">
+                                <option value="1650">موقع تعريفي بسيط (1,650 ج.م)</option>
+                                <option value="4500">موقع شركـة متعدد الصفحات (4,500 ج.م)</option>
+                                <option value="10000">متجر إلكتروني / منصة مخصصة (10,000 ج.م)</option>
+                            </select>
+                        </div>
+
+                        <!-- Option 2: Chatbot -->
+                        <div class="p-4 rounded-xl bg-black/40 border border-white/10 flex items-center justify-between">
+                            <label for="chatbot-calc" class="text-xs sm:text-sm font-semibold text-white flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="chatbot-calc" class="accent-brandRed w-4 h-4 rounded" onchange="updateCalculatorTotal()">
+                                تطوير شات بوت ذكي للرد الآلي
+                            </label>
+                            <span class="text-xs font-bold text-brandYellow">2,000 ج.م</span>
+                        </div>
+
+                        <!-- Option 3: Social Media Management -->
+                        <div class="p-4 rounded-xl bg-black/40 border border-white/10 flex items-center justify-between">
+                            <label for="social-calc" class="text-xs sm:text-sm font-semibold text-white flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="social-calc" class="accent-brandRed w-4 h-4 rounded" onchange="updateCalculatorTotal()">
+                                إدارة وجدولة المحتوى (شهرياً)
+                            </label>
+                            <span class="text-xs font-bold text-brandYellow">800 ج.م</span>
+                        </div>
+
+                        <!-- Option 4: Addon Branding / Reels -->
+                        <div class="p-4 rounded-xl bg-black/40 border border-white/10 flex items-center justify-between">
+                            <label for="branding-calc" class="text-xs sm:text-sm font-semibold text-white flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="branding-calc" class="accent-brandRed w-4 h-4 rounded" onchange="updateCalculatorTotal()">
+                                إضافة هوية بصرية وتصاميم Reels
+                            </label>
+                            <span class="text-xs font-bold text-brandYellow">1,500 ج.م</span>
+                        </div>
+
+                    </div>
+
+                    <!-- RESULT DISPLAY & WHATSAPP SEND -->
+                    <div class="lg:col-span-5">
+                        <div class="p-6 rounded-2xl bg-gradient-to-br from-brandRed/20 to-brandDarkBg border border-brandRed/40 text-center space-y-4">
+                            <span class="text-xs font-semibold text-slate-300 block">الإجمالي التقديري</span>
+                            <div class="text-3xl sm:text-4xl font-black text-white" id="total-price-display">
+                                0 <span class="text-sm font-normal text-brandYellow">ج.م</span>
+                            </div>
+                            <p class="text-[11px] text-slate-400">
+                                الأسعار نهائية وتشمل الدفعة الأولى والتنفيذ الفوري.
+                            </p>
+                            <a id="calc-whatsapp-btn" href="https://wa.me/201020185275?text=مرحباً%20ES%20Design%20Agency،%20أرغب%20في%20طلب%20عرض%20سعر" target="_blank" class="glow-btn w-full py-3 rounded-xl text-white font-bold text-sm flex items-center justify-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                                <span>طلب الخدمة بهذا السعر</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- STAGE 4: EXCLUSIVE OFFERS & PORTFOLIO SHOWCASE -->
+        
+        <!-- SECTION 1: EXCLUSIVE OFFERS & PACKAGES -->
+        <section id="offers" class="space-y-12 pt-8">
+            
+            <!-- SECTION HEADER -->
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bento-card border border-brandYellow/40 text-xs font-semibold text-brandYellow">
+                    <i class="fa-solid fa-fire text-brandRed"></i>
+                    وفر أكثر مع الباقات المدمجة
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-white">
+                    العروض <span class="gradient-text">الحصرية والجاهزة</span>
+                </h2>
+                <p class="text-slate-300 text-sm sm:text-base">
+                    حزمة متكاملة لجميع خدماتك الرقمية بخصومات خاصة لتنفيذ حلول متكاملة لعلامتك التجارية.
+                </p>
+            </div>
+
+            <!-- PACKAGES GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- BUNDLE 1: STARTER DIGITAL PACKAGE -->
+                <div class="bento-card p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between border border-white/10 group hover:border-brandRed/50 transition-all">
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3.5 py-1 rounded-full bg-brandRed/20 border border-brandRed/40 text-brandRed font-bold text-xs">
+                                باقة الانطلاق السريع
                             </span>
+                            <span class="text-xs text-slate-400 font-medium">الأكثر طلباً للأعمال الناشئة</span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-black text-white">باقة الهوية الرقمية</h3>
+                            <p class="text-xs text-slate-300 mt-1">تأسيس حضورك الرقمي بشكل احترافي ومتناسق.</p>
+                        </div>
+
+                        <!-- FEATURES LIST -->
+                        <ul class="space-y-3 text-xs sm:text-sm text-slate-200">
+                            <li class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-circle-check text-brandGreenGlow text-base"></i>
+                                <span>تصميم موقع إلكتروني تعريفي متجاوب بالكامل.</span>
+                            </li>
+                            <li class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-circle-check text-brandGreenGlow text-base"></i>
+                                <span>إدارة وجدولة المحتوى على السوشيال ميديا (شهرياً).</span>
+                            </li>
+                            <li class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-circle-check text-brandGreenGlow text-base"></i>
+                                <span>تصميم 4 بوستات جرافيك + فيديو Reels حصري.</span>
+                            </li>
+                            <li class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-circle-check text-brandGreenGlow text-base"></i>
+                                <span>ربط مباشر لزر الواتساب والتواصل السريع.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-slate-400 block">التكلفة الشاملة</span>
+                            <span class="text-2xl font-black text-brandYellow">2,250 ج.م</span>
+                        </div>
+                        <a href="https://wa.me/201020185275?text=مرحباً%20ES%20Design%20Agency،%20أرغب%20في%20الاشتراك%20في%20باقة%20الهوية%20الرقمية" target="_blank" class="glow-btn px-5 py-2.5 rounded-xl text-white text-xs font-bold flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-base"></i>
+                            <span>احجز الباقة الآن</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- BUNDLE 2: PRO SMART BUSINESS PACKAGE -->
+                <div class="bento-card p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between border border-brandYellow/40 bg-gradient-to-br from-[#081C15] via-[#051C14] to-black group">
+                    <div class="absolute top-0 left-0 bg-brandYellow text-slate-950 font-black text-[10px] uppercase px-4 py-1 rounded-br-xl tracking-wider">
+                        العرض الذهبي المتكامل
+                    </div>
+
+                    <div class="space-y-6 pt-2">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3.5 py-1 rounded-full bg-brandYellow/20 border border-brandYellow/40 text-brandYellow font-bold text-xs">
+                                باقة التوسع والذكاء الاصطناعي
+                            </span>
+                            <span class="text-xs text-slate-400 font-medium">للمؤسسات والعيادات والشركات</span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-black text-white">الباقة الذكية الشاملة</h3>
+                            <p class="text-xs text-slate-300 mt-1">حل برمجي وتسويقي متكامل للأعمال ذات الحركة الكبيرة.</p>
+                        </div>
+
+                        <!-- FEATURES LIST -->
+                        <ul class="space-y-3 text-xs sm:text-sm text-slate-200">
+                            <li class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-circle-check text-brandGreenGlow text-base"></i>
+                                <span>موقع شركـة متعدد الصفحات محتويات متقدمة وخدمات حجز.</span>
+                            </li>
+                            <li class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-circle-check text-brandGreenGlow text-base"></i>
+                                <span>تطوير وتكامل شات بوت ذكي 24/7 للرد الآلي الفوري.</span>
+                            </li>
+                            <li class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-circle-check text-brandGreenGlow text-base"></i>
+                                <span>إدارة وجدولة المحتوى على المنصات مع تقارير تفاعل.</span>
+                            </li>
+                            <li class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-circle-check text-brandGreenGlow text-base"></i>
+                                <span>تصاميم هويات ومقاطع فيديو ترويجية قصيرة (Reels).</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-slate-400 block">التكلفة الشاملة</span>
+                            <span class="text-2xl font-black gradient-text">6,900 ج.م</span>
+                        </div>
+                        <a href="https://wa.me/201020185275?text=مرحباً%20ES%20Design%20Agency،%20أرغب%20في%20الاستفسار%20عن%20الباقة%20الذكية%20الشاملة" target="_blank" class="glow-btn px-5 py-2.5 rounded-xl text-white text-xs font-bold flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-base"></i>
+                            <span>طلب الباقة الذهبية</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 2: PORTFOLIO SHOWCASE (معرض الأعمال) -->
+        <section id="portfolio" class="space-y-12 pt-8">
+            
+            <!-- SECTION HEADER -->
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bento-card border border-brandRed/30 text-xs font-semibold text-brandYellow">
+                    <i class="fa-solid fa-photo-film text-brandRed"></i>
+                    إبداعات سابقة وتجارب حية
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-white">
+                    معرض <span class="gradient-text">الأعمال والتصاميم</span>
+                </h2>
+                <p class="text-slate-300 text-sm sm:text-base">
+                    نماذج مختارة من مشاريع التطوير البرمجي والهويات البصرية والفيديوهات الإبداعية.
+                </p>
+            </div>
+
+            <!-- PORTFOLIO BENTO GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- PORTFOLIO ITEM 1: PROMOTIONAL REEL VIDEO -->
+                <div class="bento-card p-4 space-y-3 group overflow-hidden">
+                    <div class="relative aspect-[9/16] rounded-xl overflow-hidden border border-white/10 bg-black">
+                        <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                            <source src="AQOpfAaw-rU2c8Y-f1v4YpE26K9Uu9wB9qH6D1d8e1Vf.mp4" type="video/mp4">
+                        </video>
+                        <div class="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md text-white text-[10px] font-bold border border-white/10">
+                            Reels & Motion
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-base font-bold text-white group-hover:text-brandRed transition-colors">إعلان ترويجي متحرك (Reels)</h4>
+                        <p class="text-xs text-slate-400 mt-1">صناعة إعلانات فيديو عالية التفاعل ومصممة خصيصاً للمنصات الاجتماعية.</p>
+                    </div>
+                </div>
+
+                <!-- PORTFOLIO ITEM 2: LAW & LEGAL SERVICES WEBSITE -->
+                <div class="bento-card p-4 space-y-3 group overflow-hidden md:col-span-2 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="relative aspect-video rounded-xl overflow-hidden border border-white/10 bg-black/50">
+                            <img src="3_20260820_150735_٠٠٠١.jpg" alt="المكتب المحاماة والخدمات القانونية" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md text-brandYellow text-[10px] font-bold border border-white/10">
+                                Web Development
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-white group-hover:text-brandRed transition-colors">منصة قانونية متكاملة لخدمات المحاماة</h4>
+                            <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                                موقع إلكتروني احترافي متجاوب بالكامل يتضمن استعراض الخدمات القانونية، نظام حجز المواعيد والاستشارات، وشات بوت مدمج للرد السريع.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-layer-group text-brandRed"></i> HTML5 / JS / Tailwind</span>
+                        <span class="text-brandGreenGlow font-semibold flex items-center gap-1"><i class="fa-solid fa-circle text-[8px]"></i> نشط ومنشور</span>
+                    </div>
+                </div>
+
+                <!-- PORTFOLIO ITEM 3: BRANDING LOGO CONCEPT -->
+                <div class="bento-card p-4 space-y-3 group overflow-hidden md:col-span-3">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                        <div class="md:col-span-5 relative aspect-video rounded-xl overflow-hidden border border-white/10 bg-black">
+                            <img src="Black White Minimalist Professional Initial Logo_20260820_151118_٠٠٠٠.jpg" alt="تصميم هوية بصرية" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="md:col-span-7 space-y-3">
+                            <span class="px-2.5 py-1 rounded-md bg-brandYellow/20 text-brandYellow text-[10px] font-bold border border-brandYellow/30">
+                                Identity & Branding
+                            </span>
+                            <h4 class="text-xl font-bold text-white">تصميم الهويات البصرية والشعارات المستقبلية</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                نبتكر شعارات تعكس روح ومستقبل العلامة التجارية، بأسلوب عصري يركز على البساطة، التناسق، وسهولة الاستخدام عبر جميع التطبيقات والمطبوعات.
+                            </p>
+                            <div class="flex items-center gap-4 pt-2">
+                                <a href="https://wa.me/201020185275?text=مرحباً%20ES%20Design%20Agency،%20أرغب%20في%20طلب%20تصميم%20هوية%20بصرية" target="_blank" class="text-xs font-bold text-brandRed hover:underline flex items-center gap-1.5">
+                                    <span>اطلب تصميم هويتك الخاصة</span>
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bento-card p-4 flex items-center gap-4">
-                    <div class="relative w-20 h-20 rounded-2xl overflow-hidden border-2 border-esYellow/50 shrink-0">
-                        <img src="character.jpeg" alt="ES Character" class="w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-white text-base">ES Brand Ambassador</h4>
-                        <p class="text-xs text-gray-400 mt-1">نُجّسد روح الابتكار والسرعة في صناعة المحتوى الرقمي الفاخر.</p>
-                    </div>
-                </div>
             </div>
 
-        </div>
-    </section>
+        </section>
 
-    <section id="services" class="py-16 px-6 md:px-12 max-w-7xl mx-auto">
-        <div class="text-center mb-12">
-            <h3 class="text-xs font-bold text-esYellow tracking-widest uppercase mb-2">خدمات الوكالة</h3>
-            <h2 class="text-3xl md:text-5xl font-extrabold">كل ما تحتاجه لبناء <span class="gradient-text">حضور بصري لا يُنسى</span></h2>
-        </div>
+        <!-- STAGE 5: ABOUT US, FAQ & CONTACT CTA -->
 
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-
-            <div class="bento-card p-8 md:col-span-2 flex flex-col justify-between">
-                <div class="w-14 h-14 rounded-2xl bg-esRed/10 border border-esRed/30 flex items-center justify-center text-esRed text-2xl mb-6">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-bold mb-3">التصاميم الجرافيكية والهويات البصرية</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        تصميم كافة التصاميم الجرافيكية، اللوجوهات، والمطبوعات، وتحديد الهوية البصرية الكاملة لعلامتك التجارية لتظهر بقوة أمام جمهورك.
-                    </p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-white/5 flex justify-between items-center text-xs text-esYellow font-semibold">
-                    <span>Branding & Visual Identity</span>
-                    <i class="fa-solid fa-arrow-left"></i>
-                </div>
-            </div>
-
-            <div class="bento-card p-8 flex flex-col justify-between">
-                <div class="w-14 h-14 rounded-2xl bg-esYellow/10 border border-esYellow/30 flex items-center justify-center text-esYellow text-2xl mb-6">
-                    <i class="fa-solid fa-video"></i>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold mb-3">الفيديوهات القصيرة (Reels & Shorts)</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        مونتاج وتجميع فيديوهات قصيرة احترافية بكل أنواعها لجذب انتباه الجمهور وزيادة التفاعل.
-                    </p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-white/5 text-xs text-gray-400">
-                    High Retention Editing
-                </div>
-            </div>
-
-            <div class="bento-card p-8 flex flex-col justify-between">
-                <div class="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-2xl mb-6">
-                    <i class="fa-solid fa-code"></i>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold mb-3">مواقع إلكترونية خاصة لك</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        تصميم وتطوير مواقع ويب سريعة وعصرية بأساليب التفاعل الحديثة لعرض خدماتك ومحتواك.
-                    </p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-white/5 text-xs text-gray-400">
-                    Custom Web Development
-                </div>
-            </div>
-
-            <div class="bento-card p-8 md:col-span-3 flex flex-col md:flex-row items-center justify-between gap-6">
-                <div class="flex items-center gap-6">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-esRed to-esYellow flex items-center justify-center text-black text-3xl font-bold shrink-0">
-                        <i class="fa-solid fa-calendar-check"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold mb-2">خدمة تنسيق وجدولة المحتوى على المواقع</h3>
-                        <p class="text-gray-400 text-sm max-w-2xl">
-                            إدارة متكاملة لنشر محتواك البصري في أوقاته القياسية على مختلف المنصات للوصول لأعلى معدل انتشار وتنظيم هويتك أمام المتابعين.
-                        </p>
-                    </div>
-                </div>
-                <a href="https://wa.me/201020185275" target="_blank" class="shrink-0 bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-3 rounded-xl transition-all">
-                    اطلب الخطة الآن
-                </a>
-            </div>
-
-            <div class="bento-card p-8 flex flex-col justify-center items-center text-center">
-                <div class="text-3xl font-black text-esYellow mb-1 font-jakarta">01020185275</div>
-                <p class="text-xs text-gray-400">دعم واستشارات سريعة عبر الواتساب</p>
-            </div>
-
-        </div>
-    </section>
-
-    <footer class="border-t border-white/5 py-12 px-6 md:px-12 bg-black/40">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex items-center gap-3">
-                <img src="logo.jpg" alt="Logo" class="w-8 h-8 rounded-lg">
-                <span class="font-bold font-jakarta text-sm">ES DESIGN AGENCY © 2026</span>
-            </div>
+        <!-- SECTION 1: ABOUT US (عن الوكالة) -->
+        <section id="about" class="space-y-12 pt-8">
             
-            <p class="text-xs text-gray-500">
-                Follow The Future Changes - جميع الحقوق محفوظة لوكالة ES Design
-            </p>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- TEXT & MISSION -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bento-card border border-brandRed/30 text-xs font-semibold text-brandYellow">
+                        <i class="fa-solid fa-circle-info text-brandRed"></i>
+                        عن وكالة ES Design Agency
+                    </div>
 
-            <div class="flex items-center gap-4 text-gray-400 text-lg">
-                <a href="https://wa.me/201020185275" target="_blank" class="hover:text-esYellow"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="https://www.facebook.com/share/1DesKPK6a6/" target="_blank" class="hover:text-esYellow"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.instagram.com/eslam_amr_almasry" target="_blank" class="hover:text-esYellow"><i class="fa-brands fa-instagram"></i></a>
+                    <h2 class="text-3xl sm:text-4xl font-black text-white leading-snug">
+                        شريكك الرقمي الموثوق لصناعة <span class="gradient-text">المستقبل والابتكار</span>
+                    </h2>
+
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        نحن وكالة متخصصة في تقديم الحلول البرمجية والتصميمية المتكاملة. ندمج بين الإبداع البصري والحلول البرمجية الذكية لمساعدة الشركاء والمؤسسات على تحقيق أقصى معدلات التفاعل والنمو.
+                    </p>
+
+                    <!-- VALUES / FEATURES GRID -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="bento-card p-4 border border-white/10 flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-brandRed/20 text-brandRed flex items-center justify-center shrink-0 text-lg">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">التزام ودقة بالمواعيد</h4>
+                                <p class="text-xs text-slate-400 mt-1">تسليم كافة المشاريع في الوقت المحدد وأعلى معايير الدقة.</p>
+                            </div>
+                        </div>
+
+                        <div class="bento-card p-4 border border-white/10 flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-brandYellow/20 text-brandYellow flex items-center justify-center shrink-0 text-lg">
+                                <i class="fa-solid fa-headset"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">دعم فني وتحديثات</h4>
+                                <p class="text-xs text-slate-400 mt-1">متابعة ودعم مستمر بعد تسليم العمل لضمان استقرار أداء موقعك.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QUICK CONTACT CARD -->
+                <div class="lg:col-span-5">
+                    <div class="bento-card p-6 sm:p-8 space-y-6 border border-brandRed/40 relative overflow-hidden bg-gradient-to-br from-[#081C15] to-[#051C14]">
+                        <h3 class="text-xl font-black text-white flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane text-brandRed"></i>
+                            تواصل مع الفريق مباشرة
+                        </h3>
+                        <p class="text-xs text-slate-300">
+                            جاهزون للرد على استفساراتك وبدء العمل على مشروعك فوراً.
+                        </p>
+
+                        <div class="space-y-4 text-xs font-semibold text-slate-200">
+                            <a href="https://wa.me/201020185275" target="_blank" class="p-3.5 rounded-xl bg-black/40 border border-white/10 flex items-center justify-between hover:border-brandGreenGlow transition-colors group">
+                                <span class="flex items-center gap-3">
+                                    <i class="fa-brands fa-whatsapp text-brandGreenGlow text-lg"></i>
+                                    <span>محادثة واتساب مباشرة</span>
+                                </span>
+                                <span class="text-brandYellow font-mono group-hover:translate-x-[-4px] transition-transform">+20 102 018 5275</span>
+                            </a>
+
+                            <div class="p-3.5 rounded-xl bg-black/40 border border-white/10 flex items-center justify-between">
+                                <span class="flex items-center gap-3">
+                                    <i class="fa-solid fa-clock text-brandYellow text-base"></i>
+                                    <span>ساعات العمل والتواصل</span>
+                                </span>
+                                <span class="text-slate-400">24 / 7 طوال الأسبوع</span>
+                            </div>
+                        </div>
+
+                        <a href="https://wa.me/201020185275?text=مرحباً%20ES%20Design%20Agency،%20أرغب%20في%20استشارة%20مجانية" target="_blank" class="glow-btn w-full py-3.5 rounded-xl text-white font-bold text-xs flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-comments"></i>
+                            <span>احصل على استشارة مجانية الآن</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- SECTION 2: FREQUENTLY ASKED QUESTIONS (الأسئلة الشائعة) -->
+        <section class="space-y-8 pt-8">
+            <div class="text-center max-w-2xl mx-auto space-y-3">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bento-card border border-brandYellow/40 text-xs font-semibold text-brandYellow">
+                    <i class="fa-solid fa-circle-question text-brandRed"></i>
+                    إجابات ودليلك السريع
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-black text-white">الأسئلة <span class="gradient-text">الشائعة</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+                <div class="bento-card p-5 space-y-2">
+                    <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-q text-brandRed text-xs"></i> كم تستغرق مدة تنفيذ موقعي أو مشروعي؟
+                    </h4>
+                    <p class="text-xs text-slate-300 leading-relaxed pr-5">
+                        المواقع البسيطة والشات بوت تستغرق بين 3 إلى 5 أيام عمل، بينما المشاريع الكبيرة والباقات الشاملة تستغرق من 7 إلى 12 يوم عمل.
+                    </p>
+                </div>
+
+                <div class="bento-card p-5 space-y-2">
+                    <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-q text-brandRed text-xs"></i> ما هي طرق الدفع المتاحة؟
+                    </h4>
+                    <p class="text-xs text-slate-300 leading-relaxed pr-5">
+                        نوفر الدفع عبر فودافون كاش، المحافظ الإلكترونية، الحوالات البنكية، والوسائل المتاحة داخل وخارج مصر مع دفع عربون 50% وتكملة المتبقي عند التسليم.
+                    </p>
+                </div>
+
+                <div class="bento-card p-5 space-y-2">
+                    <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-q text-brandRed text-xs"></i> هل الموقع سيكون متجاوباً مع الهواتف؟
+                    </h4>
+                    <p class="text-xs text-slate-300 leading-relaxed pr-5">
+                        بالتأكيد! تصميم جميع مواقعنا يعتمد تقنيات Responsive design لتظهر بشكل مذهل وسريع على كافة أجهزة الموبايل والشاشات.
+                    </p>
+                </div>
+
+                <div class="bento-card p-5 space-y-2">
+                    <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-q text-brandRed text-xs"></i> هل توجد صيانة بعد تسليم الموقع؟
+                    </h4>
+                    <p class="text-xs text-slate-300 leading-relaxed pr-5">
+                        نعم، نقدم دعم فني مجاني وتحديثات أولية لمدة شهر كامل بعد تسليم أي مشروع لضمان سير العمل بسلاسة.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <!-- END OF MAIN CONTENT CONTAINER -->
+
+    <!-- STAGE 6: FOOTER & INTERACTIVE JAVASCRIPT LOGIC -->
+    <footer class="border-t border-white/10 bg-black/40 backdrop-blur-lg mt-20 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                
+                <!-- LOGO & BRAND TEXT -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl overflow-hidden border border-white/20 p-0.5 bg-black/40">
+                        <img src="Black White Minimalist Professional Initial Logo_20260820_151118_٠٠٠٠.jpg" alt="ES Design Agency Logo" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-base font-black tracking-wider text-white">
+                            ES <span class="gradient-text">DESIGN</span> AGENCY
+                        </span>
+                        <span class="text-[9px] font-semibold text-brandYellow tracking-widest -mt-1 opacity-90">
+                            FOLLOW THE FUTURE CHANGES
+                        </span>
+                    </div>
+                </div>
+
+                <!-- FOOTER NAVIGATION LINKS -->
+                <div class="flex flex-wrap justify-center gap-6 text-xs font-semibold text-slate-400">
+                    <a href="#hero" class="hover:text-brandRed transition-colors">الرئيسية</a>
+                    <a href="#services" class="hover:text-brandRed transition-colors">الخدمات والأسعار</a>
+                    <a href="#offers" class="hover:text-brandRed transition-colors">العروض الحصرية</a>
+                    <a href="#portfolio" class="hover:text-brandRed transition-colors">معرض الأعمال</a>
+                    <a href="#about" class="hover:text-brandRed transition-colors">عن الوكالة</a>
+                </div>
+
+                <!-- SOCIAL & CONTACT ICONS -->
+                <div class="flex items-center gap-3 text-slate-300">
+                    <a href="https://wa.me/201020185275" target="_blank" class="w-9 h-9 rounded-xl bento-card flex items-center justify-center hover:text-brandGreenGlow hover:border-brandGreenGlow transition-colors">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                    </a>
+                    <a href="https://facebook.com" target="_blank" class="w-9 h-9 rounded-xl bento-card flex items-center justify-center hover:text-blue-500 hover:border-blue-500 transition-colors">
+                        <i class="fa-brands fa-facebook-f text-sm"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="w-9 h-9 rounded-xl bento-card flex items-center justify-center hover:text-pink-500 hover:border-pink-500 transition-colors">
+                        <i class="fa-brands fa-instagram text-sm"></i>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-white/5 text-center text-xs text-slate-500">
+                &copy; 2026 ES Design Agency. جميع الحقوق محفوظة • Follow The Future Changes.
             </div>
         </div>
     </footer>
 
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // 1. Theme Toggle Functionality (Dark / Light Mode)
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+        themeToggleBtn.addEventListener('click', function() {
+            document.documentElement.classList.toggle('light');
+            document.documentElement.classList.toggle('dark');
+            
+            darkIcon.classList.toggle('hidden');
+            lightIcon.classList.toggle('hidden');
+        });
+
+        // 2. Mobile Navigation Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 3. Interactive Price Calculator Logic
+        function updateCalculatorTotal() {
+            const websiteCalc = document.getElementById('website-calc');
+            const websiteTier = document.getElementById('website-tier');
+            const websitePriceDisplay = document.getElementById('website-price-display');
+            
+            const chatbotCalc = document.getElementById('chatbot-calc');
+            const socialCalc = document.getElementById('social-calc');
+            const brandingCalc = document.getElementById('branding-calc');
+            
+            const totalPriceDisplay = document.getElementById('total-price-display');
+            const calcWhatsappBtn = document.getElementById('calc-whatsapp-btn');
+
+            let total = 0;
+            let selectedServices = [];
+
+            // Website Option
+            if (websiteCalc.checked) {
+                websiteTier.classList.remove('hidden');
+                const websiteVal = parseInt(websiteTier.value) || 0;
+                total += websiteVal;
+                websitePriceDisplay.textContent = websiteVal.toLocaleString('ar-EG') + ' ج.م';
+                selectedServices.push(`تصميم موقع (${websiteVal} ج.م)`);
+            } else {
+                websiteTier.classList.add('hidden');
+                websitePriceDisplay.textContent = '0 ج.م';
+            }
+
+            // Chatbot Option
+            if (chatbotCalc.checked) {
+                total += 2000;
+                selectedServices.push('شات بوت ذكي (2,000 ج.م)');
+            }
+
+            // Social Media Option
+            if (socialCalc.checked) {
+                total += 800;
+                selectedServices.push('إدارة محتوى (800 ج.م)');
+            }
+
+            // Branding Option
+            if (brandingCalc.checked) {
+                total += 1500;
+                selectedServices.push('هوية بصرية وReels (1,500 ج.م)');
+            }
+
+            // Display Total
+            totalPriceDisplay.innerHTML = `${total.toLocaleString('ar-EG')} <span class="text-sm font-normal text-brandYellow">ج.م</span>`;
+
+            // Update WhatsApp URL
+            let message = `مرحباً ES Design Agency، أود طلب خدمات بقيمة إجمالية ${total} ج.م:`;
+            if (selectedServices.length > 0) {
+                message += '%0A- ' + selectedServices.join('%0A- ');
+            } else {
+                message = 'مرحباً ES Design Agency، أرغب في الاستفسار عن الخدمات';
+            }
+
+            calcWhatsappBtn.href = `https://wa.me/201020185275?text=${message}`;
+        }
+
+        // Initial trigger on load
+        document.addEventListener('DOMContentLoaded', updateCalculatorTotal);
+    </script>
+
 </body>
-                        </html>
+    </html>
