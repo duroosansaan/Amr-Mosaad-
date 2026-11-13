@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتب المستشار عمرو مسعد ثابت | المحامي بالنقض - مدينة العبور</title>
+    <meta name="description" content="الموقع الرسمي لمكتب المستشار عمرو مسعد ثابت المحامي بالنقض بمدينة العبور. حجز الاستشارات القانونية المتخصصة في القضايا المدنية، الجنائية، الأسرة، ومجلس الدولة.">
+    
+    <!-- Google Fonts: IBM Plex Sans Arabic & Cairo for crisp geometric Arabic typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Configuration for Brand Colors & Theme -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#FFC411',
+                            goldHover: '#E5AE09',
+                            cream: '#FFF0A3',
+                            creamLight: '#FFFBEB',
+                            obsidian: '#0F0F0F',
+                            charcoal: '#171717',
+                            surfaceDark: '#1E1E1E',
+                            borderDark: '#2E2E2E'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"IBM Plex Sans Arabic"', '"Cairo"', 'sans-serif'],
+                        display: ['"Cairo"', '"IBM Plex Sans Arabic"', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'minimal': '0 4px 24px -2px rgba(15, 15, 15, 0.04)',
+                        'minimal-hover': '0 12px 32px -4px rgba(15, 15, 15, 0.08)',
+                        'gold-glow': '0 8px 24px -4px rgba(255, 196, 17, 0.35)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Styling & Smooth Transitions */
+        body {
+            font-family: 'IBM Plex Sans Arabic', 'Cairo', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.4);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFC411;
+        }
+        /* Subtle fade animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.35s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-[#FAFAFA] text-[#0F0F0F] dark:bg-[#0F0F0F] dark:text-[#F5F5F5] antialiased selection:bg-[#FFC411] selection:text-[#0F0F0F]">
+
+    <!-- Toast Notification Container (Replaces alert()) -->
+    <div id="toast-container" class="fixed bottom-5 left-5 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+    <!-- ==================== NAVBAR ==================== -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/85 dark:bg-[#0F0F0F]/85 border-b border-neutral-200/70 dark:border-neutral-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Brand Logo & Name -->
+                <a href="#home" onclick="switchView('main')" class="flex items-center gap-3.5 group">
+                    <div class="w-11 h-11 rounded-2xl bg-[#0F0F0F] dark:bg-[#FFC411] flex items-center justify-center text-[#FFC411] dark:text-[#0F0F0F] shadow-sm transition-transform duration-300 group-hover:scale-105">
+                        <!-- Custom Minimalist Scale/Law Emblem SVG -->
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+                            <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+                            <path d="M7 21h10"/>
+                            <path d="M12 3v18"/>
+                            <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="font-display font-bold text-base sm:text-lg leading-tight tracking-tight text-[#0F0F0F] dark:text-white">
+                            مكتب المستشار عمرو مسعد ثابت
+                        </div>
+                        <div class="text-xs font-medium text-neutral-500 dark:text-[#FFF0A3]/80 mt-0.5">
+                            المحامي بالنقض • مدينة العبور
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav id="desktop-nav" class="hidden lg:flex items-center gap-8 text-sm font-medium text-neutral-600 dark:text-neutral-300">
+                    <a href="#home" onclick="switchView('main')" class="hover:text-[#0F0F0F] dark:hover:text-[#FFC411] transition-colors">الرئيسية</a>
+                    <a href="#about" onclick="switchView('main')" class="hover:text-[#0F0F0F] dark:hover:text-[#FFC411] transition-colors">عن المكتب</a>
+                    <a href="#services" onclick="switchView('main')" class="hover:text-[#0F0F0F] dark:hover:text-[#FFC411] transition-colors">التخصصات القانونية</a>
+                    <a href="#booking" onclick="switchView('main')" class="hover:text-[#0F0F0F] dark:hover:text-[#FFC411] transition-colors">حجز استشارة</a>
+                    <a href="#contact" onclick="switchView('main')" class="hover:text-[#0F0F0F] dark:hover:text-[#FFC411] transition-colors">تواصل معنا</a>
+                </nav>
+
+                <!-- Action Buttons (Theme Toggle, Admin Access, CTA) -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <!-- Light/Dark Theme Switcher -->
+                    <button id="theme-toggle" aria-label="تبديل المظهر" class="p-2.5 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#171717] text-neutral-700 dark:text-neutral-200 hover:border-[#FFC411] dark:hover:border-[#FFC411] transition-all">
+                        <i data-lucide="moon" class="w-4 h-4 block dark:hidden"></i>
+                        <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-[#FFC411]"></i>
+                    </button>
+
+                    <!-- Admin Dashboard Button -->
+                    <button onclick="openAdminModal()" title="لوحة تحكم الإدارة" class="p-2.5 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#171717] text-neutral-700 dark:text-neutral-200 hover:border-[#FFC411] dark:hover:border-[#FFC411] transition-all flex items-center gap-1.5 text-xs font-medium">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-[#FFC411]"></i>
+                        <span class="hidden sm:inline">الإدارة</span>
+                    </button>
+
+                    <!-- Primary Book CTA -->
+                    <a href="#booking" onclick="switchView('main')" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FFC411] hover:bg-[#E5AE09] text-[#0F0F0F] font-semibold text-sm shadow-gold-glow transition-all">
+                        <span>احجز موعدك</span>
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    </a>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button id="mobile-menu-btn" aria-label="القائمة" class="lg:hidden p-2.5 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#171717]">
+                        <i data-lucide="menu" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#141414] px-4 pt-3 pb-6 space-y-2">
+            <a href="#home" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800">الرئيسية</a>
+            <a href="#about" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800">عن المكتب</a>
+            <a href="#services" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800">التخصصات القانونية</a>
+            <a href="#booking" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800">حجز استشارة</a>
+            <a href="#contact" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800">تواصل معنا</a>
+            <div class="pt-2">
+                <a href="#booking" onclick="closeMobileMenu()" class="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#FFC411] text-[#0F0F0F] font-bold text-sm">
+                    <span>احجز استشارتك الآن</span>
+                    <i data-lucide="calendar-check" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== MAIN WEBSITE VIEW ==================== -->
+    <main id="main-website-view">
+
+        <!-- 1. HERO SECTION -->
+        <section id="home" class="relative pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden">
+            <!-- Subtle Background Accent -->
+            <div class="absolute inset-0 pointer-events-none overflow-hidden">
+                <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#FFF0A3]/40 dark:bg-[#FFC411]/5 blur-3xl"></div>
+                <div class="absolute top-1/2 -right-24 w-80 h-80 rounded-full bg-[#FFC411]/15 dark:bg-[#FFC411]/5 blur-3xl"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+                    
+                    <!-- Right Content (Text & CTAs) -->
+                    <div class="lg:col-span-7 space-y-7 text-right">
+                        <!-- Status Badge -->
+                        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#FFF0A3]/70 dark:bg-[#FFC411]/15 border border-[#FFC411]/40 text-[#0F0F0F] dark:text-[#FFF0A3] text-xs sm:text-sm font-semibold">
+                            <span class="w-2 h-2 rounded-full bg-[#FFC411] animate-pulse"></span>
+                            <span>محامي بالنقض • استشارات قانونية بحجز مسبق</span>
+                        </div>
+
+                        <!-- Main Headline -->
+                        <h1 class="font-display font-extrabold text-3xl sm:text-5xl lg:text-[3.25rem] leading-[1.22] tracking-tight text-[#0F0F0F] dark:text-white">
+                            مكتب المستشار <br>
+                            <span class="relative inline-block">
+                                <span class="relative z-10">عمرو مسعد ثابت</span>
+                                <span class="absolute bottom-1.5 right-0 w-full h-3 bg-[#FFC411]/60 dark:bg-[#FFC411]/30 -z-0 rounded-sm"></span>
+                            </span>
+                            <span class="block text-xl sm:text-2xl lg:text-3xl font-bold text-neutral-600 dark:text-neutral-300 mt-3">
+                                المحامي بالنقض والدستورية والإدارية العليا
+                            </span>
+                        </h1>
+
+                        <!-- Minimalist Intro Paragraph -->
+                        <p class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
+                            نقدم تمثيلاً قانونياً رفيع المستوى واستشارات قانونية متخصصة للأفراد والشركات بمدينة العبور، وفق أعلى معايير الدقة والسرية والالتزام المهني.
+                        </p>
+
+                        <!-- Action Buttons -->
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+                            <a href="#booking" class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl bg-[#FFC411] hover:bg-[#E5AE09] text-[#0F0F0F] font-bold text-base shadow-gold-glow transition-all">
+                                <i data-lucide="calendar" class="w-5 h-5"></i>
+                                <span>احجز استشارتك بالمكتب</span>
+                            </a>
+                            <a href="https://wa.me/201033553055" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl bg-white dark:bg-[#171717] hover:bg-neutral-50 dark:hover:bg-[#222222] text-[#0F0F0F] dark:text-white border border-neutral-200 dark:border-neutral-800 font-semibold text-base shadow-minimal transition-all">
+                                <i data-lucide="message-circle" class="w-5 h-5 text-emerald-600 dark:text-emerald-400"></i>
+                                <span>تواصل عبر واتساب</span>
+                            </a>
+                        </div>
+
+                        <!-- Quick Key Info Pills -->
+                        <div class="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-neutral-200/80 dark:border-neutral-800">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-white dark:bg-[#171717] border border-neutral-200/80 dark:border-neutral-800 flex items-center justify-center text-[#0F0F0F] dark:text-[#FFC411] shrink-0">
+                                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-neutral-500 dark:text-neutral-400">مقر المكتب</div>
+                                    <div class="text-sm font-bold">مدينة العبور</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-white dark:bg-[#171717] border border-neutral-200/80 dark:border-neutral-800 flex items-center justify-center text-[#0F0F0F] dark:text-[#FFC411] shrink-0">
+                                    <i data-lucide="clock" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-neutral-500 dark:text-neutral-400">مواعيد العمل</div>
+                                    <div class="text-sm font-bold">السبت - الخميس (5 - 10 م)</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-white dark:bg-[#171717] border border-neutral-200/80 dark:border-neutral-800 flex items-center justify-center text-[#0F0F0F] dark:text-[#FFC411] shrink-0">
+                                    <i data-lucide="banknote" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-neutral-500 dark:text-neutral-400">رسوم الاستشارة</div>
+                                    <div class="text-sm font-bold">1000 ج.م (30 دقيقة)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Left Visual Card (Minimalist Architectural Legal Card) -->
+                    <div class="lg:col-span-5">
+                        <div class="relative rounded-3xl bg-white dark:bg-[#171717] border border-neutral-200/90 dark:border-neutral-800 p-7 sm:p-9 shadow-minimal">
+                            <!-- Top Gold Accent Line -->
+                            <div class="w-16 h-1.5 rounded-full bg-[#FFC411] mb-6"></div>
+                            
+                            <div class="space-y-6">
+                                <div class="flex items-start justify-between gap-4">
+                                    <div>
+                                        <span class="text-xs font-semibold uppercase tracking-wider text-neutral-400">بطاقة تعريف المكتب</span>
+                                        <h2 class="font-display font-bold text-2xl mt-1 text-[#0F0F0F] dark:text-white">
+                                            الأستاذ عمرو مسعد ثابت
+                                        </h2>
+                                        <p class="text-sm font-semibold text-amber-700 dark:text-[#FFC411] mt-1">
+                                            محامي بالنقض
+                                        </p>
+                                    </div>
+                                    <div class="w-14 h-14 rounded-2xl bg-[#FFF0A3]/60 dark:bg-[#FFC411]/15 flex items-center justify-center text-[#0F0F0F] dark:text-[#FFC411] shrink-0">
+                                        <i data-lucide="scale" class="w-7 h-7"></i>
+                                    </div>
+                                </div>
+
+                                <div class="p-4 rounded-2xl bg-[#FAFAFA] dark:bg-[#0F0F0F] border border-neutral-200/70 dark:border-neutral-800 space-y-3 text-sm">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-neutral-500 dark:text-neutral-400">نظام المقابلات:</span>
+                                        <span class="font-semibold text-[#0F0F0F] dark:text-white">حضوري بالمكتب (بحجز مسبق)</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-neutral-500 dark:text-neutral-400">مدة الاستشارة:</span>
+                                        <span class="font-semibold text-[#0F0F0F] dark:text-white">30 دقيقة</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-neutral-500 dark:text-neutral-400">سداد الرسوم:</span>
+                                        <span class="font-semibold text-[#0F0F0F] dark:text-white">بالمكتب يوم الاستشارة</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-neutral-500 dark:text-neutral-400">الإجازة الأسبوعية:</span>
+                                        <span class="font-semibold text-rose-600 dark:text-rose-400">الجمعة</span>
+                                    </div>
+                                </div>
+
+                                <div class="pt-2 space-y-3">
+                                    <div class="text-xs font-medium text-neutral-500 dark:text-neutral-400">أرقام التواصل المباشر والواتساب:</div>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        <a href="tel:01033553055" dir="ltr" class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#0F0F0F] dark:bg-neutral-800 text-white hover:bg-neutral-800 dark:hover:bg-neutral-700 font-semibold text-sm transition-colors">
+                                            <i data-lucide="phone" class="w-4 h-4 text-[#FFC411]"></i>
+                                            <span>0103 355 3055</span>
+                                        </a>
+                                        <a href="tel:01220878701" dir="ltr" class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#0F0F0F] dark:bg-neutral-800 text-white hover:bg-neutral-800 dark:hover:bg-neutral-700 font-semibold text-sm transition-colors">
+                                            <i data-lucide="phone" class="w-4 h-4 text-[#FFC411]"></i>
+                                            <span>0122 087 8701</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ABOUT & PROFESSIONAL VALUES SECTION -->
+        <section id="about" class="py-20 bg-white dark:bg-[#141414] border-y border-neutral-200/70 dark:border-neutral-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto text-center space-y-4 mb-14">
+                    <span class="inline-block px-3.5 py-1 rounded-full bg-[#FFF0A3]/70 dark:bg-[#FFC411]/15 text-xs font-bold text-[#0F0F0F] dark:text-[#FFC411]">
+                        عن المكتب ومنهجية العمل
+                    </span>
+                    <h2 class="font-display font-bold text-3xl sm:text-4xl text-[#0F0F0F] dark:text-white">
+                        الخبرة القانونية الرصينة في خدمة العدالة
+                    </h2>
+                    <p class="text-neutral-600 dark:text-neutral-400 text-base sm:text-lg leading-relaxed">
+                        يلتزم مكتب المستشار عمرو مسعد ثابت المحامي بالنقض بتقديم دراسة قانونية متعمقة لكل ملف، مع الحرص الكامل على تنظيم المواعيد لضمان تخصيص الوقت الكافي لكل موكل.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Pillar 1 -->
+                    <div class="p-7 rounded-3xl bg-[#FAFAFA] dark:bg-[#171717] border border-neutral-200/80 dark:border-neutral-800 hover:border-[#FFC411] transition-all">
+                        <div class="w-12 h-12 rounded-2xl bg-[#FFF0A3] dark:bg-[#FFC411]/20 flex items-center justify-center text-[#0F0F0F] dark:text-[#FFC411] mb-5">
+                            <i data-lucide="award" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl mb-2.5">التمثيل أمام محكمة النقض</h3>
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                            خبرة قانونية معتمدة في صياغة الطعون بالنقض والمذكرات القانونية أمام المحاكم العليا ومحاكم الاستئناف ومجلس الدولة.
+                        </p>
+                    </div>
+
+                    <!-- Pillar 2 -->
+                    <div class="p-7 rounded-3xl bg-[#FAFAFA] dark:bg-[#171717] border border-neutral-200/80 dark:border-neutral-800 hover:border-[#FFC411] transition-all">
+                        <div class="w-12 h-12 rounded-2xl bg-[#FFF0A3] dark:bg-[#FFC411]/20 flex items-center justify-center text-[#0F0F0F] dark:text-[#FFC411] mb-5">
+                            <i data-lucide="lock" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl mb-2.5">السرية والخصوصية المطلقة</h3>
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                            تُعامل كافة المستندات والبيانات والمناقشات القانونية بسرية تامة وفقاً لأصول وتقاليد مهنة المحاماة في مصر.
+                        </p>
+                    </div>
+
+                    <!-- Pillar 3 -->
+                    <div class="p-7 rounded-3xl bg-[#FAFAFA] dark:bg-[#171717] border border-neutral-200/80 dark:border-neutral-800 hover:border-[#FFC411] transition-all">
+                        <div class="w-12 h-12 rounded-2xl bg-[#FFF0A3] dark:bg-[#FFC411]/20 flex items-center justify-center text-[#0F0F0F] dark:text-[#FFC411] mb-5">
+                            <i data-lucide="calendar-clock" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl mb-2.5">انضباط المواعيد والحجز المسبق</h3>
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                            تُعقد الاستشارات حضورياً بالمكتب بمدينة العبور بنظام الحجز المسبق لمدة 30 دقيقة لكل موعد منعاً للانتظار.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. LEGAL SERVICES CATALOG -->
+        <section id="services" class="py-20 lg:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+                    <div class="space-y-3 max-w-2xl">
+                        <span class="inline-block px-3.5 py-1 rounded-full bg-[#FFF0A3]/70 dark:bg-[#FFC411]/15 text-xs font-bold text-[#0F0F0F] dark:text-[#FFC411]">
+                            التخصصات القانونية
+                        </span>
+                        <h2 class="font-display font-bold text-3xl sm:text-4xl text-[#0F0F0F] dark:text-white">
+                            مجالات الممارسة والخدمات القانونية
+                        </h2>
+                        <p class="text-neutral-600 dark:text-neutral-400 text-base">
+                            اختر التخصص القانوني المناسب لموضوعك لحجز استشارة حضورية متخصصة بمقر المكتب.
+                        </p>
+                    </div>
+                    <div class="text-sm font-semibold text-neutral-700 dark:text-neutral-300 bg-white dark:bg-[#171717] px-4 py-2.5 rounded-2xl border border-neutral-200 dark:border-neutral-800">
+                        رسوم الاستشارة الموحدة: <span class="text-[#0F0F0F] dark:text-[#FFC411] font-bold">1000 جنيه مصري</span>
+                    </div>
+                </div>
+
+                <!-- Dynamic Services Grid (Populated via JS so Admin edits reflect automatically) -->
+                <div id="services-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Rendered dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. CONSULTATION BOOKING SYSTEM -->
+        <section id="booking" class="py-20 lg:py-24 bg-white dark:bg-[#141414] border-y border-neutral-200/70 dark:border-neutral-800">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center max-w-2xl mx-auto space-y-3 mb-12">
+                    <span class="inline-block px-3.5 py-1 rounded-full bg-[#FFF0A3]/70 dark:bg-[#FFC411]/15 text-xs font-bold text-[#0F0F0F] dark:text-[#FFC411]">
+                        نظام الحجز الإلكتروني
+                    </span>
+                    <h2 class="font-display font-bold text-3xl sm:text-4xl text-[#0F0F0F] dark:text-white">
+                        احجز موعد استشارتك القانونية
+                    </h2>
+                    <p class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
+                        اختر التخصص واليوم والساعة المناسبة، وسيتم تحويل بيانات حجزك مباشرة عبر الواتساب لتأكيد الموعد.
+                    </p>
+                </div>
+
+                <!-- Booking Policy Banner -->
+                <div class="mb-8 p-5 rounded-2xl bg-[#FFF0A3]/45 dark:bg-[#FFC411]/10 border border-[#FFC411]/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-xl bg-[#FFC411] text-[#0F0F0F] flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
+                            <i data-lucide="info" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-display font-bold text-base text-[#0F0F0F] dark:text-white">
+                                الاستشارة حضورية بمقر المكتب • المدة 30 دقيقة
+                            </h4>
+                            <p class="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 mt-0.5">
+                                مواعيد العمل من <strong>السبت إلى الخميس</strong> (من 5:00 مساءً حتى 10:00 مساءً). يتم سداد الرسوم بالمكتب يوم الاستشارة.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-4 py-2 rounded-xl bg-[#0F0F0F] text-[#FFC411] font-display font-bold text-base whitespace-nowrap self-end sm:self-center">
+                        1000 ج.م
+                    </div>
+                </div>
+
+                <!-- Main Booking Card -->
+                <form id="booking-form" class="rounded-3xl bg-[#FAFAFA] dark:bg-[#171717] border border-neutral-200 dark:border-neutral-800 p-6 sm:p-10 shadow-minimal space-y-8">
+                    
+                    <!-- STEP 1: Legal Specialization -->
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-[#0F0F0F] dark:bg-[#FFC411] text-[#FFC411] dark:text-[#0F0F0F] font-bold text-sm flex items-center justify-center">1</span>
+                            <h3 class="font-display font-bold text-lg sm:text-xl">اختر التخصص القانوني</h3>
+                        </div>
+                        <div>
+                            <select id="booking-specialization" required class="w-full px-4 py-3.5 rounded-2xl bg-white dark:bg-[#0F0F0F] border border-neutral-300 dark:border-neutral-700 text-[#0F0F0F] dark:text-white font-medium text-sm sm:text-base focus:outline-none focus:border-[#FFC411] focus:ring-2 focus:ring-[#FFC411]/20 transition-all">
+                                <!-- Options populated dynamically -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <hr class="border-neutral-200 dark:border-neutral-800">
+
+                    <!-- STEP 2: Date & 30-Minute Time Slot -->
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-[#0F0F0F] dark:bg-[#FFC411] text-[#FFC411] dark:text-[#0F0F0F] font-bold text-sm flex items-center justify-center">2</span>
+                            <h3 class="font-display font-bold text-lg sm:text-xl">اختر اليوم والموعد المتاح (30 دقيقة)</h3>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                            <!-- Date Picker -->
+                            <div class="md:col-span-5 space-y-2">
+                                <label for="booking-date" class="block text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+                                    تاريخ الاستشارة (السبت - الخميس)
+                                </label>
+                                <input type="date" id="booking-date" required class="w-full px-4 py-3.5 rounded-2xl bg-white dark:bg-[#0F0F0F] border border-neutral-300 dark:border-neutral-700 text-[#0F0F0F] dark:text-white font-medium text-sm focus:outline-none focus:border-[#FFC411] focus:ring-2 focus:ring-[#FFC411]/20">
+                                <p id="date-helper-text" class="text-xs text-neutral-500 dark:text-neutral-400">
+                                    ملاحظة: يوم الجمعة عطلة أسبوعية للمكتب.
+                                </p>
+                            </div>
+
+                            <!-- 30-Min Time Slots Grid -->
+                            <div class="md:col-span-7 space-y-2">
+                                <label class="block text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+                                    اختر الفترة الزمنية المتاحة (مساءً)
+                                </label>
+                                <div id="time-slots-container" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                                    <!-- Time slots generated via JS -->
+                                </div>
+                                <input type="hidden" id="selected-time-slot" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="border-neutral-200 dark:border-neutral-800">
+
+                    <!-- STEP 3: Client Details -->
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-[#0F0F0F] dark:bg-[#FFC411] text-[#FFC411] dark:text-[#0F0F0F] font-bold text-sm flex items-center justify-center">3</span>
+                            <h3 class="font-display font-bold text-lg sm:text-xl">بيانات العميل</h3>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div class="space-y-2">
+                                <label for="client-name" class="block text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+                                    الاسم الكامل <span class="text-rose-500">*</span>
+                                </label>
+                                <input type="text" id="client-name" required placeholder="أدخل اسمك ثلاثياً" class="w-full px-4 py-3.5 rounded-2xl bg-white dark:bg-[#0F0F0F] border border-neutral-300 dark:border-neutral-700 text-[#0F0F0F] dark:text-white text-sm focus:outline-none focus:border-[#FFC411] focus:ring-2 focus:ring-[#FFC411]/20">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="client-phone" class="block text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+                                    رقم الهاتف / الواتساب <span class="text-rose-500">*</span>
+                                </label>
+                                <input type="tel" id="client-phone" required placeholder="مثال: 010xxxxxxxx" dir="ltr" class="w-full px-4 py-3.5 rounded-2xl bg-white dark:bg-[#0F0F0F] border border-neutral-300 dark:border-neutral-700 text-[#0F0F0F] dark:text-white text-sm text-right focus:outline-none focus:border-[#FFC411] focus:ring-2 focus:ring-[#FFC411]/20">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="case-notes" class="block text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+                                نبذة مختصرة عن موضوع الاستشارة (اختياري)
+                            </label>
+                            <textarea id="case-notes" rows="3" placeholder="اكتب ملخصاً بسيطاً للموضوع القانوني لتجهيز الملف قبل حضورك..." class="w-full px-4 py-3 rounded-2xl bg-white dark:bg-[#0F0F0F] border border-neutral-300 dark:border-neutral-700 text-[#0F0F0F] dark:text-white text-sm focus:outline-none focus:border-[#FFC411] focus:ring-2 focus:ring-[#FFC411]/20"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: Confirmation & Terms -->
+                    <div class="p-5 rounded-2xl bg-white dark:bg-[#0F0F0F] border border-neutral-200 dark:border-neutral-800 space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2 text-sm">
+                            <span class="text-neutral-500 dark:text-neutral-400">إجمالي رسوم الاستشارة (تُدفع نقداً بالمكتب):</span>
+                            <span class="font-display font-extrabold text-xl text-[#0F0F0F] dark:text-[#FFC411]">1000 جنيه مصري</span>
+                        </div>
+
+                        <label class="flex items-start gap-3 cursor-pointer select-none">
+                            <input type="checkbox" id="accept-terms" required class="mt-1 w-4 h-4 rounded accent-[#FFC411] cursor-pointer">
+                            <span class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                                أقر بصحة البيانات المدخلة، وأوافق على أن الاستشارة حضورية بالمكتب بمدينة العبور لمدة 30 دقيقة، وأن سداد الرسوم (1000 ج.م) يتم بالمكتب يوم الاستشارة بعد تأكيد الموعد عبر الواتساب.
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full py-4 px-6 rounded-2xl bg-[#FFC411] hover:bg-[#E5AE09] text-[#0F0F0F] font-display font-bold text-base sm:text-lg shadow-gold-glow transition-all flex items-center justify-center gap-3">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                        <span>تأكيد الحجز وإرسال البيانات عبر واتساب</span>
+                    </button>
+
+                </form>
+            </div>
+        </section>
+
+        <!-- 5. CONTACT & OFFICE LOCATION SECTION -->
+        <section id="contact" class="py-20 lg:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+                    
+                    <!-- Contact Information Column -->
+                    <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
+                        <div class="space-y-3">
+                            <span class="inline-block px-3.5 py-1 rounded-full bg-[#FFF0A3]/70 dark:bg-[#FFC411]/15 text-xs font-bold text-[#0F0F0F] dark:text-[#FFC411]">
+                                تواصل معنا
+                            </span>
+                            <h2 class="font-display font-bold text-3xl text-[#0F0F0F] dark:text-white">
+                                مقر المكتب وبيانات الاتصال
+                            </h2>
+                            <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400">
+                                يسعدنا استقبال استفساراتكم وتأكيد مواعيد الاستشارات القانونية خلال ساعات العمل الرسمية.
+                            </p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Address Card -->
+                            <div class="p-5 rounded-2xl bg-white dark:bg-[#171717] border border-neutral-200/80 dark:border-neutral-800 flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-xl bg-[#FFF0A3] dark:bg-[#FFC411]/15 text-[#0F0F0F] dark:text-[#FFC411] flex items-center justify-center shrink-0">
+                                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-display font-bold text-base">عنوان المكتب</h4>
+                                    <p id="display-office-address" class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
+                                        مدينة العبور، محافظة القليوبية، جمهورية مصر العربية
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Phones & WhatsApp Card -->
+                            <div class="p-5 rounded-2xl bg-white dark:bg-[#171717] border border-neutral-200/80 dark:border-neutral-800 flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-xl bg-[#FFF0A3] dark:bg-[#FFC411]/15 text-[#0F0F0F] dark:text-[#FFC411] flex items-center justify-center shrink-0">
+                                    <i data-lucide="phone-call" class="w-5 h-5"></i>
+                                </div>
+                                <div class="w-full">
+                                    <h4 class="font-display font-bold text-base">الهاتف والواتساب</h4>
+                                    <div class="mt-2 space-y-1.5 text-sm">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-neutral-500">الهاتف الأساسي / واتساب:</span>
+                                            <a href="tel:01033553055" dir="ltr" class="font-bold hover:text-[#FFC411] transition-colors">0103 355 3055</a>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-neutral-500">هاتف إضافي:</span>
+                                            <a href="tel:01220878701" dir="ltr" class="font-bold hover:text-[#FFC411] transition-colors">0122 087 8701</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Working Hours Card -->
+                            <div class="p-5 rounded-2xl bg-white dark:bg-[#171717] border border-neutral-200/80 dark:border-neutral-800 flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-xl bg-[#FFF0A3] dark:bg-[#FFC411]/15 text-[#0F0F0F] dark:text-[#FFC411] flex items-center justify-center shrink-0">
+                                    <i data-lucide="clock" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-display font-bold text-base">مواعيد العمل</h4>
+                                    <p id="display-working-hours" class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
+                                        من السبت إلى الخميس: 5:00 مساءً حتى 10:00 مساءً (بحجز مسبق)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Google Map Embed Column -->
+                    <div class="lg:col-span-7">
+                        <div class="w-full h-full min-h-[360px] rounded-3xl overflow-hidden border border-neutral-200 dark:border-neutral-800 shadow-minimal bg-neutral-100 dark:bg-[#171717] relative">
+                            <iframe 
+                                title="موقع مكتب المستشار عمرو مسعد ثابت بمدينة العبور"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55167.89362211277!2d31.4357268!3d30.2286614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145810018a06127d%3A0x8c273230f258a088!2sEl%20Obour%20City%2C%20Al-Qalyubia%20Governorate!5e0!3m2!1sar!2seg!4v1700000000000!5m2!1sar!2seg" 
+                                class="w-full h-full border-0 filter dark:invert-[0.9] dark:hue-rotate-180 dark:contrast-90" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== PROTECTED ADMIN DASHBOARD VIEW ==================== -->
+    <section id="admin-dashboard-view" class="hidden min-h-screen py-10 bg-[#FAFAFA] dark:bg-[#0F0F0F]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 animate-fade-in">
+            
+            <!-- Admin Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-white dark:bg-[#171717] border border-neutral-200 dark:border-neutral-800 shadow-minimal">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-[#FFC411] text-[#0F0F0F] flex items-center justify-center">
+                        <i data-lucide="layout-dashboard" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-display font-bold text-xl sm:text-2xl">لوحة تحكم الإدارة والمواعيد</h1>
+                        <p class="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400">مكتب المستشار عمرو مسعد ثابت - المحامي بالنقض</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="switchView('main')" class="px-4 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 text-sm font-semibold hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors flex items-center gap-2">
+                        <i data-lucide="globe" class="w-4 h-4"></i>
+                        <span>العودة للموقع</span>
+                    </button>
+                    <button onclick="logoutAdmin()" class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold transition-colors flex items-center gap-2">
+                        <i data-lucide="log-out" class="w-4 h-4"></i>
+                        <span>تسجيل الخروج</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div class="p-6 rounded-3xl bg-white dark:bg-[#171717] border border-neutral-200 dark:border-neutral-800 shadow-minimal">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-neutral-500 dark:text-neutral-400">إجمالي الحجوزات</span>
+                        <span class="w-10 h-10 rounded-xl bg-[#FFF0A3] dark:bg-[#FFC411]/15 text-[#0F0F0F] dark:text-[#FFC411] flex items-center justify-center">
+                            <i data-lucide="calendar" class="w-5 h-5"></i>
+                        </span>
+                    </div>
+                    <div id="stat-total" class="font-display font-extrabold text-3xl mt-3">0</div>
+                </div>
+
+                <div class="p-6 rounded-3xl bg-white dark:bg-[#171717] border border-neutral-200 dark:border-neutral-800 shadow-minimal">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-neutral-500 dark:text-neutral-400">بانتظار التأكيد عبر واتساب</span>
+                        <span class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-500/15 text-amber-700 dark:text-amber-400 flex items-center justify-center">
+                            <i data-lucide="clock" class="w-5 h-5"></i>
+                        </span>
+                    </div>
+                    <div id="stat-pending" class="font-display font-extrabold text-3xl mt-3">0</div>
+                </div>
+
+                <div class="p-6 rounded-3xl bg-white dark:bg-[#171717] border border-neutral-200 dark:border-neutral-800 shadow-minimal">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-neutral-500 dark:text-neutral-400">المواعيد المؤكدة</span>
+                        <span class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 flex items-center justify-center">
+                            <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                        </span>
+                    </div>
+                    <div id="stat-confirmed" class="font-display font-extrabold text-3xl mt-3">0</div>
+                </div>
+            </div>
+
+            <!-- Appointments Management Table -->
+            <div class="rounded-3xl bg-white dark:bg-[#171717] border border-neutral-200 dark:border-neutral-800 shadow-minimal overflow-hidden">
+                <div class="p-6 border-b border-neutral-200 dark:border-neutral-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="font-display font-bold text-lg">سجل حجوزات الاستشارات</h2>
+                        <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">يمكنك تأكيد الموعد أو إلغاؤه لإعادة إتاحة الفترة الزمنية للعملاء.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <select id="admin-filter-status" onchange="renderAdminBookings()" class="px-3.5 py-2 rounded-xl bg-[#FAFAFA] dark:bg-[#0F0F0F] border border-neutral-200 dark:border-neutral-700 text-xs font-semibold">
+                            <option value="all">جميع الحالات</option>
+                            <option value="pending">قيد التأكيد</option>
+                            <option value="confirmed">مؤكد</option>
+                            <option value="cancelled">ملغي</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right border-collapse">
+                        <thead>
+                            <tr class="bg-[#FAFAFA] dark:bg-[#121212] border-b border-neutral-200 dark:border-neutral-800 text-xs font-bold text-neutral-500 dark:text-neutral-400">
+                                <th class="py-4 px-5">رقم المرجع</th>
+                                <th class="py-4 px-5">اسم العميل</th>
+                                <th class="py-4 px-5">رقم الهاتف</th>
+                                <th class="py-4 px-5">التخصص</th>
+                                <th class="py-4 px-5">التاريخ والوقت</th>
+                                <th class="py-4 px-5">الحالة</th>
+                                <th class="py-4 px-5">إجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-bookings-tbody" class="divide-y divide-neutral-200 dark:divide-neutral-800 text-sm">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Office & Firebase Settings Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Office Settings Form -->
+                <div class="p-6 rounded-3xl bg-white dark:bg-[#171717] border border-neutral-200 dark:border-neutral-800 shadow-minimal space-y-5">
+                    <h3 class="font-display font-bold text-lg flex items-center gap-2">
+                        <i data-lucide="settings" class="w-5 h-5 text-[#FFC411]"></i>
+                        <span>تحديث بيانات المكتب</span>
+                    </h3>
+                    <div class="space-y-4 text-sm">
+                        <div>
+                            <label class="block font-semibold mb-1.5">عنوان المكتب التفصيلي</label>
+                            <input type="text" id="setting-address" class="w-full px-4 py-2.5 rounded-xl bg-[#FAFAFA] dark:bg-[#0F0F0F] border border-neutral-200 dark:border-neutral-700">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-1.5">نص مواعيد العمل</label>
+                            <input type="text" id="setting-hours" class="w-full px-4 py-2.5 rounded-xl bg-[#FAFAFA] dark:bg-[#0F0F0F] border border-neutral-200 dark:border-neutral-700">
+                        </div>
+                        <button onclick="saveOfficeSettings()" class="px-5 py-2.5 rounded-xl bg-[#FFC411] hover:bg-[#E5AE09] text-[#0F0F0F] font-bold text-sm transition-colors">
+                            حفظ التعديلات
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Firebase Cloud Sync Configuration -->
+                <div class="p-6 rounded-3xl bg-white dark:bg-[#171717] border border-neutral-200 dark:border-neutral-800 shadow-minimal space-y-5">
+                    <h3 class="font-display font-bold text-lg flex items-center gap-2">
+                        <i data-lucide="database" class="w-5 h-5 text-[#FFC411]"></i>
+                        <span>ربط قاعدة بيانات Firebase (اختياري)</span>
+                    </h3>
+                    <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                        يعمل النظام حالياً بالتخزين السريع الفوري. لربط الحجوزات سحابياً مع مشروع Firebase الخاص بك، الصق كائن إعدادات الويب (firebaseConfig JSON) أدناه:
+                    </p>
+                    <textarea id="firebase-config-input" rows="3" placeholder='{"apiKey": "...", "authDomain": "...", "projectId": "..."}' dir="ltr" class="w-full px-3.5 py-2.5 rounded-xl bg-[#FAFAFA] dark:bg-[#0F0F0F] border border-neutral-200 dark:border-neutral-700 text-xs font-mono"></textarea>
+                    <button onclick="saveFirebaseConfig()" class="px-5 py-2.5 rounded-xl bg-[#0F0F0F] dark:bg-neutral-800 text-white hover:bg-neutral-800 font-bold text-sm transition-colors">
+                        حفظ إعدادات Firebase
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-[#0F0F0F] text-neutral-400 border-t border-neutral-800 py-14">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10 border-b border-neutral-800">
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3 text-white">
+                        <div class="w-10 h-10 rounded-xl bg-[#FFC411] text-[#0F0F0F] flex items-center justify-center font-bold">
+                            <i data-lucide="scale" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <div class="font-display font-bold text-base">مكتب المستشار عمرو مسعد ثابت</div>
+                            <div class="text-xs text-[#FFF0A3]">المحامي بالنقض</div>
+                        </div>
+                    </div>
+                    <p class="text-sm leading-relaxed text-neutral-400">
+                        استشارات قانونية متخصصة وتمثيل قضائي رفيع المستوى بمدينة العبور، وفق أعلى معايير النزاهة والاحترافية.
+                    </p>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="font-display font-bold text-white text-base">روابط سريعة</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#home" onclick="switchView('main')" class="hover:text-[#FFC411] transition-colors">الرئيسية</a></li>
+                        <li><a href="#about" onclick="switchView('main')" class="hover:text-[#FFC411] transition-colors">عن المكتب</a></li>
+                        <li><a href="#services" onclick="switchView('main')" class="hover:text-[#FFC411] transition-colors">التخصصات القانونية</a></li>
+                        <li><a href="#booking" onclick="switchView('main')" class="hover:text-[#FFC411] transition-colors">حجز استشارة قانونية</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="font-display font-bold text-white text-base">تواصل مباشر</h4>
+                    <p class="text-sm">مدينة العبور، محافظة القليوبية</p>
+                    <p class="text-sm" dir="ltr">0103 355 3055 • 0122 087 8701</p>
+                    <p class="text-xs text-neutral-500">السبت إلى الخميس: 5:00 م – 10:00 م</p>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
+                <p>© <span id="current-year"></span> مكتب المستشار عمرو مسعد ثابت المحامي بالنقض. جميع الحقوق محفوظة.</p>
+                <p>الاستشارات حضورية بالمكتب وبحجز مسبق</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== MODALS ==================== -->
+
+    <!-- 1. Booking Success & WhatsApp Confirmation Modal -->
+    <div id="booking-success-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-[#171717] border border-neutral-200 dark:border-neutral-800 rounded-3xl max-w-md w-full p-7 shadow-2xl space-y-6 animate-fade-in text-center">
+            <div class="w-16 h-16 rounded-2xl bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto">
+                <i data-lucide="check-circle-2" class="w-9 h-9"></i>
+            </div>
+            
+            <div class="space-y-2">
+                <h3 class="font-display font-bold text-2xl text-[#0F0F0F] dark:text-white">تم تسجيل طلب الحجز بنجاح</h3>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400">
+                    رقم مرجع الحجز: <span id="modal-booking-ref" class="font-bold text-[#0F0F0F] dark:text-[#FFC411]"></span>
+                </p>
+            </div>
+
+            <div id="modal-booking-summary" class="p-4 rounded-2xl bg-[#FAFAFA] dark:bg-[#0F0F0F] border border-neutral-200 dark:border-neutral-800 text-right text-xs sm:text-sm space-y-2">
+                <!-- Summary injected dynamically -->
+            </div>
+
+            <div class="space-y-3">
+                <a id="modal-whatsapp-link" href="#" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm flex items-center justify-center gap-2.5 transition-colors">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    <span>إرسال البيانات الآن عبر واتساب لتأكيد الموعد</span>
+                </a>
+                <button onclick="closeSuccessModal()" class="w-full py-3 px-5 rounded-2xl border border-neutral-200 dark:border-neutral-700 text-sm font-semibold hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+                    إغلاق النافذة
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Admin Login Modal -->
+    <div id="admin-login-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-[#171717] border border-neutral-200 dark:border-neutral-800 rounded-3xl max-w-sm w-full p-7 shadow-2xl space-y-6 animate-fade-in">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-10 h-10 rounded-xl bg-[#FFC411] text-[#0F0F0F] flex items-center justify-center">
+                        <i data-lucide="lock" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-lg">دخول الإدارة</h3>
+                </div>
+                <button onclick="closeAdminModal()" class="p-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <form id="admin-login-form" class="space-y-4">
+                <div>
+                    <label for="admin-password" class="block text-xs font-semibold text-neutral-600 dark:text-neutral-400 mb-1.5">
+                        كلمة مرور لوحة التحكم
+                    </label>
+                    <input type="password" id="admin-password" required placeholder="أدخل كلمة المرور" class="w-full px-4 py-3 rounded-xl bg-[#FAFAFA] dark:bg-[#0F0F0F] border border-neutral-300 dark:border-neutral-700 text-sm focus:outline-none focus:border-[#FFC411]">
+                    <p class="text-[11px] text-neutral-400 mt-1.5">كلمة المرور الافتراضية للتجربة: <code class="text-[#0F0F0F] dark:text-[#FFC411] font-bold">admin123</code></p>
+                </div>
+                <button type="submit" class="w-full py-3 rounded-xl bg-[#FFC411] hover:bg-[#E5AE09] text-[#0F0F0F] font-bold text-sm transition-colors">
+                    دخول اللوحة
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== APPLICATION LOGIC ==================== -->
+    <script>
+        // 1. INITIAL DATA & STATE
+        const OFFICE_WHATSAPP = "201033553055";
+        const ADMIN_PASS_KEY = "amr_law_admin_pass";
+        const BOOKINGS_STORAGE_KEY = "amr_law_bookings_v1";
+        const SETTINGS_STORAGE_KEY = "amr_law_settings_v1";
+
+        const DEFAULT_SERVICES = [
+            {
+                id: "family",
+                title: "قضايا الأسرة والأحوال الشخصية",
+                icon: "users",
+                description: "الطلاق، الخلع، النفقات بأنواعها، الحضانة، الرؤية، إثبات النسب، إعلام الوراثة، وتقسيم التركات."
+            },
+            {
+                id: "civil",
+                title: "القضايا المدنية والتجارية",
+                icon: "briefcase",
+                description: "منازعات عقود البيع والشراء، الإيجارات، التعويضات المدنية، تحصيل الديون، وتأسيس الشركات."
+            },
+            {
+                id: "criminal",
+                title: "القضايا الجنائية والنقض الجنائي",
+                icon: "gavel",
+                description: "الدفاع في قضايا الجنح والجنايات، الحضور في تحقيقات النيابة العامة، وإعداد مذكرات الطعن بالنقض."
+            },
+            {
+                id: "labor",
+                title: "قضايا العمال والعمل",
+                icon: "hard-hat",
+                description: "منازعات الفصل التعسفي، مستحقات العمال، التعويضات العمالية، والتمثيل أمام مكاتب العمل والمحاكم العمالية."
+            },
+            {
+                id: "admin",
+                title: "القضايا الإدارية ومجلس الدولة",
+                icon: "landmark",
+                description: "الطعون على القرارات الإدارية، منازعات العقود الإدارية، وقضايا الموظفين أمام محاكم القضاء الإداري."
+            },
+            {
+                id: "contracts",
+                title: "الاستشارات القانونية وصياغة العقود",
+                icon: "file-signature",
+                description: "صياغة ومراجعة كافة أنواع العقود المدنية والتجارية لحماية حقوق الأفراد والشركات وتجنب النزاعات."
+            }
+        ];
+
+        // 30-Minute Slots from 5:00 PM to 10:00 PM (Last slot starts at 9:30 PM)
+        const TIME_SLOTS = [
+            { value: "17:00", label: "05:00 مساءً" },
+            { value: "17:30", label: "05:30 مساءً" },
+            { value: "18:00", label: "06:00 مساءً" },
+            { value: "18:30", label: "06:30 مساءً" },
+            { value: "19:00", label: "07:00 مساءً" },
+            { value: "19:30", label: "07:30 مساءً" },
+            { value: "20:00", label: "08:00 مساءً" },
+            { value: "20:30", label: "08:30 مساءً" },
+            { value: "21:00", label: "09:00 مساءً" },
+            { value: "21:30", label: "09:30 مساءً" }
+        ];
+
+        let bookings = JSON.parse(localStorage.getItem(BOOKINGS_STORAGE_KEY)) || [];
+        let officeSettings = JSON.parse(localStorage.getItem(SETTINGS_STORAGE_KEY)) || {
+            address: "مدينة العبور، محافظة القليوبية، جمهورية مصر العربية",
+            hours: "من السبت إلى الخميس: 5:00 مساءً حتى 10:00 مساءً (بحجز مسبق)"
+        };
+
+        // 2. THEME MANAGEMENT (LIGHT & DARK MODE)
+        function initTheme() {
+            const savedTheme = localStorage.getItem("amr_law_theme");
+            if (savedTheme === "dark" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+                document.documentElement.classList.add("dark");
+            } else {
+                document.documentElement.classList.remove("dark");
+            }
+        }
+
+        document.getElementById("theme-toggle").addEventListener("click", () => {
+            const isDark = document.documentElement.classList.toggle("dark");
+            localStorage.setItem("amr_law_theme", isDark ? "dark" : "light");
+        });
+
+        // 3. TOAST NOTIFICATION SYSTEM (No alert())
+        function showToast(message, type = "info") {
+            const container = document.getElementById("toast-container");
+            const toast = document.createElement("div");
+            
+            const colors = {
+                success: "bg-emerald-600 text-white",
+                error: "bg-rose-600 text-white",
+                info: "bg-[#0F0F0F] dark:bg-[#FFC411] text-white dark:text-[#0F0F0F]"
+            };
+
+            toast.className = `pointer-events-auto px-5 py-3.5 rounded-2xl shadow-xl text-sm font-semibold flex items-center justify-between gap-3 animate-fade-in ${colors[type] || colors.info}`;
+            toast.innerHTML = `<span>${message}</span>`;
+            
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                toast.style.transform = "translateY(8px)";
+                toast.style.transition = "all 0.3s ease";
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // 4. RENDER LEGAL SERVICES & POPULATE SELECT
+        function renderServices() {
+            const grid = document.getElementById("services-grid");
+            const select = document.getElementById("booking-specialization");
+            
+            grid.innerHTML = "";
+            select.innerHTML = "";
+
+            DEFAULT_SERVICES.forEach(service => {
+                // Card UI
+                const card = document.createElement("div");
+                card.className = "group p-7 rounded-3xl bg-white dark:bg-[#171717] border border-neutral-200/90 dark:border-neutral-800 hover:border-[#FFC411] dark:hover:border-[#FFC411] shadow-minimal hover:shadow-minimal-hover transition-all flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-[#FFF0A3]/70 dark:bg-[#FFC411]/15 text-[#0F0F0F] dark:text-[#FFC411] flex items-center justify-center mb-6 group-hover:bg-[#FFC411] group-hover:text-[#0F0F0F] transition-colors">
+                            <i data-lucide="${service.icon}" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-[#0F0F0F] dark:text-white mb-3">
+                            ${service.title}
+                        </h3>
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
+                            ${service.description}
+                        </p>
+                    </div>
+                    <button type="button" onclick="selectServiceAndScroll('${service.title}')" class="w-full py-3 px-4 rounded-xl bg-[#FAFAFA] dark:bg-[#0F0F0F] group-hover:bg-[#FFC411] text-[#0F0F0F] dark:text-neutral-200 group-hover:text-[#0F0F0F] border border-neutral-200 dark:border-neutral-800 group-hover:border-[#FFC411] font-semibold text-sm flex items-center justify-center gap-2 transition-all">
+                        <span>حجز استشارة في هذا التخصص</span>
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    </button>
+                `;
+                grid.appendChild(card);
+
+                // Select Option
+                const opt = document.createElement("option");
+                opt.value = service.title;
+                opt.textContent = service.title;
+                select.appendChild(opt);
+            });
+
+            lucide.createIcons();
+        }
+
+        function selectServiceAndScroll(serviceTitle) {
+            const select = document.getElementById("booking-specialization");
+            select.value = serviceTitle;
+            document.getElementById("booking").scrollIntoView({ behavior: "smooth" });
+            showToast(`تم اختيار تخصص: ${serviceTitle}`, "info");
+        }
+
+        // 5. DATE & TIME SLOT MANAGEMENT (DOUBLE-BOOKING PREVENTION)
+        function initDatePicker() {
+            const dateInput = document.getElementById("booking-date");
+            const today = new Date();
+            
+            // Find next valid working day (Skip Friday = day 5)
+            let defaultDate = new Date(today);
+            if (defaultDate.getDay() === 5) {
+                defaultDate.setDate(defaultDate.getDate() + 1);
+            }
+
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            dateInput.min = `${yyyy}-${mm}-${dd}`;
+
+            const defY = defaultDate.getFullYear();
+            const defM = String(defaultDate.getMonth() + 1).padStart(2, '0');
+            const defD = String(defaultDate.getDate()).padStart(2, '0');
+            dateInput.value = `${defY}-${defM}-${defD}`;
+
+            renderTimeSlots(dateInput.value);
+
+            dateInput.addEventListener("change", (e) => {
+                const chosen = new Date(e.target.value + "T00:00:00");
+                if (chosen.getDay() === 5) {
+                    showToast("عذراً، يوم الجمعة عطلة أسبوعية للمكتب. يرجى اختيار يوم من السبت إلى الخميس.", "error");
+                    // Advance to Saturday
+                    chosen.setDate(chosen.getDate() + 1);
+                    const nextStr = chosen.toISOString().split("T")[0];
+                    e.target.value = nextStr;
+                }
+                document.getElementById("selected-time-slot").value = "";
+                renderTimeSlots(e.target.value);
+            });
+        }
+
+        function renderTimeSlots(selectedDateStr) {
+            const container = document.getElementById("time-slots-container");
+            const hiddenInput = document.getElementById("selected-time-slot");
+            container.innerHTML = "";
+
+            // Find booked slots for this date (where status is NOT cancelled)
+            const bookedTimes = bookings
+                .filter(b => b.date === selectedDateStr && b.status !== "cancelled")
+                .map(b => b.timeValue);
+
+            TIME_SLOTS.forEach(slot => {
+                const isBooked = bookedTimes.includes(slot.value);
+                const isSelected = hiddenInput.value === slot.value;
+
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.disabled = isBooked;
+
+                if (isBooked) {
+                    btn.className = "py-2.5 px-3 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 text-neutral-400 dark:text-neutral-600 text-xs font-medium cursor-not-allowed flex flex-col items-center justify-center";
+                    btn.innerHTML = `<span>${slot.label}</span><span class="text-[10px] text-rose-500 font-bold">محجوز</span>`;
+                } else {
+                    btn.className = isSelected
+                        ? "py-2.5 px-3 rounded-xl border-2 border-[#0F0F0F] dark:border-[#FFC411] bg-[#FFC411] text-[#0F0F0F] text-xs font-bold shadow-sm transition-all"
+                        : "py-2.5 px-3 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-[#0F0F0F] hover:border-[#FFC411] text-[#0F0F0F] dark:text-neutral-200 text-xs font-semibold transition-all";
+                    btn.textContent = slot.label;
+                    btn.onclick = () => {
+                        hiddenInput.value = slot.value;
+                        renderTimeSlots(selectedDateStr);
+                    };
+                }
+
+                container.appendChild(btn);
+            });
+        }
+
+        // 6. HANDLE BOOKING SUBMISSION & WHATSAPP REDIRECT
+        document.getElementById("booking-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const specialization = document.getElementById("booking-specialization").value;
+            const date = document.getElementById("booking-date").value;
+            const timeValue = document.getElementById("selected-time-slot").value;
+            const clientName = document.getElementById("client-name").value.trim();
+            const clientPhone = document.getElementById("client-phone").value.trim();
+            const notes = document.getElementById("case-notes").value.trim();
+
+            if (!timeValue) {
+                showToast("يرجى اختيار الفترة الزمنية المناسبة للاستشارة أولاً.", "error");
+                return;
+            }
+
+            // Double-check concurrency prevention
+            const alreadyBooked = bookings.some(b => b.date === date && b.timeValue === timeValue && b.status !== "cancelled");
+            if (alreadyBooked) {
+                showToast("عذراً، تم حجز هذا الموعد للتو. يرجى اختيار موعد آخر.", "error");
+                renderTimeSlots(date);
+                return;
+            }
+
+            const slotObj = TIME_SLOTS.find(s => s.value === timeValue);
+            const refNumber = "AMR-" + Math.floor(100000 + Math.random() * 900000);
+
+            const newBooking = {
+                id: refNumber,
+                clientName,
+                clientPhone,
+                specialization,
+                date,
+                timeValue,
+                timeLabel: slotObj ? slotObj.label : timeValue,
+                notes: notes || "لا يوجد",
+                fee: "1000 جنيه مصري",
+                status: "pending",
+                createdAt: new Date().toISOString()
+            };
+
+            bookings.unshift(newBooking);
+            localStorage.setItem(BOOKINGS_STORAGE_KEY, JSON.stringify(bookings));
+
+            // Refresh UI slots
+            renderTimeSlots(date);
+
+            // Format Arabic WhatsApp Message
+            const waText = 
+`السلام عليكم مكتب المستشار عمرو مسعد ثابت المحامي بالنقض،
+أرغب في تأكيد حجز استشارة قانونية بالمكتب:
+
+• رقم المرجع: ${newBooking.id}
+• الاسم: ${newBooking.clientName}
+• رقم الهاتف: ${newBooking.clientPhone}
+• التخصص: ${newBooking.specialization}
+• التاريخ: ${newBooking.date}
+• الموعد: ${newBooking.timeLabel} (المدة 30 دقيقة)
+• الرسوم: 1000 جنيه مصري (تُدفع بالمكتب يوم الاستشارة)
+• ملخص الموضوع: ${newBooking.notes}`;
+
+            const waUrl = `https://wa.me/${OFFICE_WHATSAPP}?text=${encodeURIComponent(waText)}`;
+
+            // Show Confirmation Modal
+            document.getElementById("modal-booking-ref").textContent = newBooking.id;
+            document.getElementById("modal-booking-summary").innerHTML = `
+                <div class="flex justify-between"><span class="text-neutral-500">الاسم:</span><span class="font-bold">${newBooking.clientName}</span></div>
+                <div class="flex justify-between"><span class="text-neutral-500">التخصص:</span><span class="font-bold">${newBooking.specialization}</span></div>
+                <div class="flex justify-between"><span class="text-neutral-500">التاريخ:</span><span class="font-bold">${newBooking.date}</span></div>
+                <div class="flex justify-between"><span class="text-neutral-500">الموعد:</span><span class="font-bold">${newBooking.timeLabel}</span></div>
+                <div class="flex justify-between"><span class="text-neutral-500">الرسوم:</span><span class="font-bold text-amber-600 dark:text-[#FFC411]">1000 ج.م (بالمكتب)</span></div>
+            `;
+            document.getElementById("modal-whatsapp-link").href = waUrl;
+
+            const modal = document.getElementById("booking-success-modal");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+
+            // Reset client text inputs
+            document.getElementById("client-name").value = "";
+            document.getElementById("client-phone").value = "";
+            document.getElementById("case-notes").value = "";
+            document.getElementById("selected-time-slot").value = "";
+
+            // Automatically open WhatsApp in new tab as requested
+            window.open(waUrl, "_blank");
+        });
+
+        function closeSuccessModal() {
+            const modal = document.getElementById("booking-success-modal");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+        }
+
+        // 7. ADMIN DASHBOARD LOGIC
+        function openAdminModal() {
+            if (sessionStorage.getItem("amr_admin_auth") === "true") {
+                switchView("admin");
+                return;
+            }
+            const modal = document.getElementById("admin-login-modal");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+        }
+
+        function closeAdminModal() {
+            const modal = document.getElementById("admin-login-modal");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+        }
+
+        document.getElementById("admin-login-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const pass = document.getElementById("admin-password").value;
+            const savedPass = localStorage.getItem(ADMIN_PASS_KEY) || "admin123";
+
+            if (pass === savedPass) {
+                sessionStorage.setItem("amr_admin_auth", "true");
+                document.getElementById("admin-password").value = "";
+                closeAdminModal();
+                switchView("admin");
+                showToast("تم تسجيل الدخول إلى لوحة الإدارة بنجاح", "success");
+            } else {
+                showToast("كلمة المرور غير صحيحة", "error");
+            }
+        });
+
+        function logoutAdmin() {
+            sessionStorage.removeItem("amr_admin_auth");
+            switchView("main");
+            showToast("تم تسجيل الخروج من لوحة الإدارة", "info");
+        }
+
+        function switchView(view) {
+            const mainView = document.getElementById("main-website-view");
+            const adminView = document.getElementById("admin-dashboard-view");
+
+            if (view === "admin") {
+                mainView.classList.add("hidden");
+                adminView.classList.remove("hidden");
+                renderAdminBookings();
+                loadSettingsIntoAdmin();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+                adminView.classList.add("hidden");
+                mainView.classList.remove("hidden");
+            }
+        }
+
+        function renderAdminBookings() {
+            const tbody = document.getElementById("admin-bookings-tbody");
+            const filter = document.getElementById("admin-filter-status").value;
+
+            // Update stats
+            document.getElementById("stat-total").textContent = bookings.length;
+            document.getElementById("stat-pending").textContent = bookings.filter(b => b.status === "pending").length;
+            document.getElementById("stat-confirmed").textContent = bookings.filter(b => b.status === "confirmed").length;
+
+            const filtered = filter === "all" ? bookings : bookings.filter(b => b.status === filter);
+            tbody.innerHTML = "";
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="py-10 text-center text-neutral-500">لا توجد حجوزات مطابقة للعرض حالياً.</td></tr>`;
+                return;
+            }
+
+            filtered.forEach(b => {
+                const statusBadge = {
+                    pending: `<span class="px-2.5 py-1 rounded-lg bg-amber-100 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 text-xs font-bold">قيد التأكيد</span>`,
+                    confirmed: `<span class="px-2.5 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 text-xs font-bold">مؤكد</span>`,
+                    cancelled: `<span class="px-2.5 py-1 rounded-lg bg-rose-100 dark:bg-rose-500/20 text-rose-800 dark:text-rose-300 text-xs font-bold">ملغي</span>`
+                }[b.status];
+
+                const tr = document.createElement("tr");
+                tr.className = "hover:bg-neutral-50 dark:hover:bg-[#1E1E1E] transition-colors";
+                tr.innerHTML = `
+                    <td class="py-4 px-5 font-mono text-xs font-bold">${b.id}</td>
+                    <td class="py-4 px-5 font-semibold">${b.clientName}</td>
+                    <td class="py-4 px-5" dir="ltr"><a href="https://wa.me/2${b.clientPhone.replace(/^0/, '')}" target="_blank" class="text-emerald-600 dark:text-emerald-400 hover:underline font-medium">${b.clientPhone}</a></td>
+                    <td class="py-4 px-5 text-xs">${b.specialization}</td>
+                    <td class="py-4 px-5 text-xs"><div class="font-bold">${b.date}</div><div class="text-neutral-500">${b.timeLabel}</div></td>
+                    <td class="py-4 px-5">${statusBadge}</td>
+                    <td class="py-4 px-5">
+                        <div class="flex items-center gap-2">
+                            <button onclick="updateBookingStatus('${b.id}', 'confirmed')" title="تأكيد الموعد" class="p-1.5 rounded-lg bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-200">
+                                <i data-lucide="check" class="w-4 h-4"></i>
+                            </button>
+                            <button onclick="updateBookingStatus('${b.id}', 'cancelled')" title="إلغاء وإتاحة الموعد" class="p-1.5 rounded-lg bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300 hover:bg-rose-200">
+                                <i data-lucide="x" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            lucide.createIcons();
+        }
+
+        function updateBookingStatus(id, newStatus) {
+            bookings = bookings.map(b => b.id === id ? { ...b, status: newStatus } : b);
+            localStorage.setItem(BOOKINGS_STORAGE_KEY, JSON.stringify(bookings));
+            renderAdminBookings();
+            const currentDate = document.getElementById("booking-date").value;
+            if (currentDate) renderTimeSlots(currentDate);
+            showToast("تم تحديث حالة الحجز بنجاح", "success");
+        }
+
+        // 8. OFFICE SETTINGS & FIREBASE CONFIG
+        function applyOfficeSettings() {
+            document.getElementById("display-office-address").textContent = officeSettings.address;
+            document.getElementById("display-working-hours").textContent = officeSettings.hours;
+        }
+
+        function loadSettingsIntoAdmin() {
+            document.getElementById("setting-address").value = officeSettings.address;
+            document.getElementById("setting-hours").value = officeSettings.hours;
+            const savedFb = localStorage.getItem("amr_law_firebase_config");
+            if (savedFb) document.getElementById("firebase-config-input").value = savedFb;
+        }
+
+        function saveOfficeSettings() {
+            officeSettings.address = document.getElementById("setting-address").value.trim() || officeSettings.address;
+            officeSettings.hours = document.getElementById("setting-hours").value.trim() || officeSettings.hours;
+            localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(officeSettings));
+            applyOfficeSettings();
+            showToast("تم حفظ بيانات المكتب وتحديثها في الموقع", "success");
+        }
+
+        function saveFirebaseConfig() {
+            const raw = document.getElementById("firebase-config-input").value.trim();
+            if (!raw) {
+                localStorage.removeItem("amr_law_firebase_config");
+                showToast("تم مسح إعدادات Firebase", "info");
+                return;
+            }
+            try {
+                JSON.parse(raw);
+                localStorage.setItem("amr_law_firebase_config", raw);
+                showToast("تم حفظ إعدادات Firebase بنجاح", "success");
+            } catch (err) {
+                showToast("صيغة JSON غير صحيحة. يرجى التأكد من كود الإعدادات.", "error");
+            }
+        }
+
+        // 9. MOBILE MENU & INITIALIZATION
+        document.getElementById("mobile-menu-btn").addEventListener("click", () => {
+            document.getElementById("mobile-menu").classList.toggle("hidden");
+        });
+
+        function closeMobileMenu() {
+            document.getElementById("mobile-menu").classList.add("hidden");
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            initTheme();
+            renderServices();
+            initDatePicker();
+            applyOfficeSettings();
+            document.getElementById("current-year").textContent = new Date().getFullYear();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
